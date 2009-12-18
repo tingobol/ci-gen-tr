@@ -1,0 +1,57 @@
+kullanicilar
+------------
+ - id
+ - adi
+ - mail
+ - sifre
+ - temp
+ - onay
+ - uye_olma_zamani
+ - turu -  0: misafir, 1: editör, 10: yazar, 100: admin
+ 
+kullanici_oturumlari
+--------------------
+ - kullanici_id
+ - oturum_id
+ - zaman
+ 
+kategoriler
+-----------
+ - id
+ - adi
+ - radi - rewrite adi
+ - aciklama - meta için
+ - arama - meta için
+ 
+yazilar
+-------
+ - id
+ - baslik
+ - rbaslik
+ - icerik
+ - eklenme_zamani
+ - guncelleme_zamani
+ - hit
+ - durum - 0: onay bekliyor, 1: onaylı, 2: yayından kalkmış
+ - kategori_id
+ 
+etiketler
+---------
+ - id
+ - adi
+ 
+yazi_etiketleri
+---------------
+ - yazi_id
+ - etiket_id
+ 
+yorumlar
+--------
+ - id
+ - adi
+ - icerik
+ - web (yorumu yazanın web site adresi)
+ - mail
+ - eklenme_zamani
+ - yazi_id
+ - onay (0: Onay bekliyor, 1: Onaylı)
