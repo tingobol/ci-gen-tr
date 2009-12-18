@@ -1,0 +1,29 @@
+bu döküman sistemi kullanan kullanıcılar hakkındadır
+
+- sistemi kullanan kullanıcılar
+	- misafir
+	- editör
+	- yazar
+	- admin
+
+- her kullanıcı için yapabileceği işlemler
+	- misafir
+		- yazıları okuyabilir, 
+		- yazılara yorum ekleyebilir
+	- editör
+		- yazarların yazılarını onaylar
+		- misafirlerin yorumlarını onaylar
+	- yazar
+		- sisteme yazı ekler
+		- kendi yazılarını düzenler
+		- kendi yazılarını siler
+		- kendi yazılarını yayından kaldırır
+	- admin
+		- kategori oluşturabilir
+		- kategori silebilir
+		- kategori düzenleyebilir
+		- yazı silebilir
+		- yazı düzenleyebilir
+		- editör başvurularını değerlendirebilir
+		- yazar başvurularını değerlendirebilir
+		- yorumları değerlendirebilir
