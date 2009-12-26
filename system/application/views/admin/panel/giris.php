@@ -1,16 +1,26 @@
 <?php 
 
-$mail = array(
-	'name'	=> 'mail', 
-	'size'	=> '30px', 
-	'value'	=> $kullanici->mail);
+$form1['form'] = array('id' => 'form1');
 
-$sifre = array(
-	'name'	=> 'sifre');
-	
-$submit = array('value' => 'Giriş Yap');
+$form1['mail'] = array(
+					'name' => 'mail', 
+					'value' => @$kullanici->mail, 
+					'size' => '30px', 
+					'title' => 'Mail adresinizi yazınız.', );
+					
+$form1['sifre'] = array('name' => 'sifre', 'title' => 'Şifrenizi yazınız.');
+
+$form1['submit1'] = array('value' => 'Giriş Yap');
 
 ?>
+
+<?php $this->load->view('header1.php') ?>
+
+<script type="text/javascript">
+	$().ready(function(){
+		$('#form1').formtooltip();	
+	});
+</script>
 
 <div class="post">
 	<div class="entrytop">
@@ -27,24 +37,25 @@ $submit = array('value' => 'Giriş Yap');
 		<div class="hata"><?php echo $hata ?></div>
 		<?php } ?>
 	
-		<?php echo form_open(sayfa_admin_1); ?>
+		<?php echo form_open(sayfa_admin_1, $form1['form']); ?>
 		
-		<table class="form">
-			<tr>
-				<th>* Mail Adresi</th>
-				<td><?php echo form_input($mail) ?></td>
-			</tr>
-			<tr>
-				<th>* Şifre</th>
-				<td><?php echo form_password($sifre) ?></td>
-			</tr>
-			<tr>
-				<th>&nbsp;</th>
-				<td><?php echo form_submit($submit) ?></td>
-			</tr>
-		</table>
+	        <p>
+	            <label for="name">* Mail Adresi:</label>
+	            <?php echo form_input($form1['mail']) ?>
+	        </p>
+		
+	        <p>
+	            <label for="name">* Şifre:</label>
+	            <?php echo form_password($form1['sifre']) ?>
+	        </p>
+			
+	        <p>
+	            <label>&nbsp;</label>
+	            <?php echo form_submit($form1['submit1']) ?>
+	        </p>
 		
 		<?php echo form_close() ?>
+	
 	</div>
 	
 	<div class="post-info">
@@ -52,3 +63,5 @@ $submit = array('value' => 'Giriş Yap');
 	
 	</div>
 </div>
+
+<?php $this->load->view('footer1.php') ?>

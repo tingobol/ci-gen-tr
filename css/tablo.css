@@ -1,0 +1,22 @@
+/* CSS Document */
+
+table.tablo {
+
+	border-collapse:collapse;
+	background-color:#eeeeee;
+	width:100%;
+}
+
+table.tablo thead tr th {
+	background-color: #D16683;
+	color: #ffffff;
+	padding:8px;
+	font-size:15px;
+}
+
+table.tablo tbody tr td {
+
+	border-bottom: solid 1px #D16683;
+	padding:4px;
+	font-weight:bold;
+}

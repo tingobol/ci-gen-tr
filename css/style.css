@@ -405,7 +405,7 @@ form {
 #sidebar h2, #sidebar .sidebartitle{
 	font: lighter 1.3em/1em "trebuchet MS", "Lucida Sans Unicode", Georgia;
 	color: #006699;
-	border-bottom: 1px dotted #1888B8;
+	border-bottom: 1px solid #1888B8;
 	padding-bottom: 5px;
 	margin-bottom: 5px;
 }
@@ -449,7 +449,9 @@ form {
 ul.linkcat li, .linkcat li{
 	background: url(images/mini-blogroll.gif) no-repeat left center !important;
 	padding-left: 20px !important;
+	line-height:16px;
 }
+
 /*category widget */
 ul.list-cat li, li.widget_categories li{
 	background: url(images/mini-category.gif) no-repeat left center !important;

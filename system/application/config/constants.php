@@ -43,8 +43,10 @@ define('sayfa_admin_3', 'admin/panel/sifremi_unuttum');
 define('sayfa_admin_4', 'admin/panel/cikis');
 define('sayfa_admin_5', 'admin/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
 
-define('sayfa_admin_11', 'admin/kategori/listesi');
-define('sayfa_admin_12', 'admin/kategori/ekle');
+define('sayfa_admin_11', 'admin/kategori_yonetimi/liste');
+define('sayfa_admin_12', 'admin/kategori_yonetimi/ekle');
+define('sayfa_admin_13', 'admin/kategori_yonetimi/duzenle');
+define('sayfa_admin_14', 'admin/kategori_yonetimi/sil');
 
 // site genelinde kullanılan sabitler
 define('sabit_1', 'Bulsam.Net Blog'); // mail gönderirken user agent olarak kullanılacak
@@ -57,6 +59,10 @@ define('misafir_sayfa_2', 'kategoriler/detay/%d');
 
 // Genel sabitler
 define('sabit_oturum_id', session_id());
+
+// Kullanıcı Türleri
+define('k_t_giris_yapacak_admin', 1); // giriş yapacak admin
+define('k_t_giris_yapmis_admin', 2); // giriş yapmış admin
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
