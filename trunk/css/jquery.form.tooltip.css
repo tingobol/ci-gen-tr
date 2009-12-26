@@ -1,0 +1,16 @@
+.hint {
+      display: none;
+      position: absolute;
+       margin-left:10px;
+      border: 1px solid #4A708B;
+      padding: 7px 12px;
+      background: #A4D3EE url(jquery.form.tooltip/pointer.gif) no-repeat -10px 5px;
+  }
+  .hint .hint-pointer {
+      position: absolute;
+      left: -10px;
+      top: 5px;
+      width: 10px;
+      height: 19px;
+      background: url(jquery.form.tooltip/pointer.gif) left top no-repeat;
+  }

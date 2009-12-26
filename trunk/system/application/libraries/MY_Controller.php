@@ -5,19 +5,8 @@ class MY_Controller extends Controller
 	function MY_Controller() 
 	{
 		parent::Controller();
-		
-		$this->output->enable_profiler(TRUE);
-			
-		//$this->template->add_css('css/fix-ie.css');
-		
-	//	$this->template->add_css('css/print.css');
-		$this->template->add_css('css/style.css');
-//		$this->template->add_css('css/cforms.css');
-		
- 		// $this->template->add_css('css/eburhan_css.css');
-		// $this->template->add_css('css/form.css');
 
-		$this->template->add_js('js/cforms.js');
+		$this->output->enable_profiler(TRUE);
 	}
 }
 
@@ -41,36 +30,7 @@ class MY_AdminKontroller extends MY_KullaniciKontroller {
 	function MY_AdminKontroller() {
 	
 		parent::MY_KullaniciKontroller();
-		
-		// init headerlar
-		$this->init_headerlar();
-		
-		// init menuler
-		$this->init_menuler();
-		
-		// init sidebarlar
-		$this->init_sidebarlar();
 	}
-	
-	function init_headerlar() {
-	
-		// meta başlığını tanımla
-		$this->template->write('meta_baslik', 'Admin Paneli');
-	}
-	
-	function init_menuler() {
-	
-		$this->load->library('Menu_lib');
-	}
-	
-	function init_sidebarlar() {
-	
-		// menü
-		if ($this->kullanici_lib->is_admin())
-			$this->template->write_view('admin_sidebar_menu', 'admin/sidebar/menu');
-	}
-	
-	
 }
 
 class MY_MisafirKontroller extends MY_Controller

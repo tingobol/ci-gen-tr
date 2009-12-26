@@ -1,31 +1,25 @@
 <?php
 
 class Panel extends MY_AdminKontroller {
-
-	function Panel() {
-	
-		parent::MY_AdminKontroller();
-		
-		$this->load->helper('form');
-	}
 	
 	function index() {
 	
 		$this->kullanici_lib->sadece_admin_gorebilir();
 		
+		$data['k_t'] = k_t_giris_yapmis_admin;
+		
 		$data['admin_adi'] = $this->kullanici_lib->kullanici_adi;
 		
-		$this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri());
+//		$this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri());
 		
-		$this->template->write_view('icerik', 'admin/panel/index', $data);
-		
-		$this->template->render();
+		$this->load->view('admin/panel/index', $data);
 	} 
 	
 	function giris() {
-	
-		$this->kullanici_lib->sadece_misafir_gorebilir();		
-		$this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri('giris_yap'));
+		
+		$data['k_t'] = k_t_giris_yapacak_admin;
+			
+		// $this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri('giris_yap'));
 		
 		$data['kullanici'] = $this->kullanici;
 		
@@ -42,6 +36,7 @@ class Panel extends MY_AdminKontroller {
 				if (!$this->kullanici->is_var_admin_where_mail_and_sifre()) throw new Exception('Lütfen bilgileriniz kontrol ederek yeniden deneyiniz.');
 
 				$this->kullanici_oturumu->kullanici_id = (int) $this->kullanici->get_admin_id_where_mail();
+
 				$this->kullanici_oturumu->ekle();
 				
 				redirect(sayfa_admin_2);
@@ -51,9 +46,7 @@ class Panel extends MY_AdminKontroller {
 			}
 		}
 		
-		$this->template->write_view('icerik', sayfa_admin_1, $data);
-		
-		$this->template->render();
+		$this->load->view('admin/panel/giris', $data);
 	}
 	
 	function cikis() {
@@ -66,10 +59,8 @@ class Panel extends MY_AdminKontroller {
 	} 
 	
 	function sifremi_unuttum() {
-	
-		$this->kullanici_lib->sadece_misafir_gorebilir();
 		
-		$this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri('sifremi_unuttum'));
+		$data['k_t'] = k_t_giris_yapacak_admin;
 	
 		$data['kullanici'] = $this->kullanici;
 	
@@ -79,18 +70,22 @@ class Panel extends MY_AdminKontroller {
 			
 			try {
 			
-				if (form_is_bos($this->kullanici->mail)) throw new Exception('Mail adresiniz yazınız.');
+				if (form_is_bos($this->kullanici->mail)) throw new Exception('Mail adresinizi yazınız.');
 				if (!form_is_mail($this->kullanici->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
 				if (!$this->kullanici->is_var_admin_where_mail()) throw new Exception('Mail adresi bulunamadı.');
 				
-				// yeni temp bilgisini al ve güncelle
+				// kullanıcı bilgilerini al
 				$temp_kullanici = $this->kullanici->get_admin_detay_where_mail();
 				$this->kullanici->id = $temp_kullanici->id;
 				$this->kullanici->adi = $temp_kullanici->adi;
+				
+				// yeni temp bilgisi oluştur
 				$this->kullanici->temp = $this->kullanici->get_rasgele_md5();
+
+				// temp bilgisini güncelle
 				$this->kullanici->guncelle_temp_where_id();
 				
-				// üyeye şifresini sıfırlaması için mail gönder
+				// üyenin şifresini sıfırlaması için kullanacağı url
 				$data['url1'] = site_url(sprintf(sayfa_admin_5, $this->kullanici->id, $this->kullanici->temp));
 				
 				// basla mail
@@ -115,16 +110,12 @@ class Panel extends MY_AdminKontroller {
 			
 		}
 		
-		$this->template->write_view('icerik', sayfa_admin_3, $data);
-		
-		$this->template->render();
+		$this->load->view('admin/panel/sifremi_unuttum', $data);
 	}
 	
 	function sifreyi_sifirla($id = 0, $temp = '') {
-	
-		$this->kullanici_lib->sadece_misafir_gorebilir();
 		
-		$this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri('sifremi_unuttum'));
+		$data['k_t'] = k_t_giris_yapacak_admin;
 		
 		$data['kullanici'] = $this->kullanici;
 		
@@ -146,7 +137,7 @@ class Panel extends MY_AdminKontroller {
 			$data['temp_sifre'] = $temp_sifre;
 			
 			$this->kullanici->temp = $this->kullanici->get_rasgele_md5();
-			//$this->kullanici->guncelle_temp_where_id();
+			$this->kullanici->guncelle_temp_where_id();
 			
 			$data['url1'] = site_url(sayfa_admin_1);
 			
@@ -168,8 +159,6 @@ class Panel extends MY_AdminKontroller {
 			$data['hata'] = $ex->getMessage();
 		}
 		
-		$this->template->write_view('icerik', 'admin/panel/sifreyi_sifirla', $data);
-		
-		$this->template->render();
+		$this->load->view('admin/panel/sifreyi_sifirla', $data);
 	}
 }
