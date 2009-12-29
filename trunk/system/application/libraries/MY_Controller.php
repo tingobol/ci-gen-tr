@@ -33,6 +33,22 @@ class MY_AdminKontroller extends MY_KullaniciKontroller {
 	}
 }
 
+class MY_YazarKontroller extends MY_KullaniciKontroller {
+
+	function MY_YazarKontroller() {
+	
+		parent::MY_KullaniciKontroller();
+	}
+}
+
+class MY_EditorKontroller extends MY_KullaniciKontroller {
+
+	function MY_EditorKontroller() {
+	
+		parent::MY_KullaniciKontroller();
+	}
+}
+
 class MY_MisafirKontroller extends MY_Controller
 {
 	function MY_MisafirKontroller() 

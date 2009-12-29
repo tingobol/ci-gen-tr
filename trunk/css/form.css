@@ -6,8 +6,36 @@ form {
 	margin-bottom:20px;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:13px;
+	line-height:24px;
 }
 
+form label {
+	font-family:"Trebuchet MS", Arial, Verdana;
+	font-size:16px;
+	font-weight:bold;
+	padding-right:6px;
+}
+
+form input, select, textarea {
+
+	font-family:"Trebuchet MS", Arial, Verdana;
+	border:1px solid #3b6e22;
+	color:#666666;
+	font-size:16px;
+}
+
+form input[type="submit"] {
+
+	background:url(form/yesil.gif);
+	border:1px solid #3b6e22;
+	color:#FFFFFF;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+
+}
+
+/*
 form p{
     clear: left;
     margin: 0;
@@ -27,23 +55,16 @@ form p label{
 	padding-right:6px;
 }
 
-form p input {
+form p input, select {
 	border:1px solid #3b6e22;
 	color:#666666;
 }
 
-form p input[type="submit"] {
 
-	background:url(form/yesil.gif);
-	border:1px solid #3b6e22;
-	color:#FFFFFF;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:13px;
-	font-weight:bold;
-
-}
 
 form p textarea {
 	border:1px solid #3b6e22;
 	color:#666666;
 }
+
+*/

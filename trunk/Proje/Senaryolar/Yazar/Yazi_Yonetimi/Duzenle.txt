@@ -1,0 +1,12 @@
+	- yazar eklediği yazıyı düzenleyebilir
+	
+	- bilgilerde bir değişiklik yaptığında  
+	  yazı onay bekliyor konumuna alınır ve 
+	  editör onayından geçmesi beklenir.
+	  
+	- değişiklik yapıldığını anlamak için 
+	  form submit edildiğinde veritabanından 
+	  yazının bilgileri çekilecek ve her bir 
+	  düzenlenen bilgi değiştirilmiş mi kontrol 
+	  edilecek. en az bir bilgi değiştirilmiş ise 
+	  yazı durumu onay bekliyor durumuna getirilecek.

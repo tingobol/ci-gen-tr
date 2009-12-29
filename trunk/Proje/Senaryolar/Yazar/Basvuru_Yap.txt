@@ -1,0 +1,7 @@
+- isteyen herkes yazar olabilmelidir.
+- yazarın
+	- adı
+	- mail adresi
+	- hangi konularda iyi olduğu
+	- referansları
+- daha önce başvuru yapıldıysa bilgi verilmeli
