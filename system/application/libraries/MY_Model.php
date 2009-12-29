@@ -74,6 +74,19 @@ class MY_Model extends Model {
 						->num_rows() == 1;
 	}
 	
+	function is_var_where_x_and_not_y($x, $y) {
+	
+		return $this->db->where($x, $this->$x)
+						->where($y . ' !=', $this->$y)
+						->get($this->tablo_adi)
+						->num_rows() == 1;
+	}
+	
+	function is_var_where_x_and_not_id($x) {
+	
+		return $this->is_var_where_x_and_not_y($x, 'id');
+	}
+	
 	function is_var_where_x_and_y_and_not_z($x, $y, $z) {
 	
 		return $this->db->where($x, $this->$x)

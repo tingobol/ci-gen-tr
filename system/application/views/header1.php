@@ -51,6 +51,20 @@
 					<?php } elseif (@$k_t == k_t_giris_yapmis_admin) { // admin giriş yaptıysa ?>
 						<li class="page_item"><?php echo anchor(sayfa_admin_2, 'Panel') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_admin_4, 'Çıkış') ?></li>
+					<?php } elseif (@$k_t == k_t_giris_yapacak_yazar) { // yazar giriş yapmak isterse ?>
+						<li class="page_item"><?php echo anchor(sayfa_yazar_1, 'Yazar Girişi') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_yazar_2, 'Şifremi Unuttum') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_yazar_5, 'Yazarlık Başvurusu') ?></li>
+					<?php } elseif (@$k_t == k_t_giris_yapmis_yazar) { // yazar giriş yaptıysa ?>
+						<li class="page_item"><?php echo anchor(sayfa_yazar_0, 'Panel') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_yazar_3, 'Çıkış') ?></li>
+					<?php } elseif (@$k_t == k_t_giris_yapacak_editor) { // editör giriş yapmak isterse ?>
+						<li class="page_item"><?php echo anchor(sayfa_editor_1, 'Editör Girişi') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_editor_2, 'Şifremi Unuttum') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_editor_5, 'Editörlük Başvurusu') ?></li>
+					<?php } elseif (@$k_t == k_t_giris_yapmis_editor) { // editör giriş yaptıysa ?>
+						<li class="page_item"><?php echo anchor(sayfa_editor_0, 'Panel') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_editor_3, 'Çıkış') ?></li>
 					<?php } else { // diğer durumlarda ?>
 						<li class="page_item"><a href="#" title="Home">Admin Girişi</a></li>
 						<li class="page_item"><a href="#" title="Home">Şifremi Unuttum</a></li>

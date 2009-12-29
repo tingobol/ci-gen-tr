@@ -23,11 +23,34 @@
 		-->
 		
 		<li>
+		
+		<?php if (@$k_t == k_t_giris_yapacak_admin) { // admin giriş yapmak isterse ?>
+				
+		<?php } elseif (@$k_t == k_t_giris_yapmis_admin) { // admin giriş yaptıysa ?>
 			<h2>Kategori Yönetimi</h2>
-			<ul class="linkcat">
-					<li><?php echo anchor(sayfa_admin_11, 'Kategori Listesi') ?></li>
-					<li><?php echo anchor(sayfa_admin_12, 'Kategori Ekle') ?></li>
-				</ul>
+			<ul class="linkcat">			
+				<li><?php echo anchor(sayfa_admin_11, 'Kategori Listesi') ?></li>
+				<li><?php echo anchor(sayfa_admin_12, 'Kategori Ekle') ?></li>
+			</ul>
+		<?php } elseif (@$k_t == k_t_giris_yapacak_yazar) { // yazar giriş yapmak isterse ?>
+
+		<?php } elseif (@$k_t == k_t_giris_yapmis_yazar) { // yazar giriş yaptıysa ?>
+			<h2>Yazı Yönetimi</h2>
+			<ul class="linkcat">			
+				<li><?php echo anchor(sayfa_yazar_11, 'Yazı Listesi') ?></li>
+				<li><?php echo anchor(sayfa_yazar_12, 'Yazı Ekle') ?></li>
+			</ul>
+		<?php } elseif (@$k_t == k_t_giris_yapacak_editor) { // editor giriş yapmak isterse ?>
+
+		<?php } elseif (@$k_t == k_t_giris_yapmis_editor) { // editor giriş yaptıysa ?>
+			<h2>Yazı Yönetimi</h2>
+			<ul class="linkcat">			
+				<li><?php echo anchor(sayfa_editor_11, 'Onay Bekleyenler') ?></li>
+			</ul>
+		<?php } else { // diğer durumlarda ?>
+
+		<?php } ?>
+		
 		</li>
 		
 		<!--

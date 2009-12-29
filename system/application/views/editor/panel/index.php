@@ -4,13 +4,13 @@
 
 	<div class="entrytop">
 		<div class="entry">
-			<h2>Hoşgeldin <?php echo $admin_adi ?> :)</h2>
+			<h2>Hoşgeldin <?php echo $kullanici_adi ?> :)</h2>
 		</div>
 	</div>
 	
 	<div class="post-content">
 		<div class="bilgi">
-			Burası admin panelidir. Sağ taraftaki menüden yönetebilirsiniz.
+			Burası editör panelidir. Sağ taraftaki menüyü kullanabilirsiniz.
 		</div>
 	</div>
 </div>
