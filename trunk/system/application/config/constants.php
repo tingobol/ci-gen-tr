@@ -37,11 +37,11 @@ define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
  
 // admin sayfaları
+define('sayfa_admin_0', 'admin/panel');
 define('sayfa_admin_1', 'admin/panel/giris');
-define('sayfa_admin_2', 'admin/panel');
-define('sayfa_admin_3', 'admin/panel/sifremi_unuttum');
-define('sayfa_admin_4', 'admin/panel/cikis');
-define('sayfa_admin_5', 'admin/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
+define('sayfa_admin_2', 'admin/panel/sifremi_unuttum');
+define('sayfa_admin_3', 'admin/panel/cikis');
+define('sayfa_admin_4', 'admin/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
 
 define('sayfa_admin_10', 'admin/kategori_yonetimi');
 define('sayfa_admin_11', 'admin/kategori_yonetimi/liste');
@@ -77,6 +77,18 @@ define('sayfa_editor_5', 'editor/panel/basvuru_yap');
 define('sayfa_editor_10', 'editor/yazi_yonetimi');
 define('sayfa_editor_11', 'editor/yazi_yonetimi/onay_bekleyenler');
 
+// misafir sayfaları
+define('sayfa_misafir_0', 'misafir/yazilar/liste');
+
+define('sayfa_misafir_21', 'misafir/yazilar/liste');
+define('sayfa_misafir_22', 'misafir/yazilar/liste/%d'); // %d: sayfa_no
+define('sayfa_misafir_23', 'misafir/yazilar/detay/%d'); // $s: id
+
+define('sayfa_misafir_31', 'misafir/kategoriler/yazilari_listele/%d'); // %d: kategori_id
+define('sayfa_misafir_32', 'misafir/kategoriler/yazilari_listele/%d/%d'); // %d: kategori_id, %d: sayfa_no
+
+define('sayfa_misafir_41', 'misafir/sayfalar/iletisim');
+
 // site genelinde kullanılan sabitler
 define('sabit_1', 'Bulsam.Net Blog'); // mail gönderirken user agent olarak kullanılacak
 define('sabit_2', 'blog@bulsam.net'); // sitenin mail adresi
@@ -96,6 +108,7 @@ define('k_t_giris_yapacak_yazar', 3); // giriş yapacak yazar
 define('k_t_giris_yapmis_yazar', 4); // giriş yapmış yazar
 define('k_t_giris_yapacak_editor', 5); // giriş yapacak editör
 define('k_t_giris_yapmis_editor', 6); // giriş yapmış editör
+define('k_t_yeni_gelmis_misafir', 7); // yeni gelmiş bir misafir, her hangi bir kullanıcı olabilir.
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

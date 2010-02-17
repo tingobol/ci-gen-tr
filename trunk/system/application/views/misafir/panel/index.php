@@ -4,13 +4,14 @@
 
 	<div class="entrytop">
 		<div class="entry">
-			<h2>Hoşgeldin, <?php echo $kullanici_adi ?> :)</h2>
+			<h2>Hoşgeldin misafir :)</h2>
 		</div>
 	</div>
 	
 	<div class="post-content">
 		<div class="bilgi">
-			Burası editör panelidir. Sağ taraftaki menüyü kullanabilirsiniz.
+			Burası misafir sayfasıdır. Misafire sağlanan ayrıcalıklardan faydalanmak için 
+			bağlantıları kullanabilirsin.
 		</div>
 	</div>
 </div>

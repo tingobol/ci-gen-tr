@@ -13,7 +13,11 @@ form label {
 	font-family:"Trebuchet MS", Arial, Verdana;
 	font-size:16px;
 	font-weight:bold;
-	padding-right:6px;
+	width: 10em;
+	float: left;
+	text-align: right;
+	margin-right: 0.5em;
+	display: block;
 }
 
 form input, select, textarea {
@@ -24,7 +28,9 @@ form input, select, textarea {
 	font-size:16px;
 }
 
+
 form input[type="submit"] {
+
 
 	background:url(form/yesil.gif);
 	border:1px solid #3b6e22;
@@ -32,10 +38,11 @@ form input[type="submit"] {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:13px;
 	font-weight:bold;
-
 }
 
+
 /*
+
 form p{
     clear: left;
     margin: 0;

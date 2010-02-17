@@ -6,7 +6,7 @@ class Yazi extends MY_Model {
 
 	var $id;
 	var $baslik;
-	var $rbaslik;
+	var $ozet;
 	var $icerik;
 	var $eklenme_zamani;
 	var $guncellenme_zamani;
@@ -14,6 +14,10 @@ class Yazi extends MY_Model {
 	var $durum;
 	var $yazar_id;
 	var $kategori_id;
+	
+	const DURUM_ONAY_BEKLIYOR = 0;
+	const DURUM_ONAYLI = 1;
+	const DURUM_YAYINDAN_KALKMIS = 2;
 	
 	function Yazi() {
 	
@@ -32,15 +36,85 @@ class Yazi extends MY_Model {
 						->result_object();
 	}
 	
+	function get_liste_2() {
+	
+		return $this->db->where('durum', Yazi::DURUM_ONAYLI)
+						->order_by('id', 'desc')
+						->limit(10)
+						->get('yazilar')
+						->result_object();
+	}
+	
+	// misafir/yazilar/liste
+	function get_liste_3($adet, $limit_ilk) {
+	
+		return $this->db->where('durum', Yazi::DURUM_ONAYLI)
+						->order_by('id', 'desc')
+						->limit($adet, $limit_ilk)
+						->get('yazilar')
+						->result_object();
+	}
+	
+	/**
+	 * Bir kategorideki onaylı yazıların listesini verir
+	 *  
+	 * @param $kategori_id
+	 * @return array
+	 */
+	function get_liste_4($kategori_id, $adet, $limit_ilk) {
+	
+		return $this->db->where('durum', Yazi::DURUM_ONAYLI)
+						->where('kategori_id', $kategori_id)
+						->order_by('id', 'desc')
+						->limit($adet, $limit_ilk)
+						->get('yazilar')
+						->result_object();
+	}
+
+	/**
+	 * Onaylı yazıların kaç tane olduğunu verir.
+	 * 
+	 * @see misafir/yazilar/liste
+	 * @return int
+	 */
+	function get_adet_1() {
+	
+		$ret = $this->db->select('COUNT(*) AS adet')
+						->where('durum', Yazi::DURUM_ONAYLI)
+						->get('yazilar')
+						->row();
+						
+		return $ret->adet;
+	}
+	
+	/**
+	 * Bir kategoride kaç tane onaylı yazı var?
+	 * 
+	 * @param int $kategori_id
+	 * @return int
+	 */
+	function get_adet_2($kategori_id) {
+	
+		$ret = $this->db->select('COUNT(*) AS adet')
+						->where('durum', Yazi::DURUM_ONAYLI)
+						->where('kategori_id', $kategori_id)
+						->get('yazilar')
+						->row();
+						
+		return $ret->adet;
+	}
+	
 	// yazarın yazı eklemesi için kullanılmaktadır
 	function ekle_1() {
 	
-		parent::ekle(array('baslik', 'rbaslik', 'icerik', 'eklenme_zamani', 'guncellenme_zamani', 'yazar_id', 'kategori_id'));
-	}
-	
-	function is_var_where_rbaslik() {
-	
-		return parent::is_var_where_x('rbaslik');
+		return parent::ekle(array(
+								'baslik', 
+								'ozet', 
+								'icerik', 
+								'eklenme_zamani', 
+								'guncellenme_zamani', 
+								'yazar_id', 
+								'kategori_id'));
 	}
 	
 	function is_var_where_id_and_yazar_id() {
@@ -48,16 +122,11 @@ class Yazi extends MY_Model {
 		return parent::is_var_where_id_and_x('yazar_id');
 	}
 	
-	function is_var_where_rbaslik_and_not_id() {
-	
-		return parent::is_var_where_x_and_not_id('rbaslik');
-	}
-	
 	function guncelle_1() {
 	
 		$data = array(
 					'baslik' => $this->baslik, 
-					'rbaslik' => $this->rbaslik, 
+					'ozet' => $this->ozet, 
 					'icerik' => $this->icerik, 
 					'kategori_id' => $this->kategori_id, 
 					'guncellenme_zamani' => $this->guncellenme_zamani, 
@@ -65,22 +134,4 @@ class Yazi extends MY_Model {
 					
 		parent::guncelle_where_id($data);
 	}
-	
-	/*
-	
-	function is_var_where_radi() {
-	
-		return parent::is_var_where_x('radi');
-	}
-	
-	function is_var_where_adi_and_not_id() {
-	
-		return parent::is_var_where_x_and_not_id('adi');
-	}
-	
-	function is_var_where_radi_and_not_id() {
-	
-		return parent::is_var_where_x_and_not_id('radi');
-	}
-	*/
 }

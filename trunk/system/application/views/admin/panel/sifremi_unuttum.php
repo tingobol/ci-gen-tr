@@ -39,17 +39,11 @@ $form1['submit1'] = array('value' => 'Gönder');
 			
 			<div class="bilgi">Şifrenizi sıfırlamanız için size mail gönderilecektir.</div>
 		
-			<?php echo form_open(sayfa_admin_3, $form1['form']) ?>
+			<?php echo form_open(sayfa_admin_2, $form1['form']) ?>
 		
-	        <p>
-	            <label for="name">* Mail Adresi:</label>
-	            <?php echo form_input($form1['mail']) ?>
-	        </p>
+	        <p><label for="mail">* Mail Adresi:</label> <?php echo form_input($form1['mail']) ?></p>
 			
-	        <p>
-	            <label>&nbsp;</label>
-	            <?php echo form_submit($form1['submit1']) ?>
-	        </p>
+	        <p><label>&nbsp;</label><?php echo form_submit($form1['submit1']) ?></p>
 		
 			<?php echo form_close() ?>
 			

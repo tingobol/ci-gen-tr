@@ -1,0 +1,8 @@
+	- misafir için yazılar liste halinde sunulacak.
+	
+	- her sayfa için 10 adet yazı gösterilecek.
+	
+	- sayfanın en altında sonraki sayfa ve önceki sayfa 
+	  şeklinde bağlantılar yer alacak ve misafir isterse 
+	  diğer sayfalardaki yazıları bu bağlantılar üzerinden 
+	  giderek görebilecek ve okuyabilecektir.

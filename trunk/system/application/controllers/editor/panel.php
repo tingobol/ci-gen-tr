@@ -39,6 +39,7 @@ class Panel extends MY_EditorKontroller {
 
 				$this->kullanici_oturumu->ekle();
 				
+				// echo sayfa_editor_0;
 				redirect(sayfa_editor_0);
 			} catch (Exception $ex) {
 			

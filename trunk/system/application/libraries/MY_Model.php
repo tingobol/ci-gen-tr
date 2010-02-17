@@ -118,6 +118,13 @@ class MY_Model extends Model {
 				 ->where($y, $this->$y)
 				 ->delete($this->tablo_adi);
 	}
+
+	function sil_where_x_or_y($x, $y) {
+	
+		$this->db->where($x, $this->$x)
+				 ->or_where($y, $this->$y)
+				 ->delete($this->tablo_adi);
+	}
 	
 	function guncelle_where_id($data = array()) {
 		
@@ -179,6 +186,7 @@ class MY_Model extends Model {
 		$data = array();
 		foreach ($alanlar as $alan) $data[$alan] = $this->$alan;
 		$this->db->insert($this->tablo_adi, $data);
+		return $this->insert_id();
 	}
 	
 	function get_rasgele_md5() {

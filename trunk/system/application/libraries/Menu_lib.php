@@ -51,12 +51,12 @@ class Menu_lib {
 		
 		if ($this->CI->kullanici_lib->is_admin()) {
 		
-			$this->link_ekle(new Menu_link('ana_sayfa', 'Ana Sayfa', sayfa_admin_2));
-			$this->link_ekle(new Menu_link('cikis', 'Çıkış', sayfa_admin_4));
+			$this->link_ekle(new Menu_link('ana_sayfa', 'Ana Sayfa', sayfa_admin_0));
+			$this->link_ekle(new Menu_link('cikis', 'Çıkış', sayfa_admin_3));
 		} else {
 		
 			$this->link_ekle(new Menu_link('giris_yap', 'Giriş Yap', sayfa_admin_1));
-			$this->link_ekle(new Menu_link('sifremi_unuttum', 'Şifremi Unuttum', sayfa_admin_3));
+			$this->link_ekle(new Menu_link('sifremi_unuttum', 'Şifremi Unuttum', sayfa_admin_2));
 		}
 		
 		return $this->get_linkler($id);

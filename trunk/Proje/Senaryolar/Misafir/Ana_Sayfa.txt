@@ -1,0 +1,8 @@
+	- tüm kullanıcı türlerinin ilk geleceği yer misafir ana sayfasıdır.
+	  buradan geçerek istediği bir yere gidebilecektir. ister admin 
+	  girişi yapabilir, ister yazar girişi, isterse de editör girişi 
+	  yapabilecek bağlantılar burada yer alır.
+
+	- son eklenen yazılar listelenecek. 
+	- sadece onaylanmış yazılar son eklenen ilk görünecek şekilde
+	  sıralanacak. Ana sayfada son yazı gösterilecek	  

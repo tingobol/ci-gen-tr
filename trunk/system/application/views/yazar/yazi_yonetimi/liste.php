@@ -17,11 +17,7 @@
 	<div class="post-content">
 	
 		<?php if (empty($yazilar)) { ?>
-			<tr>
-				<td colspan="5">
-					<div class="bilgi">Henüz yazı eklememişsiniz.</div>
-				</td>
-			</tr>
+			<div class="bilgi">Henüz yazı eklememişsiniz.</div>
 		<?php } else { ?>
 	
 			<table id="tablo" class="tablo">
