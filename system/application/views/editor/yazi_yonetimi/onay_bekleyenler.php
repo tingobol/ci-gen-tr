@@ -4,13 +4,13 @@
 
 	<div class="entrytop">
 		<div class="entry">
-			<h2>Hoşgeldin, <?php echo $kullanici_adi ?> :)</h2>
+			<h2>Onay Bekleyen Yazılar</h2>
 		</div>
 	</div>
 	
 	<div class="post-content">
 		<div class="bilgi">
-			Burası editör panelidir. Sağ taraftaki menüyü kullanabilirsiniz.
+			Burada onay bekleyen yazılar listelenecek...
 		</div>
 	</div>
 </div>

@@ -27,7 +27,7 @@ yazilar
 -------
  - id
  - baslik
- - rbaslik
+ - ozet
  - icerik
  - eklenme_zamani
  - guncelleme_zamani

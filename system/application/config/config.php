@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+define('local', $_SERVER['SERVER_NAME'] == 'localhost' ? TRUE : FALSE);
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -11,7 +13,8 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/ci-gen-tr/";
+if (local) $config['base_url']	= "http://localhost/ci-gen-tr/";
+else $config['base_url']	= "http://www.ci.gen.tr/";
 
 /*
 |--------------------------------------------------------------------------

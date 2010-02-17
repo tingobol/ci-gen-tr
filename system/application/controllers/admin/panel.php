@@ -10,16 +10,12 @@ class Panel extends MY_AdminKontroller {
 		
 		$data['admin_adi'] = $this->kullanici_lib->kullanici_adi;
 		
-//		$this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri());
-		
 		$this->load->view('admin/panel/index', $data);
 	} 
 	
 	function giris() {
 		
 		$data['k_t'] = k_t_giris_yapacak_admin;
-			
-		// $this->template->write('menu_linkleri', $this->menu_lib->get_admin_linkleri('giris_yap'));
 		
 		$data['kullanici'] = $this->kullanici;
 		
@@ -39,7 +35,7 @@ class Panel extends MY_AdminKontroller {
 
 				$this->kullanici_oturumu->ekle();
 				
-				redirect(sayfa_admin_2);
+				redirect(sayfa_admin_0);
 			} catch (Exception $ex) {
 			
 				$data['hata'] = $ex->getMessage();
@@ -86,7 +82,7 @@ class Panel extends MY_AdminKontroller {
 				$this->kullanici->guncelle_temp_where_id();
 				
 				// üyenin şifresini sıfırlaması için kullanacağı url
-				$data['url1'] = site_url(sprintf(sayfa_admin_5, $this->kullanici->id, $this->kullanici->temp));
+				$data['url1'] = site_url(sprintf(sayfa_admin_4, $this->kullanici->id, $this->kullanici->temp));
 				
 				// basla mail
 				$this->load->library('email');

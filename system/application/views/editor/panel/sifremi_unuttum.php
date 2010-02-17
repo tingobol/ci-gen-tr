@@ -41,10 +41,15 @@ $form1['submit1'] = array('value' => 'Gönder');
 		
 			<?php echo form_open(sayfa_editor_2, $form1['form']) ?>
 		
-				<?php echo form_label('* Mail Adresiniz', 'mail') ?><br />
-				<?php echo form_input($form1['mail']) ?><br /><br />
-		
-	            <?php echo form_submit($form1['submit1']) ?>
+				<p>
+					<?php echo form_label('* Mail Adresiniz', 'mail') ?>
+					<?php echo form_input($form1['mail']) ?>
+				</p>
+				
+				<p>
+					<?php echo form_label('&nbsp;') ?>
+					<?php echo form_submit($form1['submit1']) ?>
+				</p>
 		
 			<?php echo form_close() ?>
 			

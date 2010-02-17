@@ -33,6 +33,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 	
 		$this->kullanici_lib->sadece_yazar_gorebilir();
 		
+		$this->load->library('etiket_lib');
+		
 		$data['k_t'] = k_t_giris_yapmis_yazar;
 		
 		$data['meta_baslik'] = 'Yazı Ekle';
@@ -45,23 +47,18 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
 			$this->yazi->baslik = $this->input->post('baslik');
-			$this->yazi->rbaslik = $this->input->post('rbaslik');
+			$this->yazi->ozet = html_filtrele_1($this->input->post('ozet'));
 			$this->yazi->icerik = html_filtrele_1($this->input->post('icerik'));
 			$this->yazi->kategori_id = (int) $this->input->post('kategori_id');
+			
+			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
 			
 			try {
 			
 				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
-
-				if (form_is_bos($this->yazi->rbaslik)) throw new Exception('Yazı rewrite başlığı boş geçilemez.');
-				if ($this->yazi->is_var_where_rbaslik()) throw new Exception('Bu yazı rewrite başlığı daha önce kullanılmış.');
-				
-				if (form_is_bos($this->yazi->icerik)) throw new Exception('Yazı içeriği boş geçilemez.');
-				
+				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
 				if (form_is_bos($this->yazi->kategori_id)) throw new Exception('Yazı kategorisi boş geçilemez.');
-				
-				
-				
+
 				$this->kategori->id = (int) $this->yazi->kategori_id;
 				
 				if (!$this->kategori->is_var_where_id()) throw new Exception('Belirtilen kategori sistemde bulunmamaktadır. Lütfen listeden bir kategori seçiniz.');
@@ -69,7 +66,7 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 				// yazarın id'si alınıyor
 				$this->yazi->yazar_id = (int) $this->kullanici_lib->kullanici_id;
 				
-				$this->yazi->ekle_1();
+				$this->etiket_lib->yazi_eklendi($this->yazi->ekle_1());
 				
 				$data['tamam'] = 'Yazı eklenmiştir, editörlerimiz incelendikten sonra yayınlanacaktır.';
 			} catch (Exception $ex) {
@@ -81,12 +78,16 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			
 		}
 		
+		$data['etiketler'] = $this->etiket_lib->etiketler_string;
+		
 		$this->load->view(sayfa_yazar_12, $data);	
 	}
 	
 	function duzenle($id = 0) {
 	
 		$this->kullanici_lib->sadece_yazar_gorebilir();
+		
+		$this->load->library('etiket_lib');
 		
 		$data['k_t'] = k_t_giris_yapmis_yazar;
 		
@@ -101,9 +102,10 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 			$this->yazi->id = (int) $this->input->post('id');
 			$this->yazi->baslik = $this->input->post('baslik');
-			$this->yazi->rbaslik = $this->input->post('rbaslik');
+			$this->yazi->ozet = html_filtrele_1($this->input->post('ozet'));
 			$this->yazi->icerik = html_filtrele_1($this->input->post('icerik'));
 			$this->yazi->kategori_id = $this->input->post('kategori_id');
+			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
 		} else {
 		
 			$this->yazi->id = (int) $id;
@@ -124,11 +126,14 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			$temp_yazi = $this->yazi->get_detay_where_id();
 			
 			$b1 = $this->yazi->baslik == $temp_yazi->baslik;
-			$b2 = $this->yazi->rbaslik == $temp_yazi->rbaslik;
-			$b3 = $this->yazi->icerik == $temp_yazi->icerik;
-			$b4 = $this->yazi->kategori_id == (int) $temp_yazi->kategori_id;
+			$b3 = $this->yazi->ozet == $temp_yazi->ozet;
+			$b4 = $this->yazi->icerik == $temp_yazi->icerik;
+			$b5 = $this->yazi->kategori_id == (int) $temp_yazi->kategori_id;
+
+			// etiketlerde bir değişiklik yapılıp yapılmadığını anlamak için
+			$b6 = $this->etiket_lib->is_etiketler_degisti($this->yazi->id);
 			
-			if ($b1 && $b2 && $b3 && $b4) {
+			if ($b1 && $b2 && $b3 && $b4 && $b5) {
 			
 				// değişiklik olmamış
 				$this->yazi->durum = $temp_yazi->durum;
@@ -144,11 +149,7 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			try {
 			
 				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
-
-				if (form_is_bos($this->yazi->rbaslik)) throw new Exception('Yazı rewrite başlığı boş geçilemez.');
-				if ($this->yazi->is_var_where_rbaslik_and_not_id()) throw new Exception('Bu yazı rewrite başlığı daha önce kullanılmış.');
-				
-				if (form_is_bos($this->yazi->icerik)) throw new Exception('Yazı içeriği boş geçilemez.');
+				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
 				if (form_is_bos($this->yazi->kategori_id)) throw new Exception('Yazı kategorisi boş geçilemez.');
 				
 				$this->kategori->id = (int) $this->yazi->kategori_id;
@@ -182,6 +183,11 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			redirect(sayfa_yazar_10);
 			
 		// @TODO yazıya ait ilişkiler temizlenecek
+		
+		// yazıya ait ilişkili etiketleri sil
+		$this->load->model('yazi_etiketi');
+		$this->yazi_etiketi->yazi_id = $id;
+		$this->yazi_etiketi->sil_where_yazi_id();
 		
 		$this->yazi->sil_where_id();
 		

@@ -1,24 +1,25 @@
 <?php $this->load->view('header1.php') ?>
 
-<?php if (empty($yazi)) { ?>
+<?php if (empty($yazilar)) { ?>
 		<div class="post">
 			<div class="entrytop">
 				<div class="entry">
-					<h2>Yazı Bulunmadı</h2>
+					<h2>Hoşgeldiniz</h2>
 				</div>
 			</div>
 			
 			<div class="post-content">
-				<div class="bilgi">Yazı bulunamadı.</div>
+				<div class="bilgi">Henüz sisteme yazı eklenmemiş.</div>
 			</div>
 		</div>
 <?php } else { ?>
 
+	<?php foreach ($yazilar as $yazi) { ?>
 		<div class="post">
 			<div class="entrytop">
 				<div class="entry">
 				
-					<h2><span class="inpost-date"><?php echo mdate('%d/%m/%Y - %h:%i %a', $yazi->eklenme_zamani) ?></span><a href="<?php echo site_url(sprintf(sayfa_misafir_23, $yazi->id)) ?>" rel="bookmark"><?php echo $yazi->baslik ?></a></h2>
+					<h2><span class="inpost-date"><?php echo mdate('%d/%m/%Y - %h:%i %a', $yazi->eklenme_zamani) ?></span><a href="<?php echo sprintf(sayfa_misafir_23, $yazi->id) ?>" rel="bookmark"><?php echo $yazi->baslik ?></a></h2>
 		
 				</div>
 			</div>
@@ -27,8 +28,6 @@
 			
 				<?php echo $yazi->ozet ?>
 				<?php echo $yazi->icerik ?>
-				
-				<p style="color: gray; font-style: italic;">Son Güncelleme: <?php echo mdate('%d/%m/%Y', $yazi->guncellenme_zamani) ?></p>
 			
 			</div>
 			
@@ -38,6 +37,7 @@
 			
 			</div>-->
 		</div>
+	<?php } ?>
 
 <?php } ?>
 

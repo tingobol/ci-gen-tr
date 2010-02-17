@@ -40,10 +40,10 @@
 |
 */
 
-$route['default_controller'] = "yazilar/son_eklenenler";
+$route['default_controller'] = "misafir/yazilar";
 $route['scaffolding_trigger'] = "";
 
-$route['admin'] = 'admin/panel';
+// $route['yazi/([a-z0-9-_]+)'] = sayfa_misafir_23;
 
 
 /* End of file routes.php */

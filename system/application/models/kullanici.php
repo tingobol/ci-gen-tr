@@ -53,6 +53,7 @@ class Kullanici extends MY_Model {
 		return $this->db->select('kullanicilar.*')
 						->join('kullanici_oturumlari', 'kullanicilar.id = kullanici_oturumlari.kullanici_id')
 						->where('kullanici_oturumlari.oturum_id', $this->oturum_id)
+						->where('kullanicilar.turu', $this->turu)
 						->limit(1)
 						->get('kullanicilar')
 						->first_row();

@@ -16,7 +16,9 @@ class Kullanici_lib {
 		$this->kullanici_turu = Kullanici::TUR_MISAFIR;
 	}
 	
-	function init() {
+	function init($kullanici_turu = 0) {
+		
+		$this->CI->kullanici->turu = $kullanici_turu;
 		
 		if ($detay = $this->CI->kullanici->get_detay_for_kullanici_lib()) {
 		

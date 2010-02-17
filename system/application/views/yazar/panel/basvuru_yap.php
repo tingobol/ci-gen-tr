@@ -20,14 +20,14 @@ $form1['favori_konulari'] = array(
 					'name' => 'favori_konulari', 
 					'value' => @$kullanici->favori_konulari, 
 					'rows' => 6,
-					'cols' => 80, 
+					'cols' => 60, 
 					'title' => 'Favori konularınızı yazınız.|Ör: PHP, Code Igniter, vs.');
 					
 $form1['referanslari'] = array(
 					'name' => 'referanslari', 
 					'value' => @$kullanici->referanslari, 
 					'rows' => 6,
-					'cols' => 80, 
+					'cols' => 60, 
 					'title' => 'Referanslarınızı yazınız. Yazarlığınızın onaylanmasında|rol oynayacaktır. Yaptığınız projelerden ve makalelerinizden|bahsedebilirsiniz.');
 
 $form1['submit1'] = array('value' => 'Başvuru Yap');
@@ -62,19 +62,30 @@ $form1['submit1'] = array('value' => 'Başvuru Yap');
 			
 			<?php echo form_open(sayfa_yazar_5, $form1['form']) ?>
 			
-				<?php echo form_label('* Adınız', 'adi') ?><br />
-				<?php echo form_input($form1['adi']) ?><br /><br />
-				
-				<?php echo form_label('* Mail Adresiniz', 'mail') ?><br />
-				<?php echo form_input($form1['mail']) ?><br /><br />
-				
-				<?php echo form_label('* Favori Konularınız', 'favori_konulari') ?><br />
-				<?php echo form_textarea($form1['favori_konulari']) ?><br /><br />
-				
-				<?php echo form_label('* Referanslarınız', 'referanslari') ?><br />
-				<?php echo form_textarea($form1['referanslari']) ?><br /><br />
-	
+			<p>
+				<?php echo form_label('* Adınız', 'adi') ?>
+				<?php echo form_input($form1['adi']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('* Mail Adresiniz', 'mail') ?>
+				<?php echo form_input($form1['mail']) ?>
+			</p>	
+			
+			<p>
+				<?php echo form_label('* Favori Konularınız', 'favori_konulari') ?>
+				<?php echo form_textarea($form1['favori_konulari']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('* Referanslarınız', 'referanslari') ?>
+				<?php echo form_textarea($form1['referanslari']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('&nbsp;') ?>
 				<?php echo form_submit($form1['submit1']) ?>
+			</p> 
 				
 			<?php echo form_close() ?>
 			

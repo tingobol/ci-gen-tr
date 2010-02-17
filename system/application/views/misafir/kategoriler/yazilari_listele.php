@@ -1,6 +1,6 @@
 <?php $this->load->view('header1.php') ?>
 
-<?php if (empty($yazi)) { ?>
+<?php if (empty($yazilar)) { ?>
 		<div class="post">
 			<div class="entrytop">
 				<div class="entry">
@@ -14,6 +14,7 @@
 		</div>
 <?php } else { ?>
 
+	<?php foreach ($yazilar as $yazi) { ?>
 		<div class="post">
 			<div class="entrytop">
 				<div class="entry">
@@ -27,8 +28,6 @@
 			
 				<?php echo $yazi->ozet ?>
 				<?php echo $yazi->icerik ?>
-				
-				<p style="color: gray; font-style: italic;">Son Güncelleme: <?php echo mdate('%d/%m/%Y', $yazi->guncellenme_zamani) ?></p>
 			
 			</div>
 			
@@ -37,6 +36,29 @@
 					<span class="post-cat"><a href="http://www.justskins.com/themes/development" title="View all posts in Development" rel="category tag">Development</a></span> <span class="post-comments"><a href="http://www.justskins.com/development/7-web-design-tutorials-from-psd-to-htmlcss/2262#comments" title="Comment on 7 Web Design Tutorials from PSD to HTML/CSS">1 Comment &#187;</a></span>
 			
 			</div>-->
+		</div>
+		
+	<?php } ?>
+
+		<div class="navigation">
+			<span class="previous-entries"> 
+			<?php 
+			
+				if ($eski_yazilar_varmi) {
+					echo anchor(sprintf(sayfa_misafir_32, $kategori_id, $sayfa + 1), 'Eski Yazılar');
+				}
+			
+			 ?>
+			</span>
+			<span class="next-entries">
+			<?php 
+			
+				if ($yeni_yazilar_varmi) {
+					echo anchor(sprintf(sayfa_misafir_32, $kategori_id, $sayfa - 1), 'Yeni Yazılar');
+				}
+			
+			 ?>
+			</span>
 		</div>
 
 <?php } ?>

@@ -47,24 +47,33 @@
 				
 					<?php if (@$k_t == k_t_giris_yapacak_admin) { // admin giriş yapmak isterse ?>
 						<li class="page_item"><?php echo anchor(sayfa_admin_1, 'Admin Girişi') ?></li>
-						<li class="page_item"><?php echo anchor(sayfa_admin_3, 'Şifremi Unuttum') ?></li>					
+						<li class="page_item"><?php echo anchor(sayfa_admin_2, 'Şifremi Unuttum') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>					
 					<?php } elseif (@$k_t == k_t_giris_yapmis_admin) { // admin giriş yaptıysa ?>
-						<li class="page_item"><?php echo anchor(sayfa_admin_2, 'Panel') ?></li>
-						<li class="page_item"><?php echo anchor(sayfa_admin_4, 'Çıkış') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_admin_0, 'Panel') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_admin_3, 'Çıkış') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>
 					<?php } elseif (@$k_t == k_t_giris_yapacak_yazar) { // yazar giriş yapmak isterse ?>
 						<li class="page_item"><?php echo anchor(sayfa_yazar_1, 'Yazar Girişi') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_yazar_2, 'Şifremi Unuttum') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_yazar_5, 'Yazarlık Başvurusu') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>
 					<?php } elseif (@$k_t == k_t_giris_yapmis_yazar) { // yazar giriş yaptıysa ?>
 						<li class="page_item"><?php echo anchor(sayfa_yazar_0, 'Panel') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_yazar_3, 'Çıkış') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>
 					<?php } elseif (@$k_t == k_t_giris_yapacak_editor) { // editör giriş yapmak isterse ?>
 						<li class="page_item"><?php echo anchor(sayfa_editor_1, 'Editör Girişi') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_editor_2, 'Şifremi Unuttum') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_editor_5, 'Editörlük Başvurusu') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>
 					<?php } elseif (@$k_t == k_t_giris_yapmis_editor) { // editör giriş yaptıysa ?>
 						<li class="page_item"><?php echo anchor(sayfa_editor_0, 'Panel') ?></li>
 						<li class="page_item"><?php echo anchor(sayfa_editor_3, 'Çıkış') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>
+					<?php } elseif (@$k_t == k_t_yeni_gelmis_misafir) { // misafir ?>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_0, 'Ana Sayfa') ?></li>
+						<li class="page_item"><?php echo anchor(sayfa_misafir_41, 'İletişim') ?></li>
 					<?php } else { // diğer durumlarda ?>
 						<li class="page_item"><a href="#" title="Home">Admin Girişi</a></li>
 						<li class="page_item"><a href="#" title="Home">Şifremi Unuttum</a></li>

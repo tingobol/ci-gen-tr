@@ -1,0 +1,7 @@
+	- etiketleri kelimerin arasında , olacak şekilde 
+	  girdikten sonra gönderilecek ve girilen 
+	  kelimeler tesbit edilecek. sistemde her bir etiketin 
+	  varlığı kontrol edilecek, eğer yoksa eklenip yeni 
+	  id numarası öğrenilecek, eğer varsa mevcut id 
+	  numarası öğrenilecek ve yazi_id numarası ile 
+	  ilişkilendirilip ilgili tabloya kaydedilecek.

@@ -17,7 +17,7 @@ class Kategori extends MY_Model {
 						->result_object();
 	}
 	
-	// yazı eklerken drow down liste için kullanılmaktadır.
+	// yazı eklerken drop down liste için kullanılmaktadır.
 	function get_liste_1() {
 	
 		$items = $this->db
@@ -34,6 +34,15 @@ class Kategori extends MY_Model {
 		}		
 		
 		return $return;
+	}
+	
+	// misafire sol tarafda kategorilerin bağlantılarını göstermek için
+	function get_liste_2() {
+	
+		return $this->db
+					->select('id, adi')
+					->order_by('adi', 'asc')
+					->get('kategoriler');
 	}
 	
 	function is_var_where_adi() {

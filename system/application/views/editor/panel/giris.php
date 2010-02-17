@@ -37,14 +37,20 @@ $form1['submit1'] = array('value' => 'Giriş Yap');
 	
 		<?php echo form_open(sayfa_editor_1, $form1['form']); ?>
 		
-		
-			<?php echo form_label('* Mail Adresi', 'mail') ?><br />
-			<?php echo form_input($form1['mail']) ?><br /><br />
+			<p>
+				<?php echo form_label('* Mail Adresi', 'mail') ?>
+				<?php echo form_input($form1['mail']) ?>
+			</p>
 			
-			<?php echo form_label('* Şifre', 'sifre') ?><br />
-			<?php echo form_password($form1['sifre']) ?><br /><br />
+			<p>
+				<?php echo form_label('* Şifre', 'sifre') ?>
+				<?php echo form_password($form1['sifre']) ?>
+			</p>
 			
-			<?php echo form_submit($form1['submit1']) ?>
+			<p>
+				<?php echo form_label('&nbsp;') ?>
+				<?php echo form_submit($form1['submit1']) ?>
+			</p>
 		
 		<?php echo form_close() ?>
 

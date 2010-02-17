@@ -47,6 +47,22 @@
 			<ul class="linkcat">			
 				<li><?php echo anchor(sayfa_editor_11, 'Onay Bekleyenler') ?></li>
 			</ul>
+		<?php } elseif (@$k_t == k_t_yeni_gelmis_misafir) { // misafir ?>
+			
+			<h2>Kategoriler</h2>
+			<ul class="list-cat">
+				<?php foreach ($nav_kategoriler->result() as $row) { ?>
+				<li><?php echo anchor(sprintf(sayfa_misafir_31, $row->id), $row->adi) ?></li>
+				<?php } ?>
+			</ul>
+		
+			<h2>Kullanıcı Türleri</h2>
+			<ul class="linkcat">			
+				<li><?php echo anchor(sayfa_admin_0, 'Admin Girişi') ?></li>
+				<li><?php echo anchor(sayfa_editor_0, 'Editör Girişi') ?></li>
+				<li><?php echo anchor(sayfa_yazar_0, 'Yazar Girişi') ?></li>
+			</ul>
+			
 		<?php } else { // diğer durumlarda ?>
 
 		<?php } ?>

@@ -10,11 +10,13 @@ Author URI: http://www.justskins.com
 
 */
 body {
-	font: 80%/150% "Trebuchet MS", Tahoma, Arial;
+	font: 80%/150% Verdana, "Trebuchet MS", Tahoma, Arial;
 	color: #333333;
 	background: #FFFFFF;
 	margin: 0px;
 	padding: 0px;
+	line-height: 22px;
+	
 }
 a {
 	color: #006699;
@@ -216,10 +218,10 @@ form {
 
 .inpost-date{
 	float: right;
-	background: url(images/post-date.gif) no-repeat left center;
+	background: url(images/tarih.png) no-repeat left center;
 	color:#9ec13f;
 	font:bold 11px "trebuchet MS", "Lucida Sans Unicode", Georgia;
-	padding-left: 38px;	
+	padding-left: 24px;	
 }
 .post-date {
 	width: 45px;
@@ -456,6 +458,7 @@ ul.linkcat li, .linkcat li{
 ul.list-cat li, li.widget_categories li{
 	background: url(images/mini-category.gif) no-repeat left center !important;
 	padding-left: 20px !important;
+	line-height:16px;
 }
 /*archives widget */
 ul.list-archives li, li.widget_archives li{
