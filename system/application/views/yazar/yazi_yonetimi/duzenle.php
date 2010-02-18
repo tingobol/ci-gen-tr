@@ -23,6 +23,12 @@ $form1['icerik'] = array(
 					'rows' => 10, 
 					'cols' => 60, 
 					'title' => 'Yazı içeriğini yazınız. Özet ana sayfada|görünen yazıdır. İçerik ise özet ile birlikte|yazının devamını okumak isteyene gösterilir.');
+
+$form1['etiketler'] = array(
+					'name' => 'etiketler', 
+					'value' => @$etiketler, 
+					'size' => 60, 
+					'title' => 'Etiketleri aralarında virgül (,) kullanarak ayırınız|Ör: php, mysql, code igniter');
 					
 $form1['kategori_id'] = array(
 					'name' => 'kategori_id', 
@@ -63,30 +69,35 @@ $form1['submit1'] = array('value' => 'Kaydet');
 		
 		<?php echo form_open(sayfa_yazar_13, $form1['form'], $form1['hidden']) ?>
 	
-		<p>
-			<?php echo form_label('* Başlık', 'baslik') ?>
-			<?php echo form_input($form1['baslik']) ?>
-		</p>
+			<p>
+				<?php echo form_label('* Kategori', 'kategori_id') ?>
+				<?php echo form_dropdown('kategori_id', $kategori_listesi, $yazi->kategori_id) ?>
+			</p>
 		
-		<p>
-			<?php echo form_label('* Özet', 'ozet') ?>
-			<?php echo form_textarea($form1['ozet']) ?>
-		</p>
-		
-		<p>
-			<?php echo form_label('* İçerik', 'icerik') ?>
-			<?php echo form_textarea($form1['icerik']) ?>
-		</p>
-		
-		<p>
-			<?php echo form_label('* Kategori', 'kategori_id') ?>
-			<?php echo form_dropdown('kategori_id', $kategori_listesi, $yazi->kategori_id) ?>
-		</p>
-		
-		<p>
-			<?php echo form_label('&nbsp;') ?>
-			<?php echo form_submit($form1['submit1']) ?>
-		</p>
+			<p>
+				<?php echo form_label('* Başlık', 'baslik') ?>
+				<?php echo form_input($form1['baslik']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('* Özet', 'ozet') ?>
+				<?php echo form_textarea($form1['ozet']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('* İçerik', 'icerik') ?>
+				<?php echo form_textarea($form1['icerik']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('Etiketler', 'etiketler') ?>
+				<?php echo form_input($form1['etiketler']) ?>
+			</p>
+			
+			<p>
+				<?php echo form_label('&nbsp;') ?>
+				<?php echo form_submit($form1['submit1']) ?>
+			</p>
 			
 		<?php echo form_close() ?>
 	</div>

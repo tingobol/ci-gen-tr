@@ -6,7 +6,7 @@ class MY_Controller extends Controller
 	{
 		parent::Controller();
 
-		$this->output->enable_profiler(TRUE);
+		if (local) $this->output->enable_profiler(TRUE);
 	}
 }
 
