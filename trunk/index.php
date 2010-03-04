@@ -1,4 +1,18 @@
 <?php
+
+define('LOCAL', $_SERVER['SERVER_NAME'] == 'localhost' ? true : false);
+
+define('HOME_ROOT', dirname(__FILE__));
+
+if (LOCAL) {
+	
+	define('HOME_URL', 'http://localhost/ci-gen-tr');
+	error_reporting(E_ALL);
+} else {
+	
+	define('HOME_URL', 'http://www.ci.gen.tr');
+}
+
 /*
 |---------------------------------------------------------------
 | PHP ERROR REPORTING LEVEL
