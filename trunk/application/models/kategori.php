@@ -36,13 +36,13 @@ class Kategori extends MY_Model {
 		return $return;
 	}
 	
+	
 	// misafire sol tarafda kategorilerin bağlantılarını göstermek için
 	function get_liste_2() {
 	
-		return $this->db
-					->select('id, adi')
-					->order_by('adi', 'asc')
-					->get('kategoriler');
+		return $this->db->select('id, adi')
+						->order_by('adi', 'asc')
+						->get($this->tablo_adi);
 	}
 	
 	function is_var_where_adi() {

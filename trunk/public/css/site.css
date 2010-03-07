@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+
+div.yazi div.alt_bilgi {
+
+	padding: 0px 10px;
+	height: 15px;
+	color: #3e98ad;
+	font: bold 12px "Trebuchet MS", "Tahoma", sans-serif;
+	display: table;
+}
+
+div.yazi div.alt_bilgi span.tarih {
+
+	background: url(site/tarih1.png) no-repeat left center;
+	padding-left: 20px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+	display: block;
+	margin-bottom: 6px;
+}
+
+div.yazi div.alt_bilgi span.kategori {
+
+	background: url(site/kategori1.png) no-repeat left center;
+	padding-left: 20px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+	display: block;
+	margin-bottom: 6px;	
+}
+
+div.yazi div.alt_bilgi span.hit {
+
+	background: url(site/hit1.png) no-repeat left center;
+	padding-left: 20px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;	
+	display: block;
+	margin-bottom: 6px;
+}
+
+div.yazi div.alt_bilgi span.taglar {
+
+	background: url(site/taglar1.png) no-repeat left center;
+	padding-left: 20px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;	
+	display: block;
+	margin-bottom: 6px;
+}

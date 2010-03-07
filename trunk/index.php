@@ -8,10 +8,17 @@ if (LOCAL) {
 	
 	define('HOME_URL', 'http://localhost/ci-gen-tr');
 	error_reporting(E_ALL);
+	
+	require_once HOME_ROOT . '/private/ayarlar_local.php';
+	
 } else {
 	
 	define('HOME_URL', 'http://www.ci.gen.tr');
+	
+	require_once HOME_ROOT . '/private/ayarlar_live.php';
 }
+
+require_once HOME_ROOT . '/private/sabitler.php';
 
 /*
 |---------------------------------------------------------------

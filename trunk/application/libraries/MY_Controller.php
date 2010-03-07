@@ -4,6 +4,30 @@ class MY_Controller extends Controller
 {
 	/**
 	 * 
+	 * @var Yazi_etiketi
+	 */
+	var $yazi_etiketi;
+	
+	/**
+	 * 
+	 * @var Yazi
+	 */
+	var $yazi;
+	
+	/**
+	 * 
+	 * @var Sayfalama_lib
+	 */
+	var $sayfalama_lib;
+	
+	/**
+	 * 
+	 * @var Kategori
+	 */
+	var $kategori;
+	
+	/**
+	 * 
 	 * @var Kullanici_tempi_lib
 	 */
 	var $kullanici_tempi_lib;
@@ -12,7 +36,7 @@ class MY_Controller extends Controller
 	{
 		parent::Controller();
 
-		if (local) $this->output->enable_profiler(TRUE);
+		if (LOCAL) $this->output->enable_profiler(TRUE);
 	}
 }
 

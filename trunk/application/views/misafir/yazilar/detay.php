@@ -9,7 +9,7 @@
 			</div>
 			
 			<div class="post-content">
-				<div class="bilgi">Yazı bulunamadı.</div>
+				<div class="hata">Yazı bulunamadı.</div>
 			</div>
 		</div>
 <?php } else { ?>

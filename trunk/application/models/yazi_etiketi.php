@@ -28,12 +28,13 @@ class Yazi_etiketi extends MY_Model {
 	// bir yazıya ait etiketlerin listesini verir.
 	function get_liste_1() {
 	
-		return $this->db->select('etiketler.id, etiketler.adi')
+		if (empty($this->yazi_id)) throw new Exception('Yazı Id boş geçilemez.');
+		
+		return $this->db->select('etiketler.*')
 						->join('yazi_etiketleri', 'etiketler.id = yazi_etiketleri.etiket_id')
 						->where('yazi_etiketleri.yazi_id', $this->yazi_id)
 						->order_by('etiketler.adi', 'ASC')
-						->get('etiketler')
-						->result_object();
+						->get('etiketler');
 	}
 	
 	function get_liste_2() {
