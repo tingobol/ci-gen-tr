@@ -37,11 +37,11 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "localhost";
-$db['default']['username'] = "root";
-$db['default']['password'] = "";
-$db['default']['database'] = "ci_gen_tr";
-$db['default']['dbdriver'] = "mysql";
+$db['default']['hostname'] = AYAR_1;
+$db['default']['username'] = AYAR_2;
+$db['default']['password'] = AYAR_3;
+$db['default']['database'] = AYAR_4;
+$db['default']['dbdriver'] = AYAR_5;
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

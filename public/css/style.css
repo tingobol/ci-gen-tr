@@ -194,7 +194,7 @@ form {
 
 .post {
 	clear:both;
-	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 .entry {
@@ -202,6 +202,7 @@ form {
 	padding-bottom:7px;
 	width: 712px;
 	display: table;
+	
 }
 .entrytop{
 	background:url(images/crv_top.gif) no-repeat top;
@@ -260,7 +261,7 @@ form {
 	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
 }
 .post-cat {
-	background: url(images/page.gif) no-repeat left center;
+	background: url(images/folder.png) no-repeat left center;
 	padding-left: 20px;
 	float: left;
 }
@@ -285,6 +286,7 @@ form {
 	height: 15px;
 	color: #3e98ad;
 	font: bold 12px "Trebuchet MS", "Tahoma", sans-serif;
+	display: table;
 }
 .post-info a {
 	color: #006699;
@@ -302,6 +304,47 @@ form {
 	border-bottom: 2px solid #dbeff6; 
 	padding: 8px;
 }
+.post-tags {
+	background: url(images/tags.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+}
+
+.yazi-devami {
+	background: url(images/yazi_devami.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+	width: 140px;
+}
+.yazi-tarih {
+	background: url(images/yazi_tarih.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+	width: 140px;
+}
+.yazi-hit {
+	background: url(images/yazi_hit.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+	width: 140px;
+}
+.yazi-kategori {
+	background: url(images/yazi_kategori.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	font: 12px "Trebuchet MS", "Tahoma", sans-serif;
+	width: 140px;
+}
+
 .navigation {
 	clear: both;
 	padding: 10px 0px;

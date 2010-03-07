@@ -181,6 +181,30 @@ class MY_Model extends Model {
 		return $this->get_x_where_y_and_z('id', $x, $y);
 	}
 	
+	function artir_x_where_y($x, $y) {
+	
+		$this->db->set($x, $x . ' + 1', FALSE);
+		$this->db->where($y, $this->$y);
+		$this->db->update($this->tablo_adi);
+	}
+	
+	function azalt_x_where_y($x, $y) {
+	
+		$this->db->set($x, $x . ' - 1', FALSE);
+		$this->db->where($y, $this->$y);
+		$this->db->update($this->tablo_adi);
+	}
+	
+	function artir_x_where_id($x) {
+	
+		$this->artir_x_where_y($x, 'id');
+	}
+	
+	function azalt_x_where_id($x) {
+	
+		$this->azalt_x_where_y($x, 'id');
+	}
+	
 	function ekle($alanlar) {
 	
 		$data = array();

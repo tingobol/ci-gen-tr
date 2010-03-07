@@ -27,6 +27,17 @@ class Yazi extends MY_Model {
 		$this->guncellenme_zamani = $this->zaman;
 	}
 	
+	function get_detay_1() {
+	
+		return $this->db->select('
+							yazilar.*,
+							kategoriler.adi AS kategori_adi')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->where('yazilar.id', $this->id)
+						->get($this->tablo_adi)
+						->first_row();
+	}
+	
 	// yazarın kategorileri listelemesi için kullanılmaktadır.
 	function get_liste_1() {
 	
@@ -143,5 +154,10 @@ class Yazi extends MY_Model {
 					'durum' => $this->durum);
 					
 		parent::guncelle_where_id($data);
+	}
+	
+	function artir_hit_where_id() {
+	
+		parent::artir_x_where_id('hit');
 	}
 }
