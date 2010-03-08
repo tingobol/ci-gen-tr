@@ -37,12 +37,29 @@ class Yazi_etiketi extends MY_Model {
 						->get('etiketler');
 	}
 	
+	/**
+	 * Bir yazıya ait etiketlerin listesini verir.
+	 */
 	function get_liste_2() {
 	
+		if (empty($this->yazi_id)) throw new Exception('Yazı Id boş geçilemez.');
+		
 		return $this->db->select('etiketler.id, etiketler.adi')
 						->join('yazi_etiketleri', 'etiketler.id = yazi_etiketleri.etiket_id')
 						->where('yazi_etiketleri.yazi_id', $this->yazi_id)
 						->order_by('etiketler.adi', 'ASC')
 						->get('etiketler');
+	}
+	
+	function get_liste_3() {
+	
+		return $this->db->select('yazilar.*, kategoriler.adi AS kategori_adi')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->join('yazi_etiketleri', 'yazilar.')
+						->where('yazilar.durum', Yazi::DURUM_ONAYLI)
+						->where('yazi_etiketleri.etiket_id', $this->etiket_id)
+						->order_by('yazilar.id', 'desc')
+						->limit($adet, $limit_ilk)
+						->get('yazilar');
 	}
 }
