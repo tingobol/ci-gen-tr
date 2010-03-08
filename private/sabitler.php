@@ -36,6 +36,15 @@ define('SAYFA_ADMIN_3', DIZIN_URL_1 . '/admin/panel/cikis');
 define('SAYFA_ADMIN_11', DIZIN_URL_1 . '/admin/kategori_yonetimi/liste');
 define('SAYFA_ADMIN_12', DIZIN_URL_1 . '/admin/kategori_yonetimi/ekle');
 
+// Editör
+define('SAYFA_EDITOR_0', DIZIN_URL_1 . '/editor/panel');
+define('SAYFA_EDITOR_1', DIZIN_URL_1 . '/editor/panel/giris');
+define('SAYFA_EDITOR_2', DIZIN_URL_1 . '/editor/panel/sifremi_unuttum');
+define('SAYFA_EDITOR_3', DIZIN_URL_1 . '/editor/panel/cikis');
+define('SAYFA_EDITOR_5', DIZIN_URL_1 . '/editor/panel/basvuru_yap');
+
+define('SAYFA_EDITOR_11', DIZIN_URL_1 . '/editor/yazi_yonetimi/onay_bekleyenler');
+
 // Yazar
 define('SAYFA_YAZAR_0', DIZIN_URL_1 . '/yazar/panel');
 define('SAYFA_YAZAR_1', DIZIN_URL_1 . '/yazar/panel/giris');
@@ -46,15 +55,6 @@ define('SAYFA_YAZAR_6', DIZIN_URL_1 . '/yazar/panel/sifre_degistir');
 
 define('SAYFA_YAZAR_11', DIZIN_URL_1 . '/yazar/yazi_yonetimi/liste');
 define('SAYFA_YAZAR_12', DIZIN_URL_1 . '/yazar/yazi_yonetimi/liste');
-
-// Editör
-define('SAYFA_EDITOR_0', DIZIN_URL_1 . '/editor/panel');
-define('SAYFA_EDITOR_1', DIZIN_URL_1 . '/editor/panel/giris');
-define('SAYFA_EDITOR_2', DIZIN_URL_1 . '/editor/panel/sifremi_unuttum');
-define('SAYFA_EDITOR_3', DIZIN_URL_1 . '/editor/panel/cikis');
-define('SAYFA_EDITOR_5', DIZIN_URL_1 . '/editor/panel/basvuru_yap');
-
-define('SAYFA_EDITOR_11', DIZIN_URL_1 . '/editor/yazi_yonetimi/onay_bekleyenler');
 
 // Misafir
 define('SAYFA_MISAFIR_0', DIZIN_URL_1 . '/misafir/yazilar/liste');

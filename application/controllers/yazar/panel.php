@@ -245,7 +245,7 @@ class Panel extends MY_YazarKontroller {
 		
 		$data['k_t'] = k_t_giris_yapmis_yazar;
 		
-		$this->load->view(sayfa_yazar_6, $data);
+		$this->smarty->view('yazar/panel/sifre_degistir.tpl', $data);
 	}
 	
 	function basvuru_yap() {
@@ -275,25 +275,46 @@ class Panel extends MY_YazarKontroller {
 				// başvuruyu kaydet
 				$this->kullanici->yazarlik_basvurusu_yap(); 
 				
+				$data['url1'] = SAYFA_MISAFIR_0;
+				
 				// başvuru yapana mail gönder
 				// basla mail
 				$this->load->library('email');
 
 				$this->email->to($this->kullanici->mail, $this->kullanici->adi);
 				$this->email->subject('Yazarlık Başvurusunda Bulundunuz');
-				$this->email->message($this->load->view('yazar/panel/mailler/basvuru_yap', $data, true));
+				$this->email->message($this->smarty->view('yazar/panel/mailler/basvuru_yap.tpl', $data, true));
 				
 				$this->email->send();
 				
 				// echo $this->email->print_debugger();
 				// bitti mail
 				
-				// @TODO adminler bilgilendirme alacak
+				// adminlere mail gönder
+				
+				$data['url2'] = SAYFA_ADMIN_0;
+				
+				$this->load->library('email');
+				$adminler = $this->kullanici->get_liste_1();
+				foreach ($adminler->result() as $admin) {
+				
+					$data['admin'] = $admin;
+					
+					// basla mail
+					$this->email->to($admin->mail, $admin->adi);
+					$this->email->subject('Yeni Yazar Başvurusunda Bulunuldu');
+					$this->email->message($this->smarty->view('yazar/panel/mailler/basvuru_yapildi.tpl', $data, true));
+					
+					$this->email->send();
+					
+					// echo $this->email->print_debugger();
+					// bitti mail
+				}
 				
 				$data['tamam'] = 'Yazarlık başvurunuz alınmıştır. En kısa zamanda değerlendirilecektir.';
 				
 			} catch (Exception $ex) {
-			
+				
 				$data['hata'] = $ex->getMessage();
 			} // try
 		} else { 
@@ -301,6 +322,8 @@ class Panel extends MY_YazarKontroller {
 			
 		} // if
 		
-		$this->load->view(sayfa_yazar_5, $data);
+
+		
+		$this->smarty->view('yazar/panel/basvuru_yap.tpl', $data);
 	}
 }
