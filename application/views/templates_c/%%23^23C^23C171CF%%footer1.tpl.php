@@ -1,3 +1,7 @@
+<?php /* Smarty version 2.6.26, created on 2010-03-08 15:51:27
+         compiled from footer1.tpl */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'sprintf', 'footer1.tpl', 63, false),)), $this); ?>
 <!--
 		<div class="navigation">
 			<span class="previous-entries"><a href="http://www.justskins.com/page/2">Previous Entries</a></span>
@@ -24,56 +28,68 @@
 		
 		<li>
 		
-		{if $k_t eq $smarty.const.SABIT_GIRIS_YAPACAK_ADMIN}
+		<?php if ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPACAK_ADMIN): ?>
 		
-		{elseif $k_t eq $smarty.const.SABIT_GIRIS_YAPMIS_ADMIN}
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPMIS_ADMIN): ?>
 		
 			<h2>Kategori Yönetimi</h2>
 			<ul class="linkcat">			
-				<li><a href="{$smarty.const.SAYFA_ADMIN_11}">Kategori Listesi</a></li>
-				<li><a href="{$smarty.const.SAYFA_ADMIN_12}">Kategori Ekle</a></li>
+				<li><a href="<?php echo @SAYFA_ADMIN_11; ?>
+">Kategori Listesi</a></li>
+				<li><a href="<?php echo @SAYFA_ADMIN_12; ?>
+">Kategori Ekle</a></li>
 				
 			</ul>
 		
-		{elseif $k_t eq $smarty.const.SABIT_GIRIS_YAPACAK_YAZAR}
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPACAK_YAZAR): ?>
 		
-		{elseif $k_t eq $smarty.const.SABIT_GIRIS_YAPMIS_YAZAR}
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPMIS_YAZAR): ?>
 		
 			<h2>Yazı Yönetimi</h2>
 			<ul class="linkcat">		
-				<li><a href="{$smarty.const.SAYFA_YAZAR_11}">Yazı Listesi</a></li>
-				<li><a href="{$smarty.const.SAYFA_YAZAR_12}">Yazı Ekle</a></li>	
+				<li><a href="<?php echo @SAYFA_YAZAR_11; ?>
+">Yazı Listesi</a></li>
+				<li><a href="<?php echo @SAYFA_YAZAR_12; ?>
+">Yazı Ekle</a></li>	
 			</ul>
 		
-		{elseif $k_t eq $smarty.const.SABIT_GIRIS_YAPACAK_EDITOR}
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPACAK_EDITOR): ?>
 		
-		{elseif $k_t eq $smarty.const.SABIT_GIRIS_YAPMIS_EDITOR}
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPMIS_EDITOR): ?>
 
 			<h2>Yazı Yönetimi</h2>
 			<ul class="linkcat">	
 					
-				<li><a href="{$smarty.const.SAYFA_EDITOR_11}">Onay Bekleyenler</a></li>
+				<li><a href="<?php echo @SAYFA_EDITOR_11; ?>
+">Onay Bekleyenler</a></li>
 			</ul>
 
-		{elseif $k_t eq $smarty.const.SABIT_YENI_GELMIS_MISAFIR}
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_YENI_GELMIS_MISAFIR): ?>
 
 			<h2>Kategoriler</h2>
 			<ul class="list-cat">
-				{foreach from=$nav_kategoriler->result() item=row}
-				<li><a href="{$smarty.const.SAYFA_MISAFIR_31|sprintf:$row->id}">{$row->adi}</a></li>
-				{/foreach}
+				<?php $_from = $this->_tpl_vars['nav_kategoriler']->result(); if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['row']):
+?>
+				<li><a href="<?php echo ((is_array($_tmp=@SAYFA_MISAFIR_31)) ? $this->_run_mod_handler('sprintf', true, $_tmp, $this->_tpl_vars['row']->id) : sprintf($_tmp, $this->_tpl_vars['row']->id)); ?>
+"><?php echo $this->_tpl_vars['row']->adi; ?>
+</a></li>
+				<?php endforeach; endif; unset($_from); ?>
 			</ul>
 		
 			<h2>Kullanıcı Türleri</h2>
 			<ul class="linkcat">	
-				<li><a href="{$smarty.const.SAYFA_ADMIN_0}">Admin Girişi</a>
-				<li><a href="{$smarty.const.SAYFA_EDITOR_0}">Editör Girişi</a>
-				<li><a href="{$smarty.const.SAYFA_YAZAR_0}">Yazar Girişi</a>
+				<li><a href="<?php echo @SAYFA_ADMIN_0; ?>
+">Admin Girişi</a>
+				<li><a href="<?php echo @SAYFA_EDITOR_0; ?>
+">Editör Girişi</a>
+				<li><a href="<?php echo @SAYFA_YAZAR_0; ?>
+">Yazar Girişi</a>
 			</ul>
 
-		{else}
+		<?php else: ?>
 		
-		{/if}
+		<?php endif; ?>
 		
 		</li>
 		

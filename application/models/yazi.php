@@ -196,8 +196,6 @@ class Yazi extends MY_Model {
 		parent::guncelle_where_id($data);
 	}
 	
-	function artir_hit_where_id() {
-	
-		parent::artir_x_where_id('hit');
-	}
+	function artir_hit_where_id() { parent::artir_x_where_id('hit'); }
+	function azalt_hit_where_id() { parent::azalt_x_where_id('hit'); }
 }

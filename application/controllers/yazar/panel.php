@@ -10,12 +10,10 @@ class Panel extends MY_YazarKontroller {
 		
 		$data['kullanici_adi'] = $this->kullanici_lib->kullanici_adi;
 		
-		$this->load->view('yazar/panel/index', $data);
+		$this->smarty->view('yazar/panel/index.tpl', $data);
 	} 
 	
 	function giris() {
-		
-		$data['k_t'] = k_t_giris_yapacak_yazar;
 		
 		$data['kullanici'] = $this->kullanici;
 		
@@ -35,18 +33,20 @@ class Panel extends MY_YazarKontroller {
 				
 				if (!$this->kullanici->is_onayli_where_id()) throw new Exception('Yazarlığınız onay beklemektedir. Onaylandıktan sonra mail ile bildirim alacaksınız.');
 
-				$this->kullanici_oturumu->kullanici_id = (int) $this->kullanici->id;
+				$this->kullanici_oturumu->kullanici_id = $this->kullanici->id;
 
 				$this->kullanici_oturumu->ekle();
 				
-				redirect(sayfa_yazar_0);
+				redirect(SAYFA_YAZAR_0);
 			} catch (Exception $ex) {
 			
 				$data['hata'] = $ex->getMessage();
 			}
 		}
 		
-		$this->load->view(sayfa_yazar_1, $data);
+		$data['k_t'] = k_t_giris_yapacak_yazar;
+		
+		$this->smarty->view('yazar/panel/giris.tpl', $data);
 	}
 	
 	function cikis() {
@@ -55,7 +55,7 @@ class Panel extends MY_YazarKontroller {
 		
 		$this->kullanici_oturumu->sil_where_oturum_id();
 		
-		redirect(sayfa_yazar_1);
+		redirect(SAYFA_YAZAR_1);
 	} 
 	
 	function sifremi_unuttum() {
@@ -112,7 +112,7 @@ class Panel extends MY_YazarKontroller {
 
 				$this->email->to($this->kullanici->mail, $this->kullanici->adi);
 				$this->email->subject('Şifrenizi Sıfırlayınız');
-				$this->email->message($this->load->view('yazar/panel/mailler/sifremi_unuttum', $data, true));
+				$this->email->message($this->smarty->view('yazar/panel/mailler/sifremi_unuttum.tpl', $data, true));
 				
 				$this->email->send();
 				
@@ -132,7 +132,7 @@ class Panel extends MY_YazarKontroller {
 		
 		$data['k_t'] = k_t_giris_yapacak_yazar;
 		
-		$this->load->view(sayfa_yazar_2, $data);
+		$this->smarty->view('yazar/panel/sifremi_unuttum.tpl', $data);
 	}
 	
 	function sifreyi_sifirla($id = 0, $temp = '') {
@@ -172,7 +172,7 @@ class Panel extends MY_YazarKontroller {
 			$this->kullanici->guncelle_sifre_where_id();
 			$data['temp_sifre'] = $temp_sifre;
 
-			$data['url1'] = site_url(sayfa_yazar_1);
+			$data['url1'] = site_url(SAYFA_YAZAR_1);
 
 			$data['kullanici'] = $this->kullanici;
 
@@ -181,7 +181,7 @@ class Panel extends MY_YazarKontroller {
 
 			$this->email->to($this->kullanici->mail, $this->kullanici->adi);
 			$this->email->subject('Yeni Şifreniz');
-			$this->email->message($this->load->view('yazar/panel/mailler/sifreyi_sifirla', $data, true));
+			$this->email->message($this->smarty->view('yazar/panel/mailler/sifreyi_sifirla.tpl', $data, true));
 			
 			$this->email->send();
 			
@@ -196,7 +196,7 @@ class Panel extends MY_YazarKontroller {
 		
 		$data['k_t'] = k_t_giris_yapacak_yazar;
 		
-		$this->load->view('yazar/panel/sifreyi_sifirla', $data);
+		$this->smarty->view('yazar/panel/sifreyi_sifirla.tpl', $data);
 	}
 	
 	function sifre_degistir() {

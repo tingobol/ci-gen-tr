@@ -4,6 +4,18 @@ class MY_Controller extends Controller
 {
 	/**
 	 * 
+	 * @var CI_Smarty
+	 */
+	var $smarty;
+	
+	/**
+	 * 
+	 * @var Kullanici
+	 */
+	var $kullanici;
+	
+	/**
+	 * 
 	 * @var Iletisim_konusu
 	 */
 	var $iletisim_konusu;
