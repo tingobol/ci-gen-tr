@@ -1,0 +1,3 @@
+CodeIgniter sistem klasörünün içini buraya kopyalayın
+
+!!! sadece "application" klasörünü kopyalamayın !!!

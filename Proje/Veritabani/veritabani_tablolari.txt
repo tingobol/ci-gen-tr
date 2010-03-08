@@ -77,4 +77,4 @@ iletisim_mesajlari
  - zaman
  - ip
  - is_okundu
- - iletisim_konu_id
+ - konu_id

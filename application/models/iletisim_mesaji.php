@@ -11,7 +11,7 @@ class Iletisim_mesaji extends MY_Model {
 	// var $zaman; MY_Model'de var
 	var $ip;
 	var $is_okundu = 0;
-	var $iletisim_konu_id;
+	var $konu_id;
 	
 	function Iletisim_mesaji() {
 	
@@ -28,6 +28,6 @@ class Iletisim_mesaji extends MY_Model {
 								'mesaj', 
 								'zaman', 
 								'ip', 
-								'iletisim_konu_id'));
+								'konu_id'));
 	}
 }

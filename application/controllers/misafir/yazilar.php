@@ -16,10 +16,6 @@ class Yazilar extends MY_MisafirKontroller {
 	
 	function liste($sayfa = 1) {
 		
-		// navigasyon için
-		$this->load->model('kategori');
-		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
-		
 		$this->load->library('sayfalama_lib');
 		
 		$this->sayfalama_lib->adet = 10;
@@ -31,6 +27,10 @@ class Yazilar extends MY_MisafirKontroller {
 		$data['sayfalama_lib'] = $this->sayfalama_lib;
 		
 		$data['k_t'] = k_t_yeni_gelmis_misafir;
+		
+		// navigasyon için
+		$this->load->model('kategori');
+		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
 		
 		$this->smarty->view('misafir/yazilar/liste.tpl', $data);
 	}

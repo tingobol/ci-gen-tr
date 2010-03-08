@@ -1,5 +1,6 @@
 @CHARSET "UTF-8";
 
+/* Yazı Detay Alt Bilgisi */
 div.yazi div.alt_bilgi {
 
 	padding: 0px 10px;
@@ -43,4 +44,72 @@ div.yazi div.alt_bilgi span.taglar {
 	font: 12px "Trebuchet MS", "Tahoma", sans-serif;	
 	display: block;
 	margin-bottom: 6px;
+}
+
+/* Yaz Özeti Alt Bilgisi */
+div.yazi_ozet {
+
+	clear: both;
+	padding-bottom: 15px;
+}
+
+div.yazi_ozet div.icerik {
+
+	padding: 10px;
+}
+
+div.yazi_ozet div.alt_bilgi {
+
+	color: #3e98ad;
+	font: bold 12px "Trebuchet MS", "Tahoma", sans-serif;
+	display: table;
+}
+
+div.yazi_ozet div.alt_bilgi span.devami {
+	
+	background: url(images/yazi_devami.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	width: 140px;
+}
+
+div.yazi_ozet div.alt_bilgi span.kategori {
+	
+	background: url(images/yazi_kategori.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	width: 140px;
+}
+
+div.yazi_ozet div.alt_bilgi span.hit {
+	
+	background: url(images/yazi_hit.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	width: 140px;
+}
+
+div.yazi_ozet div.alt_bilgi span.tarih {
+	
+	background: url(images/yazi_tarih.png) no-repeat left center;
+	padding-left: 20px;
+	float: left;
+	margin: 10px 0 0 10px;
+	width: 140px;
+}
+
+/* BLOK 1 */
+div.blok1 {
+
+	clear:both;
+	padding-bottom: 15px;
+}
+
+div.blok1 div.icerik {
+
+	clear: both;
+	padding: 10px;
 }
