@@ -23,12 +23,26 @@ class Kullanici extends MY_Model {
 	const TUR_EDITOR = 1;
 	const TUR_YAZAR = 10;
 	const TUR_ADMIN = 100;
+	
+	const ONAY_BEKLIYOR = 0;
+	const ONAYLI = 1;
 
 	function Kullanici() {
 	
 		parent::MY_Model();
 		
 		$this->uye_olma_zamani = $this->zaman;
+	}
+	
+	/**
+	 * Onaylı admin kullanıcılarının listesini verir
+	 */
+	function get_liste_1() {
+	
+		return $this->db->select('adi, mail')
+						->where('turu', Kullanici::TUR_ADMIN)
+						->where('onay', Kullanici::ONAYLI)
+						->get($this->tablo_adi);
 	}
 	
 	/*

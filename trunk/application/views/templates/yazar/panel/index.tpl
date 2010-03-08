@@ -4,7 +4,7 @@
 
 	<div class="entrytop">
 		<div class="entry">
-			<h2>Hoşgeldin <?php echo $kullanici_adi ?> :)</h2>
+			<h2>Hoşgeldin {$kullanici_adi} :)</h2>
 		</div>
 	</div>
 	
