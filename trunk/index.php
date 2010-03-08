@@ -6,7 +6,7 @@ define('HOME_ROOT', dirname(__FILE__));
 
 if (LOCAL) {
 	
-	define('HOME_URL', 'http://localhost/ci-gen-tr');
+	define('HOME_URL', 'http://localhost/tr.gen.ci');
 	error_reporting(E_ALL);
 	
 	require_once HOME_ROOT . '/private/ayarlar_local.php';

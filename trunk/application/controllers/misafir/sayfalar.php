@@ -25,13 +25,15 @@ class Sayfalar extends MY_MisafirKontroller {
 			$this->iletisim_mesaji->adi = $this->input->post('adi');
 			$this->iletisim_mesaji->mail = $this->input->post('mail');
 			$this->iletisim_mesaji->mesaj = html_filtrele_1($this->input->post('mesaj'));
-			$this->iletisim_mesaji->iletisim_konu_id = (int) $this->input->post('iletisim_konu_id');
+			$this->iletisim_mesaji->konu_id = (int) $this->input->post('konu_id');
+			
+			$this->smarty->assign('konu_selected_id', $this->iletisim_mesaji->konu_id);
 			
 			// post bilgilerini kontrole başlayalım
 			try {
 			
 				// doldurulması zorunlu alanların kontrolü
-				if (form_is_bos($this->iletisim_mesaji->iletisim_konu_id)) throw new Exception('Lütfen mesajınız için bir konu seçiniz.');
+				if (form_is_bos($this->iletisim_mesaji->konu_id)) throw new Exception('Lütfen mesajınız için bir konu seçiniz.');
 				if (form_is_bos($this->iletisim_mesaji->adi)) throw new Exception('Lütfen adınızı yazınız.');
 				if (form_is_bos($this->iletisim_mesaji->mail)) throw new Exception('Lütfen mail adresinizi yazınız.');
 				if (!form_is_mail($this->iletisim_mesaji->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
@@ -39,7 +41,7 @@ class Sayfalar extends MY_MisafirKontroller {
 				
 				// mesaj gönderilirken seçilen konunun sistemde 
 				// olup olmadığına bakılıyor
-				$this->iletisim_konusu->id = (int) $this->iletisim_mesaji->iletisim_konu_id;				
+				$this->iletisim_konusu->id = $this->iletisim_mesaji->konu_id;				
 				if (!$this->iletisim_konusu->is_var_where_id()) throw new Exception('Belirtilen konu sistemde bulunmamaktadır. Lütfen listeden bir konu seçiniz.');
 				
 				// mesajı veritabanına kaydet
@@ -47,7 +49,9 @@ class Sayfalar extends MY_MisafirKontroller {
 				
 				// @TODO yöneticilere bilgi mesajı gönderilecek
 				
-				$data['tamam'] = 'Mesajınız kaydedilmiştir. En kısa zamanda incelenecektir.';
+				$this->session->set_flashdata('tamam', 'Mesajınız kaydedilmiştir. En kısa zamanda incelenecektir.');
+				
+				redirect(SAYFA_MISAFIR_41);
 				
 			} catch (Exception $ex) {
 			
@@ -55,16 +59,22 @@ class Sayfalar extends MY_MisafirKontroller {
 			}
 		} else {
 		
+			$this->smarty->assign('konu_selected_id', 0);
 			
+			$this->smarty->assign('tamam', $this->session->flashdata('tamam'));
 		}
 		
 		$data['k_t'] = k_t_yeni_gelmis_misafir;
 		
+		// drop down konu seçmek için
+		$iletisim_konulari = $this->iletisim_konusu->get_liste_1();
+		$this->smarty->assign('konu_ids', $iletisim_konulari['values']);
+		$this->smarty->assign('konu_names', $iletisim_konulari['output']); 
+		
 		// navigasyon için
 		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
+
 		
-		$data['iletisim_konusu_listesi'] = $this->iletisim_konusu->get_liste_1();
-		
-		$this->load->view('misafir/sayfalar/iletisim', $data);
+		$this->smarty->view('misafir/sayfalar/iletisim.tpl', $data);
 	}
 }

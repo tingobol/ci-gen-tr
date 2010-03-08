@@ -11,17 +11,18 @@ class Iletisim_konusu extends MY_Model {
 	function get_liste_1() {
 	
 		$items = $this->db
-					->select('id, adi')
-					->order_by('adi', 'asc')
-					->get('iletisim_konulari');
-			
-		$return = array(0 => 'Konu Seçiniz');	
-						
+						->order_by('adi', 'asc')
+						->get($this->tablo_adi);
+
+		$return['values'] = array(0);
+		$return['output'] = array('Konu Seçiniz');	
+
 		foreach ($items->result() as $item) {
 		
-			$return[$item->id] = $item->adi;
+			$return['values'][] = $item->id;
+			$return['output'][] = $item->adi;
 		}		
-		
+
 		return $return;
 	}
 }

@@ -1,3 +1,7 @@
+<?php /* Smarty version 2.6.26, created on 2010-03-07 16:55:19
+         compiled from footer1.tpl */ ?>
+<?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'sprintf', 'footer1.tpl', 63, false),)), $this); ?>
 <!--
 		<div class="navigation">
 			<span class="previous-entries"><a href="http://www.justskins.com/page/2">Previous Entries</a></span>
@@ -24,48 +28,68 @@
 		
 		<li>
 		
-		<?php if (@$k_t == k_t_giris_yapacak_admin) { // admin giriş yapmak isterse ?>
-				
-		<?php } elseif (@$k_t == k_t_giris_yapmis_admin) { // admin giriş yaptıysa ?>
+		<?php if ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPACAK_ADMIN): ?>
+		
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPMIS_ADMIN): ?>
+		
 			<h2>Kategori Yönetimi</h2>
 			<ul class="linkcat">			
-				<li><?php echo anchor(sayfa_admin_11, 'Kategori Listesi') ?></li>
-				<li><?php echo anchor(sayfa_admin_12, 'Kategori Ekle') ?></li>
+				<li><a href="<?php echo @SAYFA_ADMIN_11; ?>
+">Kategori Listesi</a></li>
+				<li><a href="<?php echo @SAYFA_ADMIN_12; ?>
+">Kategori Ekle</a></li>
+				
 			</ul>
-		<?php } elseif (@$k_t == k_t_giris_yapacak_yazar) { // yazar giriş yapmak isterse ?>
-
-		<?php } elseif (@$k_t == k_t_giris_yapmis_yazar) { // yazar giriş yaptıysa ?>
+		
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPACAK_YAZAR): ?>
+		
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPMIS_YAZAR): ?>
+		
 			<h2>Yazı Yönetimi</h2>
-			<ul class="linkcat">			
-				<li><?php echo anchor(sayfa_yazar_11, 'Yazı Listesi') ?></li>
-				<li><?php echo anchor(sayfa_yazar_12, 'Yazı Ekle') ?></li>
+			<ul class="linkcat">		
+				<li><a href="<?php echo @SAYFA_YAZAR_11; ?>
+">Yazı Listesi</a></li>
+				<li><a href="<?php echo @SAYFA_YAZAR_12; ?>
+">Yazı Ekle</a></li>	
 			</ul>
-		<?php } elseif (@$k_t == k_t_giris_yapacak_editor) { // editor giriş yapmak isterse ?>
+		
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPACAK_EDITOR): ?>
+		
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_GIRIS_YAPMIS_EDITOR): ?>
 
-		<?php } elseif (@$k_t == k_t_giris_yapmis_editor) { // editor giriş yaptıysa ?>
 			<h2>Yazı Yönetimi</h2>
-			<ul class="linkcat">			
-				<li><?php echo anchor(sayfa_editor_11, 'Onay Bekleyenler') ?></li>
+			<ul class="linkcat">	
+					
+				<li><a href="<?php echo @SAYFA_EDITOR_11; ?>
+">Onay Bekleyenler</a></li>
 			</ul>
-		<?php } elseif (@$k_t == k_t_yeni_gelmis_misafir) { // misafir ?>
-			
+
+		<?php elseif ($this->_tpl_vars['k_t'] == @SABIT_YENI_GELMIS_MISAFIR): ?>
+
 			<h2>Kategoriler</h2>
 			<ul class="list-cat">
-				<?php foreach ($nav_kategoriler->result() as $row) { ?>
-				<li><?php echo anchor(sprintf(sayfa_misafir_31, $row->id), $row->adi) ?></li>
-				<?php } ?>
+				<?php $_from = $this->_tpl_vars['nav_kategoriler']->result(); if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['row']):
+?>
+				<li><a href="<?php echo ((is_array($_tmp=@SAYFA_MISAFIR_31)) ? $this->_run_mod_handler('sprintf', true, $_tmp, $this->_tpl_vars['row']->id) : sprintf($_tmp, $this->_tpl_vars['row']->id)); ?>
+"><?php echo $this->_tpl_vars['row']->adi; ?>
+</a></li>
+				<?php endforeach; endif; unset($_from); ?>
 			</ul>
 		
 			<h2>Kullanıcı Türleri</h2>
-			<ul class="linkcat">			
-				<li><?php echo anchor(sayfa_admin_0, 'Admin Girişi') ?></li>
-				<li><?php echo anchor(sayfa_editor_0, 'Editör Girişi') ?></li>
-				<li><?php echo anchor(sayfa_yazar_0, 'Yazar Girişi') ?></li>
+			<ul class="linkcat">	
+				<li><a href="<?php echo @SAYFA_ADMIN_0; ?>
+">Admin Girişi</a>
+				<li><a href="<?php echo @SAYFA_YAZAR_0; ?>
+">Yazar Girişi</a>
+				<li><a href="<?php echo @SAYFA_EDITOR_0; ?>
+">Editör Girişi</a>
 			</ul>
-			
-		<?php } else { // diğer durumlarda ?>
 
-		<?php } ?>
+		<?php else: ?>
+		
+		<?php endif; ?>
 		
 		</li>
 		
@@ -192,7 +216,7 @@
 	<!-- / footer -->
 	<!-- credits -->
 	<div id="credits">
-		<div class="alignleft">Tasarım: JustSkins.Com | {elapsed_time} sn.</div>
+		<div class="alignleft">Tasarım: JustSkins.Com</div>
 		<div class="alignright"> <a href="http://validator.w3.org/check?uri=referer" class="valid">XHTML</a> <a href="http://jigsaw.w3.org/css-validator/check?uri=referer" class="valid">CSS</a> <a href="#" class="rss">RSS</a> </div>
 	</div>
 	<!-- / credits -->

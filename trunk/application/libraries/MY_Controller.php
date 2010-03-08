@@ -4,6 +4,12 @@ class MY_Controller extends Controller
 {
 	/**
 	 * 
+	 * @var Iletisim_konusu
+	 */
+	var $iletisim_konusu;
+	
+	/**
+	 * 
 	 * @var Yazi_etiketi
 	 */
 	var $yazi_etiketi;

@@ -74,12 +74,13 @@ class Yazi extends MY_Model {
 	 */
 	function get_liste_4($kategori_id, $adet, $limit_ilk) {
 	
-		return $this->db->where('durum', Yazi::DURUM_ONAYLI)
+		return $this->db->select('yazilar.*, kategoriler.adi AS kategori_adi')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->where('durum', Yazi::DURUM_ONAYLI)
 						->where('kategori_id', $kategori_id)
 						->order_by('id', 'desc')
 						->limit($adet, $limit_ilk)
-						->get('yazilar')
-						->result_object();
+						->get('yazilar');
 	}
 	
 	function get_liste_5($adet, $limit_ilk) {

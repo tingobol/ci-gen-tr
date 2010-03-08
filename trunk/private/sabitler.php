@@ -64,5 +64,6 @@ define('SAYFA_MISAFIR_22', DIZIN_URL_1 . '/misafir/yazilar/liste/%d'); // %d: sa
 define('SAYFA_MISAFIR_23', DIZIN_URL_1 . '/misafir/yazilar/detay/%d'); // $s: id
 
 define('SAYFA_MISAFIR_31', DIZIN_URL_1 . '/misafir/kategoriler/yazilari_listele/%d'); // %d: kategori_id
+define('SAYFA_MISAFIR_32', DIZIN_URL_1 . '/misafir/kategoriler/yazilari_listele/%d/%d'); // %d: kategori_id, %d: sayfa_no
 
 define('SAYFA_MISAFIR_41', DIZIN_URL_1 . '/misafir/sayfalar/iletisim');
