@@ -41,16 +41,23 @@ class Yazilar extends MY_MisafirKontroller {
 		
 		$this->yazi->id = (int) $id;		
 		
+		// yazı sistemde mevcut değilse yazi listesine yönlendiriliyor
 		if (!$this->yazi->is_var_where_id()) 
-			redirect(SAYFA_MISAFIR_21);
-			
-		$temp_yazi = $this->yazi->get_detay_1();
-		
-		if ($temp_yazi->durum != Yazi::DURUM_ONAYLI) 
 			redirect(SAYFA_MISAFIR_21);
 			
 		// yazının hitini artir
 		$this->yazi->artir_hit_where_id();
+			
+		$temp_yazi = $this->yazi->get_detay_1();
+		
+		if ($temp_yazi->durum != Yazi::DURUM_ONAYLI) {
+			
+			// yazının hiti artırılmıştı, tekrar azaltılsın
+			$this->yazi->azalt_hit_where_id();
+			
+			// yazı durumu onaylı olmadığı için yazı listesine yönlendiriliyor
+			redirect(SAYFA_MISAFIR_21);
+		}
 			
 		$this->yazi_etiketi->yazi_id = $temp_yazi->id;
 		$temp_yazi_etiketleri = $this->yazi_etiketi->get_liste_1();
