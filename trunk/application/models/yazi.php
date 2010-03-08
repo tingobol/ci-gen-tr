@@ -69,20 +69,27 @@ class Yazi extends MY_Model {
 	/**
 	 * Bir kategorideki onaylı yazıların listesini verir
 	 *  
-	 * @param $kategori_id
 	 * @return array
 	 */
-	function get_liste_4($kategori_id, $adet, $limit_ilk) {
+	function get_liste_4($adet, $limit_ilk) {
 	
+		if (empty($this->kategori_id)) throw new Exception('Kategori Id boş geçilemez.');
+		
 		return $this->db->select('yazilar.*, kategoriler.adi AS kategori_adi')
 						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
-						->where('durum', Yazi::DURUM_ONAYLI)
-						->where('kategori_id', $kategori_id)
-						->order_by('id', 'desc')
+						->where('yazilar.durum', Yazi::DURUM_ONAYLI)
+						->where('yazilar.kategori_id', $this->kategori_id)
+						->order_by('yazilar.id', 'desc')
 						->limit($adet, $limit_ilk)
-						->get('yazilar');
+						->get($this->tablo_adi);
 	}
 	
+	/**
+	 * Onaylanmış yazıların listesini verir.
+	 * 
+	 * @param int $adet
+	 * @param int $limit_ilk
+	 */
 	function get_liste_5($adet, $limit_ilk) {
 	
 		return $this->db->select('yazilar.*, kategoriler.adi AS kategori_adi')
@@ -90,7 +97,20 @@ class Yazi extends MY_Model {
 						->where('yazilar.durum', Yazi::DURUM_ONAYLI)
 						->order_by('yazilar.id', 'desc')
 						->limit($adet, $limit_ilk)
-						->get('yazilar');
+						->get($this->tablo_adi);
+	}
+	
+	function get_liste_6($etiket_id, $adet, $limit_ilk) {
+		
+		return $this->db->select('yazilar.*, kategoriler.adi AS kategori_adi')
+						->join('yazi_etiketleri', 'yazi_etiketleri.yazi_id = yazilar.id')
+						->join('etiketler', 'yazi_etiketleri.etiket_id = etiketler.id')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->where('yazilar.durum', Yazi::DURUM_ONAYLI)
+						->where('yazi_etiketleri.etiket_id', $etiket_id)
+						->order_by('yazilar.id', 'desc')
+						->limit($adet, $limit_ilk)
+						->get($this->tablo_adi);
 	}
 
 	/**
@@ -103,7 +123,7 @@ class Yazi extends MY_Model {
 	
 		$ret = $this->db->select('COUNT(*) AS adet')
 						->where('durum', Yazi::DURUM_ONAYLI)
-						->get('yazilar')
+						->get($this->tablo_adi)
 						->row();
 						
 		return $ret->adet;
@@ -112,15 +132,34 @@ class Yazi extends MY_Model {
 	/**
 	 * Bir kategoride kaç tane onaylı yazı var?
 	 * 
-	 * @param int $kategori_id
 	 * @return int
 	 */
-	function get_adet_2($kategori_id) {
+	function get_adet_2() {
 	
+		if (empty($this->kategori_id)) throw new Exception('Kategori Id boş geçilemez.');
+		
 		$ret = $this->db->select('COUNT(*) AS adet')
 						->where('durum', Yazi::DURUM_ONAYLI)
-						->where('kategori_id', $kategori_id)
-						->get('yazilar')
+						->where('kategori_id', $this->kategori_id)
+						->get($this->tablo_adi)
+						->row();
+						
+		return $ret->adet;
+	}
+	
+	/**
+	 * $etiket_id ile etiketli onaylanmış yazıların adetini verir.
+	 * 
+	 * @param int $etiket_id
+	 */
+	function get_adet_3($etiket_id) {
+	
+		$ret = $this->db->select('COUNT(yazilar.id) AS adet')
+						->join('yazi_etiketleri', 'yazi_etiketleri.yazi_id = yazilar.id')
+						->join('etiketler', 'yazi_etiketleri.etiket_id = etiketler.id')
+						->where('yazilar.durum', Yazi::DURUM_ONAYLI)
+						->where('yazi_etiketleri.etiket_id', $etiket_id)
+						->get($this->tablo_adi)
 						->row();
 						
 		return $ret->adet;

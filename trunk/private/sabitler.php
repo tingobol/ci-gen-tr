@@ -67,3 +67,6 @@ define('SAYFA_MISAFIR_31', DIZIN_URL_1 . '/misafir/kategoriler/yazilari_listele/
 define('SAYFA_MISAFIR_32', DIZIN_URL_1 . '/misafir/kategoriler/yazilari_listele/%d/%d'); // %d: kategori_id, %d: sayfa_no
 
 define('SAYFA_MISAFIR_41', DIZIN_URL_1 . '/misafir/sayfalar/iletisim');
+
+define('SAYFA_MISAFIR_51', DIZIN_URL_1 . '/misafir/yazi_etiketleri/yazilari_listele/%d'); // %d: etiket_id
+define('SAYFA_MISAFIR_52', DIZIN_URL_1 . '/misafir/yazi_etiketleri/yazilari_listele/%d/%d'); // %d: etiket_id, %d: sayfa_no

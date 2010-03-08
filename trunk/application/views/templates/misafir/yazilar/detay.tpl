@@ -27,7 +27,7 @@
 		<span class="hit">Okunma: {$yazi->hit}</span>
 		<span class="taglar">Etiketler: 
 		{foreach from=$yazi_etiketleri->result() item=yazi_etiketi}
-			<a href="#">{$yazi_etiketi->adi}</a>
+			<a href="{$smarty.const.SAYFA_MISAFIR_51|sprintf:$yazi_etiketi->id}">{$yazi_etiketi->adi}</a>
 		{/foreach}
 		</span>
 		
