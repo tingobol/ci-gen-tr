@@ -4,6 +4,12 @@ class MY_Controller extends Controller
 {
 	/**
 	 * 
+	 * @var Kullanici_lib
+	 */
+	var $kullanici_lib;
+	
+	/**
+	 * 
 	 * @var CI_Smarty
 	 */
 	var $smarty;

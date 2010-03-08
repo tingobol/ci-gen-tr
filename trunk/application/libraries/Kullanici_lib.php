@@ -22,10 +22,10 @@ class Kullanici_lib {
 		
 		if ($detay = $this->CI->kullanici->get_detay_for_kullanici_lib()) {
 		
-			$this->kullanici_id = $detay->id;
+			$this->kullanici_id = (int) $detay->id;
 			$this->kullanici_adi = $detay->adi;
 			$this->kullanici_mail = $detay->mail;
-			$this->kullanici_turu =  $detay->turu;
+			$this->kullanici_turu = (int) $detay->turu;
 		}
 	}
 	

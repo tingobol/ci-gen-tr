@@ -11,14 +11,12 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 	
 	function index() {
 	
-		redirect(sayfa_yazar_11);
+		redirect(SAYFA_YAZAR_11);
 	}
 	
 	function liste() {
 	
 		$this->kullanici_lib->sadece_yazar_gorebilir();
-		
-		$data['k_t'] = k_t_giris_yapmis_yazar;
 		
 		$data['meta_baslik'] = 'Yazı Listesi';
 		
@@ -26,7 +24,9 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		$data['yazilar'] = $this->yazi->get_liste_1();
 		
-		$this->load->view(sayfa_yazar_11, $data);
+		$data['k_t'] = k_t_giris_yapmis_yazar;
+		
+		$this->smarty->view('yazar/yazi_yonetimi/liste.tpl', $data);
 	}
 	
 	function ekle() {
@@ -43,6 +43,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		// yazı ekleme formu submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			
+
+			
 			// evet yazı ekleme formu submit edilmiş
 			
 			// post bilgilerini yazı objemize alalım
@@ -53,18 +55,22 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			
 			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
 			
+			$this->smarty->assign('kategori_selected_id', $this->yazi->kategori_id);
+			
 			// post bilgilerini kontrole başlayalım
 			try {
 			
 				// doldurulması zorunlu alanların kontrolü
-				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
-				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
-				if (form_is_bos($this->yazi->kategori_id)) throw new Exception('Yazı kategorisi boş geçilemez.');
-				
+				if (form_is_bos($this->yazi->kategori_id)) throw new Exception('Lütfen yazınız için bir kategori seçiniz.');
+
 				// yazı eklenirken seçilen kategorinin sistemde 
 				// olup olmadığına bakılıyor
 				$this->kategori->id = (int) $this->yazi->kategori_id;				
 				if (!$this->kategori->is_var_where_id()) throw new Exception('Belirtilen kategori sistemde bulunmamaktadır. Lütfen listeden bir kategori seçiniz.');
+				
+				// doldurulması zorunlu alanların kontrolü
+				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
+				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
 				
 				// yazarın id'si alınıyor
 				$this->yazi->yazar_id = (int) $this->kullanici_lib->kullanici_id;
@@ -82,6 +88,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		} else {
 		
 			// hayır yazı ekleme formu submit edilmemiş
+			
+			$this->smarty->assign('kategori_selected_id', 0);
 		}
 		
 		// sayfa sisteme giriş yapmış yazar için
@@ -89,13 +97,16 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		$data['meta_baslik'] = 'Yazı Ekle';
 		
-		$data['kategori_listesi'] = $this->kategori->get_liste_1();
-		
 		$data['yazi'] = $this->yazi;
 		
 		$data['etiketler'] = $this->etiket_lib->etiketler_string;
 		
-		$this->load->view(sayfa_yazar_12, $data);	
+		// drop down kategori seçmek için
+		$kategoriler = $this->kategori->get_liste_1();
+		$this->smarty->assign('kategori_ids', $kategoriler['values']);
+		$this->smarty->assign('kategori_names', $kategoriler['output']); 
+		
+		$this->smarty->view('yazar/yazi_yonetimi/ekle.tpl', $data);	
 	}
 	
 	function duzenle($id = 0) {

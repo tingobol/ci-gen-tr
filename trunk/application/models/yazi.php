@@ -38,13 +38,13 @@ class Yazi extends MY_Model {
 						->first_row();
 	}
 	
-	// yazarın kategorileri listelemesi için kullanılmaktadır.
 	function get_liste_1() {
 	
+		if (empty($this->yazar_id)) throw new Exception('Yazar Id boş geçilemez.');
+		
 		return $this->db->where('yazar_id', $this->yazar_id)
 						->order_by('id', 'desc')
-						->get('yazilar')
-						->result_object();
+						->get($this->tablo_adi);
 	}
 	
 	function get_liste_2() {

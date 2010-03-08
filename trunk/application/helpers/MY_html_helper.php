@@ -3,7 +3,15 @@
 // yazarların eklediği yazı özetlerini ve içeriklerini filtrelemek için kullanılır.
 function html_filtrele_1($icerik) {
 
-	return strip_tags($icerik, '<p><br><hr><b><i><u><ul><ol><li><pre><img><table><tr><td><th><thead><tbody><tfoot><code><a>');
+	return html_karakter_duzelt_1(strip_tags($icerik, '<p><br><strong><em><strike><b><i><u><ul><ol><li><pre><img><table><tr><td><th><thead><tbody><tfoot><code><a>'));
+}
+
+function html_karakter_duzelt_1($icerik) {
+
+	$bozuk_karakterler = array('&ccedil;', '&uuml;', '&ouml;', '&Uuml;', '&Ouml;', '&Ccedil;');
+	$saglam_karakterler = array('ç', 'ü', 'ö', 'Ü', 'Ö', 'Ç');
+	
+	return str_replace($bozuk_karakterler, $saglam_karakterler, $icerik);
 }
 
 /*
