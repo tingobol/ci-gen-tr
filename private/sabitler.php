@@ -19,6 +19,7 @@ define('DIZIN_ROOT_3', DIZIN_ROOT_1 . '/private/Smarty');
 // URL Dizinler
 define('DIZIN_URL_1', HOME_URL);
 define('DIZIN_URL_2', DIZIN_URL_1 . '/public');
+define('DIZIN_URL_3', DIZIN_URL_1 . '/public/resimler/ikonlar');
 
 define('DIZIN_URL_11', DIZIN_URL_1 . '/misafir/yazilar/detay');
 define('DIZIN_URL_12', DIZIN_URL_1 . '/misafir/yazilar/liste');
@@ -54,7 +55,11 @@ define('SAYFA_YAZAR_5', DIZIN_URL_1 . '/yazar/panel/basvuru_yap');
 define('SAYFA_YAZAR_6', DIZIN_URL_1 . '/yazar/panel/sifre_degistir');
 
 define('SAYFA_YAZAR_11', DIZIN_URL_1 . '/yazar/yazi_yonetimi/liste');
-define('SAYFA_YAZAR_12', DIZIN_URL_1 . '/yazar/yazi_yonetimi/liste');
+define('SAYFA_YAZAR_12', DIZIN_URL_1 . '/yazar/yazi_yonetimi/ekle');
+define('SAYFA_YAZAR_13', DIZIN_URL_1 . '/yazar/yazi_yonetimi/duzenle');
+define('SAYFA_YAZAR_13_1', DIZIN_URL_1 . '/yazar/yazi_yonetimi/duzenle/%d'); // %d: id
+define('SAYFA_YAZAR_14', DIZIN_URL_1 . '/yazar/yazi_yonetimi/sil/%d'); // %d: id
+define('SAYFA_YAZAR_15', DIZIN_URL_1 . '/yazar/yazi_yonetimi/yayindan_kaldir/%d'); // %d: id
 
 // Misafir
 define('SAYFA_MISAFIR_0', DIZIN_URL_1 . '/misafir/yazilar/liste');

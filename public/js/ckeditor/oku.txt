@@ -1,0 +1,3 @@
+http://ckeditor.com/download
+
+adresinden CKEditör indirilip içeriği bu dizene kopyalanacak

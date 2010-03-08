@@ -21,18 +21,18 @@ class Kategori extends MY_Model {
 	function get_liste_1() {
 	
 		$items = $this->db
-					->select('id, adi')
-					->order_by('adi', 'asc')
-					->get('kategoriler')
-					->result_object();
-			
-		$return = array(0 => 'Kategori Seçiniz');	
-						
-		foreach ($items as $item) {
+						->order_by('adi', 'asc')
+						->get($this->tablo_adi);
+
+		$return['values'] = array(0);
+		$return['output'] = array('Kategori Seçiniz');	
+
+		foreach ($items->result() as $item) {
 		
-			$return[$item->id] = $item->adi;
+			$return['values'][] = $item->id;
+			$return['output'][] = $item->adi;
 		}		
-		
+
 		return $return;
 	}
 	

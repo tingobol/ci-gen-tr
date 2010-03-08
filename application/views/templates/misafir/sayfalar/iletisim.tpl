@@ -30,19 +30,19 @@
 				
 				<p>
 					<label for="konu_id">* Konu: </label>
-					<select name="konu_id">
+					<select name="konu_id" title="Mesajınız için bir konu seçiniz.">
 					   {html_options values=$konu_ids output=$konu_names selected=$konu_selected_id}
 					</select>
 				</p>
 				
 				<p>
 					<label for="adi">* Adınız:</label>
-					<input type="text" name="adi" size="30" maxlength="255" title="Adınızı yazınız." value="{$iletisim_mesaji->adi}"></input>
+					<input type="text" name="adi" size="30" maxlength="255" title="Adınızı yazınız." value="{$iletisim_mesaji->adi}" />
 				</p>
 				
 				<p>
 					<label for="mail">* Mail Adresiniz:</label>
-					<input type="text" name="mail" size="40" maxlength="255" title="Mail adresinizi yazınız." value="{$iletisim_mesaji->mail}"></input>
+					<input type="text" name="mail" size="40" maxlength="255" title="Mail adresinizi yazınız." value="{$iletisim_mesaji->mail}" />
 				</p>
 				
 				<p>
@@ -52,7 +52,7 @@
 				
 				<p>
 					<label>&nbsp;</label>
-					<input type="submit" value="Gönder"></input>
+					<input type="submit" value="Gönder" />
 				</p>
 			
 			</form>
