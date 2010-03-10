@@ -74,6 +74,7 @@ class Sayfalar extends MY_MisafirKontroller {
 		// navigasyon için
 		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
 
+		$data['meta_baslik'] = 'İletişim Sayfası';
 		
 		$this->smarty->view('misafir/sayfalar/iletisim.tpl', $data);
 	}

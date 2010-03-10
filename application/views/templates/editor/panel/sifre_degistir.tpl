@@ -18,7 +18,7 @@
 			<div class="hata">{$hata}</div> 
 			{/if}
 	
-			<form action="{$smarty.const.SAYFA_YAZAR_6}" class="form1" method="post" id="form1">
+			<form action="{$smarty.const.SAYFA_EDITOR_6}" class="form1" method="post" id="form1">
 				
 				<p>
 					<label for="mail">* Eski Şifreniz:</label><br />

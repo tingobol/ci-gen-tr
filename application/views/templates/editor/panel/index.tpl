@@ -1,18 +1,21 @@
-<?php $this->load->view('header1.php') ?>
+{include file="header1.tpl"}
 
-<div class="post">
+<div class="blok1">
 
 	<div class="entrytop">
 		<div class="entry">
-			<h2>Hoşgeldin, <?php echo $kullanici_adi ?> :)</h2>
+			<h2>Hoşgeldin {$kullanici_adi} :)</h2>
 		</div>
 	</div>
 	
-	<div class="post-content">
+	<div class="icerik">
+		
 		<div class="bilgi">
 			Burası editör panelidir. Sağ taraftaki menüyü kullanabilirsiniz.
 		</div>
+
 	</div>
+
 </div>
 
-<?php $this->load->view('footer1.php') ?>
+{include file="footer1.tpl"}	

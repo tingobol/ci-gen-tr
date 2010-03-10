@@ -46,6 +46,8 @@ class Panel extends MY_YazarKontroller {
 		
 		$data['k_t'] = k_t_giris_yapacak_yazar;
 		
+		$data['meta_baslik'] = 'Yazar Girişi';
+		
 		$this->smarty->view('yazar/panel/giris.tpl', $data);
 	}
 	
@@ -102,7 +104,7 @@ class Panel extends MY_YazarKontroller {
 				$this->kullanici->temp = $this->kullanici_tempi_lib->yeni_temp_kaydet($this->kullanici->id);
 				
 				// üyenin şifresini sıfırlaması için kullanacağı url
-				$data['url1'] = site_url(sprintf(sayfa_yazar_4, $this->kullanici->id, $this->kullanici->temp));
+				$data['url1'] = sprintf(SAYFA_YAZAR_4, $this->kullanici->id, $this->kullanici->temp);
 				
 				// kullanıcı bilgisi view lerde kullanılacak
 				$data['kullanici'] = $this->kullanici;
@@ -131,6 +133,8 @@ class Panel extends MY_YazarKontroller {
 		}
 		
 		$data['k_t'] = k_t_giris_yapacak_yazar;
+		
+		$data['meta_baslik'] = 'Şifremi Unuttum';
 		
 		$this->smarty->view('yazar/panel/sifremi_unuttum.tpl', $data);
 	}
@@ -172,7 +176,7 @@ class Panel extends MY_YazarKontroller {
 			$this->kullanici->guncelle_sifre_where_id();
 			$data['temp_sifre'] = $temp_sifre;
 
-			$data['url1'] = site_url(SAYFA_YAZAR_1);
+			$data['url1'] = SAYFA_YAZAR_1;
 
 			$data['kullanici'] = $this->kullanici;
 
@@ -260,8 +264,8 @@ class Panel extends MY_YazarKontroller {
 		
 			$this->kullanici->adi = $this->input->post('adi');
 			$this->kullanici->mail = $this->input->post('mail');
-			$this->kullanici->favori_konulari = $this->input->post('favori_konulari');
-			$this->kullanici->referanslari = $this->input->post('referanslari');
+			$this->kullanici->favori_konulari = html_filtrele_1($this->input->post('favori_konulari'));
+			$this->kullanici->referanslari = html_filtrele_1($this->input->post('referanslari'));
 			
 			try {
 			
@@ -322,7 +326,7 @@ class Panel extends MY_YazarKontroller {
 			
 		} // if
 		
-
+		$data['meta_baslik'] = 'Yazarlık Başvurusu Yap';
 		
 		$this->smarty->view('yazar/panel/basvuru_yap.tpl', $data);
 	}

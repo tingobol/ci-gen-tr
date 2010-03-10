@@ -26,6 +26,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		$data['k_t'] = k_t_giris_yapmis_yazar;
 		
+		$this->smarty->assign('tamam', $this->session->flashdata('tamam'));
+		
 		$this->smarty->view('yazar/yazi_yonetimi/liste.tpl', $data);
 	}
 	
@@ -42,8 +44,6 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		// yazı ekleme formu submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
-			
-
 			
 			// evet yazı ekleme formu submit edilmiş
 			
@@ -155,6 +155,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 			// evet yazı düzenleme formu submit edilmiş
 			
+			$this->smarty->assign('kategori_selected_id', $this->yazi->kategori_id);
+			
 			// öncelikle yazıda her hangi bir değişiklik
 			// yapılıp yapılmadığını kontrol edeceğiz.
 			// eğer yazıda bir değişiklik yapıldıysa, 
@@ -208,7 +210,10 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 				
 				$this->etiket_lib->yazi_duzenlendi($this->yazi->id);
 				
-				$data['tamam'] = 'Değişiklikler kaydedildi.';
+				$this->session->set_flashdata('tamam', 'Değişiklikler kaydedildi.');
+		
+				// yazı listesine yönlendir
+				redirect(SAYFA_YAZAR_11);
 			} catch (Exception $ex) {
 			
 				$data['hata'] = $ex->getMessage();
@@ -245,15 +250,20 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 				
 			// etiket dizini bir input için implode ediyoruz
 			$data['etiketler'] = implode(', ', $yazi_etiketleri_array);
+			
+			$this->smarty->assign('kategori_selected_id', $data['yazi']->kategori_id);
 		}
 		
 		$data['k_t'] = k_t_giris_yapmis_yazar;
 		
 		$data['meta_baslik'] = 'Yazı Düzenle';
 		
-		$data['kategori_listesi'] = $this->kategori->get_liste_1();
+		// drop down kategori seçmek için
+		$kategoriler = $this->kategori->get_liste_1();
+		$this->smarty->assign('kategori_ids', $kategoriler['values']);
+		$this->smarty->assign('kategori_names', $kategoriler['output']); 
 	
-		$this->load->view(sayfa_yazar_13, $data);
+		$this->smarty->view('yazar/yazi_yonetimi/duzenle.tpl', $data);
 	}
 	
 	function sil($id = 0) {
@@ -264,7 +274,7 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		// yazı sistemde var mı?
 		if (!$this->yazi->is_var_where_id())
-			redirect(sayfa_yazar_10);
+			redirect(SAYFA_YAZAR_11);
 			
 		// @TODO yazıya ait ilişkiler temizlenecek
 		
@@ -275,6 +285,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		$this->yazi->sil_where_id();
 		
-		redirect(sayfa_yazar_10);
+		$this->session->set_flashdata('tamam', 'Yazı ve yazıya ait bilgiler silindi.');
+		
+		redirect(SAYFA_YAZAR_11);
 	}
 }
