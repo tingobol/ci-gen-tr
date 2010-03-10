@@ -33,9 +33,14 @@ define('SAYFA_ADMIN_0', DIZIN_URL_1 . '/admin/panel');
 define('SAYFA_ADMIN_1', DIZIN_URL_1 . '/admin/panel/giris');
 define('SAYFA_ADMIN_2', DIZIN_URL_1 . '/admin/panel/sifremi_unuttum');
 define('SAYFA_ADMIN_3', DIZIN_URL_1 . '/admin/panel/cikis');
+define('SAYFA_ADMIN_4', DIZIN_URL_1 . '/admin/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
+define('SAYFA_ADMIN_6', DIZIN_URL_1 . '/admin/panel/sifre_degistir');
 
 define('SAYFA_ADMIN_11', DIZIN_URL_1 . '/admin/kategori_yonetimi/liste');
 define('SAYFA_ADMIN_12', DIZIN_URL_1 . '/admin/kategori_yonetimi/ekle');
+define('SAYFA_ADMIN_13', DIZIN_URL_1 . '/admin/kategori_yonetimi/duzenle');
+define('SAYFA_ADMIN_13_1', DIZIN_URL_1 . '/admin/kategori_yonetimi/duzenle/%d'); // %d: id
+define('SAYFA_ADMIN_14', DIZIN_URL_1 . '/admin/kategori_yonetimi/sil/%d'); // %d: id
 
 // Editör
 define('SAYFA_EDITOR_0', DIZIN_URL_1 . '/editor/panel');

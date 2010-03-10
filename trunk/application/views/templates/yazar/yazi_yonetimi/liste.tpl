@@ -1,11 +1,5 @@
 {include file="header1.tpl"}
 
-{literal}
-<script type="text/javascript">
-	$().ready(function(){$('#tablo').ikontooltip();});
-</script>
-{/literal}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -58,5 +52,11 @@
 	</div>
 
 </div>
+
+{literal}
+<script type="text/javascript">
+	$().ready(function(){$('#tablo').ikontooltip();});
+</script>
+{/literal}
 
 {include file="footer1.tpl"}	

@@ -1,0 +1,56 @@
+{include file="header1.tpl"}
+	
+<div class="blok1">
+
+	<div class="entrytop">
+		<div class="entry">
+			<h2>Kategori Düzenle</h2>
+		</div>
+	</div>
+	
+	<div class="icerik">
+		
+		{if $hata neq ""}
+		<div class="hata">{$hata}</div> 
+		{/if}
+
+		<form action="{$smarty.const.SAYFA_ADMIN_13}" class="form1" method="post" id="form1">
+			
+			<p>
+				<b>* Adı:</b><br />
+				<input type="text" name="adi" size="30" maxlength="50" title="Adını yazınız.|Ör: Kategori Adı" value="{$kategori->adi}" />
+			</p>
+			
+			<p>
+				<b>* ReWrite Adı:</b><br />
+				<input type="text" name="radi" size="30" maxlength="50" title="Rewrite adını yazınız.|Ör: kategori-adi" value="{$kategori->radi}" />
+			</p>
+			
+			<p>
+				<b>Meta Açıklama:</b><br />
+				<input type="text" name="aciklama" size="70" maxlength="255" title="Meta açıklamasını yazınız." value="{$kategori->aciklama}" />
+			</p>
+			
+			<p>
+				<b>Meta Arama:</b><br />
+				<input type="text" name="arama" size="70" maxlength="25" title="Meta aramasını yazınız." value="{$kategori->arama}" />
+			</p>
+	
+			<p>
+				<input type="hidden" name="id" value="{$kategori->id}" />
+				<input type="submit" value="Kaydet" />
+			</p>
+
+		</form>
+
+	</div>
+
+</div>
+
+{literal}
+<script type="text/javascript">
+	$().ready(function(){$('#form1').formtooltip();});	
+</script>
+{/literal}
+
+{include file="footer1.tpl"}	

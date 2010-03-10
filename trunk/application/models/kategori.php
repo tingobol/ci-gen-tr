@@ -10,13 +10,6 @@ class Kategori extends MY_Model {
 	var $aciklama;
 	var $arama;
 	
-	function get_liste_order_by_adi_asc() {
-	
-		return $this->db->order_by('kategoriler.adi', 'desc')
-						->get('kategoriler')
-						->result_object();
-	}
-	
 	// yazı eklerken drop down liste için kullanılmaktadır.
 	function get_liste_1() {
 	
@@ -42,6 +35,13 @@ class Kategori extends MY_Model {
 	
 		return $this->db->select('id, adi')
 						->order_by('adi', 'asc')
+						->get($this->tablo_adi);
+	}
+	
+	function get_liste_3() {
+	
+		return $this->db->select('id, adi')
+						->order_by('adi', 'desc')
 						->get($this->tablo_adi);
 	}
 	
@@ -81,26 +81,5 @@ class Kategori extends MY_Model {
 					'arama' => $this->arama);
 					
 		parent::guncelle_where_id($data);
-	}
-	
-	function reset($reset_id = true) {
-	
-		/* 
-		 * id resetlenmek istemiyorsa, prosedüre false 
-		 * parametresi verilerek kullanılmalıdır. 
-		 * 
-		 * burada amaçlanan şey, düzenleme işlemlerinde 
-		 * form gönderildikten sonra bilgi mesajı ekrara 
-		 * verildikten sonra tekrar güncelleme formu 
-		 * görünecek. hidden olarak saklanacak id bilgisinin 
-		 * formda tanımlı olması gerekmektedir. bu yüzden 
-		 * id bilgisini burada resetlemiyoruz.
-		 */
-		if ($reset_id) $this->id = 0;
-		
-		$this->adi = '';
-		$this->radi = '';
-		$this->aciklama = '';
-		$this->arama = '';
 	}
 }

@@ -183,6 +183,11 @@ class Yazi extends MY_Model {
 		return parent::is_var_where_id_and_x('yazar_id');
 	}
 	
+	function is_var_where_kategori_id() {
+	
+		return parent::is_var_where_x('kategori_id');
+	}
+	
 	function guncelle_1() {
 	
 		$data = array(

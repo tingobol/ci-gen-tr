@@ -65,7 +65,7 @@ class Panel extends MY_EditorKontroller {
 		// kütüphaneleri yükle
 		$this->load->library('kullanici_tempi_lib');
 		
-				// form submit edilmiş mi?
+		// form submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			
 			// evet form submit edilmiş
@@ -103,7 +103,7 @@ class Panel extends MY_EditorKontroller {
 				// editör için yeni temp bilgisi oluştur
 				$this->kullanici->temp = $this->kullanici_tempi_lib->yeni_temp_kaydet($this->kullanici->id);
 				
-				// üyenin şifresini sıfırlaması için kullanacağı url
+				// editörün şifresini sıfırlaması için kullanacağı url
 				$data['url1'] = sprintf(SAYFA_EDITOR_4, $this->kullanici->id, $this->kullanici->temp);
 				
 				// kullanıcı bilgisi view lerde kullanılacak
