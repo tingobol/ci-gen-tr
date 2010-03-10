@@ -18,7 +18,7 @@
 			<div class="hata">{$hata}</div> 
 			{/if}
 	
-			<form action="{$smarty.const.SAYFA_YAZAR_2}" class="form1" method="post" id="form1">
+			<form action="{$smarty.const.SAYFA_EDITOR_2}" class="form1" method="post" id="form1">
 				
 				<p>
 					<b>* Mail Adresiniz:</b><br />

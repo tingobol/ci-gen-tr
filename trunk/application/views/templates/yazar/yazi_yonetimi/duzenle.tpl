@@ -4,7 +4,7 @@
 
 	<div class="entrytop">
 		<div class="entry">
-			<h2>Yazı Ekle</h2>
+			<h2>Yazı Düzenle</h2>
 		</div>
 	</div>
 	
@@ -18,7 +18,7 @@
 			<div class="hata">{$hata}</div> 
 			{/if}
 	
-			<form action="{$smarty.const.SAYFA_YAZAR_12}" class="form1" method="post" id="form1">
+			<form action="{$smarty.const.SAYFA_YAZAR_13}" class="form1" method="post" id="form1">
 				
 				<p>
 					<b>* Kategori:</b><br />
@@ -50,7 +50,8 @@
 				</p>
 		
 				<p>
-					<input type="submit" value="Ekle" />
+					<input type="hidden" name="id" value="{$yazi->id}" />
+					<input type="submit" value="Kaydet" />
 				</p>
 
 			</form>

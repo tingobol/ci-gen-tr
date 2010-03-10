@@ -1,3 +1,4 @@
+{literal}
 <style>
 
 body, p {
@@ -7,8 +8,9 @@ body, p {
 }
 
 </style>
+{/literal}
 
-<p>Merhaba <b><?php echo $kullanici->adi ?></b></p>
+<p>Merhaba <b>{$kullanici->adi}</b></p>
 
 <p>
 Editörlük başvurunuz kaydedilmiştir. En kısa zamanda 
@@ -23,4 +25,4 @@ gerekli bilgileri bulacaksınız.
 İlginiz için teşekkür ederiz.
 </p>
 
-<p><?php echo anchor(site_url(), site_url()) ?> </p>
+<p><a href="{$url1}">{$url1}</a></p>

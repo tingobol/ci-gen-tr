@@ -2,9 +2,7 @@
 
 {literal}
 <script type="text/javascript">
-	$().ready(function(){
-		$('#tablo').ikontooltip();
-	});
+	$().ready(function(){$('#tablo').ikontooltip();});
 </script>
 {/literal}
 
@@ -17,9 +15,13 @@
 	</div>
 	
 	<div class="icerik">
+	
+		{if $tamam neq ""}
+		<div class="tamam">{$tamam}</div> 
+		{/if}
 		
-		{if $yazilar eq ""} 
-		<div class="bilgi">Henüz yazı eklememişsiniz.</div>
+		{if $yazilar->num_rows() eq 0} 
+		<div class="bilgi">Listelenecek yazı bulunamadı.</div>
 		{else}
 
 			<table id="tablo" class="tablo">
@@ -43,7 +45,7 @@
 						<td>{$yazi->baslik}</td>
 						<td align="center">{$yazi->durum}</td>
 						<td align="center"><a href="{$smarty.const.SAYFA_YAZAR_13_1|sprintf:$yazi->id}" title="Düzenle"><img src="{$smarty.const.DIZIN_URL_3}/duzenle.png" /></a></td>
-						<td align="center"><a href="{$smarty.const.SAYFA_YAZAR_14|sprintf:$yazi->id}" title="Sil" onclick="Yazı ve tüm ilişkili bilgileri silinecek! Emin misiniz?"><img src="{$smarty.const.DIZIN_URL_3}/sil.png" /></a></td>
+						<td align="center"><a href="{$smarty.const.SAYFA_YAZAR_14|sprintf:$yazi->id}" title="Sil" onclick="return confirm('Yazı ve tüm ilişkili bilgileri silinecek! Emin misiniz?');"><img src="{$smarty.const.DIZIN_URL_3}/sil.png" /></a></td>
 					</tr>
 					
 				{/foreach}

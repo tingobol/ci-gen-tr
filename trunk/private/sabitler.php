@@ -42,7 +42,9 @@ define('SAYFA_EDITOR_0', DIZIN_URL_1 . '/editor/panel');
 define('SAYFA_EDITOR_1', DIZIN_URL_1 . '/editor/panel/giris');
 define('SAYFA_EDITOR_2', DIZIN_URL_1 . '/editor/panel/sifremi_unuttum');
 define('SAYFA_EDITOR_3', DIZIN_URL_1 . '/editor/panel/cikis');
+define('SAYFA_EDITOR_4', DIZIN_URL_1 . '/editor/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
 define('SAYFA_EDITOR_5', DIZIN_URL_1 . '/editor/panel/basvuru_yap');
+define('SAYFA_EDITOR_6', DIZIN_URL_1 . '/editor/panel/sifre_degistir');
 
 define('SAYFA_EDITOR_11', DIZIN_URL_1 . '/editor/yazi_yonetimi/onay_bekleyenler');
 
@@ -51,6 +53,7 @@ define('SAYFA_YAZAR_0', DIZIN_URL_1 . '/yazar/panel');
 define('SAYFA_YAZAR_1', DIZIN_URL_1 . '/yazar/panel/giris');
 define('SAYFA_YAZAR_2', DIZIN_URL_1 . '/yazar/panel/sifremi_unuttum');
 define('SAYFA_YAZAR_3', DIZIN_URL_1 . '/yazar/panel/cikis');
+define('SAYFA_YAZAR_4', DIZIN_URL_1 . '/yazar/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
 define('SAYFA_YAZAR_5', DIZIN_URL_1 . '/yazar/panel/basvuru_yap');
 define('SAYFA_YAZAR_6', DIZIN_URL_1 . '/yazar/panel/sifre_degistir');
 

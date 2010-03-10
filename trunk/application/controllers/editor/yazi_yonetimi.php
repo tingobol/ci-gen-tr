@@ -8,8 +8,6 @@ class Yazi_yonetimi extends MY_EditorKontroller {
 		
 		$data['k_t'] = k_t_giris_yapmis_editor;
 		
-		$data['kullanici_adi'] = $this->kullanici_lib->kullanici_adi;
-		
-		$this->load->view('editor/yazi_yonetimi/onay_bekleyenler', $data);
+		$this->smarty->view('editor/yazi_yonetimi/onay_bekleyenler.tpl', $data);
 	} 
 }

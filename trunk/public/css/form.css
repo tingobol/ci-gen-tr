@@ -10,13 +10,14 @@ form {
 }
 
 form label {
-	font-family:"Trebuchet MS", Arial, Verdana;
-	font-size:16px;
-	font-weight:bold;
-	float: left;
-	text-align: right;
-	margin-right: 0.5em;
-	white-space: nowrap;
+
+	font-weight: bold;
+}
+
+form label.aciklama {
+
+	color: #AAA;
+	font-weight: normal;
 }
 
 form input, select, textarea {
@@ -38,39 +39,3 @@ form input[type="submit"] {
 	font-size:13px;
 	font-weight:bold;
 }
-
-
-/*
-
-form p{
-    clear: left;
-    margin: 0;
-	padding:3px;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:13px;
-}
-
- 
-form p label{
-    float: left;
-    width: 23%;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:13px;
-	text-align:right;
-	font-weight:bold;
-	padding-right:6px;
-}
-
-form p input, select {
-	border:1px solid #3b6e22;
-	color:#666666;
-}
-
-
-
-form p textarea {
-	border:1px solid #3b6e22;
-	color:#666666;
-}
-
-*/

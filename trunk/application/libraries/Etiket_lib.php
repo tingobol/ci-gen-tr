@@ -95,7 +95,7 @@ class Etiket_lib {
 		
 		$eski_etiketler = array();
 		
-		foreach ($mevcut_etiketler as $mevcut_etiket)
+		foreach ($mevcut_etiketler->result() as $mevcut_etiket)
 			$eski_etiketler[] = $mevcut_etiket->adi;
 			
 		$return = FALSE;
