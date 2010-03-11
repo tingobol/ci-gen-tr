@@ -1,7 +1,11 @@
 <?php
 
 // SABİTLER
-define('SABIT_1', 'deneme');
+define('SABIT_1', 'ci.gen.tr'); // mail gönderirken user agent olarak kullanılacak
+define('SABIT_2', 'bilgi@ci.gen.tr'); // sitenin mail adresi
+define('SABIT_3', 'ci.gen.tr'); // mail gönderirken kullanılacak ad
+define('SABIT_4', 'http://localhost/tr.gen.ci'); // LOCAL ROOT Url
+define('SABIT_5', 'http://www.ci.gen.tr'); // LIVE ROOT Url
 
 define('SABIT_GIRIS_YAPACAK_ADMIN', 1);
 define('SABIT_GIRIS_YAPMIS_ADMIN', 2);

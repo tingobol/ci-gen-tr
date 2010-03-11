@@ -11,7 +11,7 @@ class Yazilar extends MY_MisafirKontroller {
 
 	function index() {
 	
-		redirect(sayfa_misafir_21);
+		redirect(SAYFA_MISAFIR_21);
 	}
 	
 	function liste($sayfa = 1) {
