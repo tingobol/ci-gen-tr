@@ -39,6 +39,7 @@ define('LOCAL', $_SERVER['SERVER_NAME'] == 'localhost' ? true : false);
  */
 define('HOME_ROOT', dirname(__FILE__));
 
+
 /*
  * Siteyi sunucuya attıktan sonra genel anlamda 
  * ihtiyaç duyulacak tüm ayarlar burada toplanmaya 
@@ -66,6 +67,12 @@ if (LOCAL) {
 	// Hayır
 	define('HOME_URL', SABIT_5);
 }
+
+/*
+ * Sitede kullanılan tüm root, url ve sayfa 
+ * adresleri burada tanımlanmıştır.
+ */
+require_once HOME_ROOT . '/private/sayfalar.php';
 
 /*
 |---------------------------------------------------------------

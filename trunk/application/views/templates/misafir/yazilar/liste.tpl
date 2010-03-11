@@ -1,6 +1,6 @@
 {include file="header1.tpl"}
 
-{if $yazilar eq ""}
+{if $yazilar->num_rows() eq 0}
 
 	<div class="post">
 		<div class="entrytop">
@@ -10,7 +10,7 @@
 		</div>
 		
 		<div class="post-content">
-			<div class="bilgi">Yazı bulunamadı.</div>
+			<div class="ikaz">Yazı bulunamadı.</div>
 		</div>
 	</div>
 
