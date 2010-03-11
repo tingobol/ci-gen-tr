@@ -29,9 +29,9 @@ class Kullanici_lib {
 		}
 	}
 	
-	function sadece_admin_gorebilir() { if (!$this->is_admin()) redirect(sayfa_admin_1); }
-	function sadece_yazar_gorebilir() { if (!$this->is_yazar()) redirect(sayfa_yazar_1); }
-	function sadece_editor_gorebilir() { if (!$this->is_editor()) redirect(sayfa_editor_1); }
+	function sadece_admin_gorebilir() { if (!$this->is_admin()) redirect(SAYFA_ADMIN_1); }
+	function sadece_yazar_gorebilir() { if (!$this->is_yazar()) redirect(SAYFA_YAZAR_1); }
+	function sadece_editor_gorebilir() { if (!$this->is_editor()) redirect(SAYFA_EDITOR_1); }
 
 	function is_admin() { return $this->kullanici_turu == Kullanici::TUR_ADMIN; }
 	function is_yazar() { return $this->kullanici_turu == Kullanici::TUR_YAZAR; }

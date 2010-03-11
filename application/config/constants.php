@@ -36,60 +36,6 @@ define('FOPEN_READ_WRITE_CREATE', 				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
  
-// admin sayfaları
-define('sayfa_admin_0', 'admin/panel');
-define('sayfa_admin_1', 'admin/panel/giris');
-define('sayfa_admin_2', 'admin/panel/sifremi_unuttum');
-define('sayfa_admin_3', 'admin/panel/cikis');
-define('sayfa_admin_4', 'admin/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
-
-define('sayfa_admin_10', 'admin/kategori_yonetimi');
-define('sayfa_admin_11', 'admin/kategori_yonetimi/liste');
-define('sayfa_admin_12', 'admin/kategori_yonetimi/ekle');
-define('sayfa_admin_13', 'admin/kategori_yonetimi/duzenle');
-define('sayfa_admin_13_1', 'admin/kategori_yonetimi/duzenle/%d'); // %d: id
-define('sayfa_admin_14', 'admin/kategori_yonetimi/sil/%d'); // %d: id
-
-// yazar sayfaları
-define('sayfa_yazar_0', 'yazar/panel');
-define('sayfa_yazar_1', 'yazar/panel/giris');
-define('sayfa_yazar_2', 'yazar/panel/sifremi_unuttum');
-define('sayfa_yazar_3', 'yazar/panel/cikis');
-define('sayfa_yazar_4', 'yazar/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
-define('sayfa_yazar_5', 'yazar/panel/basvuru_yap');
-define('sayfa_yazar_6', 'yazar/panel/sifre_degistir');
-
-define('sayfa_yazar_10', 'yazar/yazi_yonetimi');
-define('sayfa_yazar_11', 'yazar/yazi_yonetimi/liste');
-define('sayfa_yazar_12', 'yazar/yazi_yonetimi/ekle');
-define('sayfa_yazar_13', 'yazar/yazi_yonetimi/duzenle');
-define('sayfa_yazar_13_1', 'yazar/yazi_yonetimi/duzenle/%d'); // %d: id
-define('sayfa_yazar_14', 'yazar/yazi_yonetimi/sil/%d'); // %d: id
-define('sayfa_yazar_15', 'yazar/yazi_yonetimi/yayindan_kaldir/%d'); // %d: id
-
-// editör sayfaları
-define('sayfa_editor_0', 'editor/panel');
-define('sayfa_editor_1', 'editor/panel/giris');
-define('sayfa_editor_2', 'editor/panel/sifremi_unuttum');
-define('sayfa_editor_3', 'editor/panel/cikis');
-define('sayfa_editor_4', 'editor/panel/sifreyi_sifirla/%d/%s'); // %d: id, %s: temp
-define('sayfa_editor_5', 'editor/panel/basvuru_yap');
-
-define('sayfa_editor_10', 'editor/yazi_yonetimi');
-define('sayfa_editor_11', 'editor/yazi_yonetimi/onay_bekleyenler');
-
-// misafir sayfaları
-define('sayfa_misafir_0', 'misafir/yazilar/liste');
-
-define('sayfa_misafir_21', 'misafir/yazilar/liste');
-define('sayfa_misafir_22', 'misafir/yazilar/liste/%d'); // %d: sayfa_no
-define('sayfa_misafir_23', 'misafir/yazilar/detay/%d'); // $s: id
-
-define('sayfa_misafir_31', 'misafir/kategoriler/yazilari_listele/%d'); // %d: kategori_id
-define('sayfa_misafir_32', 'misafir/kategoriler/yazilari_listele/%d/%d'); // %d: kategori_id, %d: sayfa_no
-
-define('sayfa_misafir_41', 'misafir/sayfalar/iletisim');
-
 // site genelinde kullanılan sabitler
 define('sabit_1', 'ci.gen.tr'); // mail gönderirken user agent olarak kullanılacak
 define('sabit_2', 'bilgi@ci.gen.tr'); // sitenin mail adresi

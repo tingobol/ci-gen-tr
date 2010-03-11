@@ -141,14 +141,14 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 		
 		// yazı sistemde var mı?
 		if (!$this->yazi->is_var_where_id())
-			redirect(sayfa_yazar_10);
+			redirect(SAYFA_YAZAR_11);
 			
 		// yazının yazar id numarası et edilmekte
 		$this->yazi->yazar_id = (int) $this->kullanici_lib->kullanici_id;
 		
 		// yazı yazara mı ait gerçekten
 		if (!$this->yazi->is_var_where_id_and_yazar_id())
-			redirect(sayfa_yazar_10);
+			redirect(SAYFA_YAZAR_11);
 			
 		// yazı düzenleme formu submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {

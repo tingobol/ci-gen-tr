@@ -43,8 +43,5 @@
 $route['default_controller'] = "misafir/yazilar";
 $route['scaffolding_trigger'] = "";
 
-// $route['yazi/([a-z0-9-_]+)'] = sayfa_misafir_23;
-
-
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
