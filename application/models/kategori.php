@@ -6,7 +6,6 @@ class Kategori extends MY_Model {
 
 	var $id;
 	var $adi;
-	var $radi;
 	var $aciklama;
 	var $arama;
 	
@@ -50,25 +49,15 @@ class Kategori extends MY_Model {
 		return parent::is_var_where_x('adi');
 	}
 	
-	function is_var_where_radi() {
-	
-		return parent::is_var_where_x('radi');
-	}
-	
 	function is_var_where_adi_and_not_id() {
 	
 		return parent::is_var_where_x_and_not_id('adi');
 	}
 	
-	function is_var_where_radi_and_not_id() {
-	
-		return parent::is_var_where_x_and_not_id('radi');
-	}
-	
 	// adminin kategori eklemesi için kullanılmaktadır
 	function ekle_1() {
 	
-		parent::ekle(array('adi', 'radi', 'aciklama', 'arama'));
+		parent::ekle(array('adi', 'aciklama', 'arama'));
 	}
 	
 	// adminin kategori güncellemesi için kullanmaktadır
@@ -76,7 +65,6 @@ class Kategori extends MY_Model {
 	
 		$data = array(
 					'adi' => $this->adi, 
-					'radi' => $this->radi, 
 					'aciklama' => $this->aciklama, 
 					'arama' => $this->arama);
 					

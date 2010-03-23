@@ -25,7 +25,6 @@ kategoriler
 -----------
  - id
  - adi
- - radi - rewrite adi
  - aciklama - meta için
  - arama - meta için
  
@@ -38,7 +37,13 @@ yazilar
  - eklenme_zamani
  - guncelleme_zamani
  - hit
- - durum - 0: onay bekliyor, 1: onaylı, 2: yayından kalkmış
+ - durum
+ 	- 0: editör kontrolünden geçecek, 
+ 	- 1: onaylı (sitede yayınlanması için), 
+ 	- 2: yayından kalkmış (sitede yayınlanmayan ama yazarın panelinde görünen yazı)
+ 	- 3: admin kontrolünden geçecek
+ 	- 4: yazar kontrolünden geçecek (yazar isterse siler, isterse talep edilen değişikliği yapıp tekrar editör onayına sunabilir.)
+ 	
  - yazar_id
  - kategori_id
  

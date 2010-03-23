@@ -15,15 +15,17 @@ class Yazi_etiketleri extends MY_MisafirKontroller {
 		$this->etiket->id = (int) $etiket_id;
 		
 		if (!$this->etiket->is_var_where_id()) 
-			redirect(SAYFA_MISAFIR_0);
+			redirect(SAYFA_MISAFIR_11);
 			
+		$temp_etiket = $this->etiket->get_detay_where_id();	
+		
 		$this->yazi_etiketi->etiket_id = $this->etiket->id;
 			
 		$this->load->model('yazi');
 		
 		$this->load->library('sayfalama_lib');
 		
-		$this->sayfalama_lib->adet = 10;
+		$this->sayfalama_lib->adet = AYAR_21;
 		$this->sayfalama_lib->set_sayfa($sayfa);
 		$this->sayfalama_lib->toplam_kayit_sayisi = $this->yazi->get_adet_3($this->yazi_etiketi->etiket_id);
 		
@@ -37,7 +39,13 @@ class Yazi_etiketleri extends MY_MisafirKontroller {
 		$this->load->model('kategori');
 		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
 		
-		$data['etiket_id'] = $this->etiket->id;
+		$data['etiket'] = $temp_etiket;
+		
+		$data['meta_baslik'] = $temp_etiket->adi;
+		$data['meta_aciklama'] = $temp_etiket->adi . ' etiketi ile etiketlenmiş yazıları gösterir.';
+		
+		if ($sayfa != 1) $data['meta_baslik'] = 'Etiket: ' . $temp_etiket->adi . ' - Sayfa: ' . $sayfa;
+		else $data['meta_baslik'] = 'Etiket: ' . $temp_etiket->adi; 
 		
 		$this->smarty->view('misafir/yazi_etiketleri/yazilari_listele.tpl', $data);
 	}

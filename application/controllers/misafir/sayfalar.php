@@ -24,30 +24,51 @@ class Sayfalar extends MY_MisafirKontroller {
 			// formdan gelen bilgileri alalım
 			$this->iletisim_mesaji->adi = $this->input->post('adi');
 			$this->iletisim_mesaji->mail = $this->input->post('mail');
-			$this->iletisim_mesaji->mesaj = html_filtrele_1($this->input->post('mesaj'));
+			$this->iletisim_mesaji->mesaj = nl2br(html_filtrele_1($this->input->post('mesaj', TRUE)));
 			$this->iletisim_mesaji->konu_id = (int) $this->input->post('konu_id');
-			
+
 			$this->smarty->assign('konu_selected_id', $this->iletisim_mesaji->konu_id);
-			
+
 			// post bilgilerini kontrole başlayalım
 			try {
-			
+
 				// doldurulması zorunlu alanların kontrolü
 				if (form_is_bos($this->iletisim_mesaji->konu_id)) throw new Exception('Lütfen mesajınız için bir konu seçiniz.');
 				if (form_is_bos($this->iletisim_mesaji->adi)) throw new Exception('Lütfen adınızı yazınız.');
 				if (form_is_bos($this->iletisim_mesaji->mail)) throw new Exception('Lütfen mail adresinizi yazınız.');
 				if (!form_is_mail($this->iletisim_mesaji->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
 				if (form_is_bos($this->iletisim_mesaji->mesaj)) throw new Exception('Lütfen mesajınızı yazınız.');
-				
+
 				// mesaj gönderilirken seçilen konunun sistemde 
 				// olup olmadığına bakılıyor
 				$this->iletisim_konusu->id = $this->iletisim_mesaji->konu_id;				
 				if (!$this->iletisim_konusu->is_var_where_id()) throw new Exception('Belirtilen konu sistemde bulunmamaktadır. Lütfen listeden bir konu seçiniz.');
-				
+
 				// mesajı veritabanına kaydet
 				$this->iletisim_mesaji->ekle_1();
+
+				// adminlere mail gönderirken bilgi amaçlı kullanılacak 
+				$data['iletisim_konusu'] = $this->iletisim_konusu->get_detay_where_id();
+
+				// adminlere mail gönder
+				$data['url1'] = SAYFA_ADMIN_0;
 				
-				// @TODO yöneticilere bilgi mesajı gönderilecek
+				$this->load->library('email');
+				$adminler = $this->kullanici->get_liste_1();
+				foreach ($adminler->result() as $admin) {
+				
+					$data['admin'] = $admin;
+					
+					// basla mail
+					$this->email->to($admin->mail, $admin->adi);
+					$this->email->subject('İletişim Formundan Mesaj Gönderildi');
+					$this->email->message($this->smarty->view('misafir/sayfalar/mailler/iletisim.tpl', $data, true));
+					
+					$this->email->send();
+					
+					// echo $this->email->print_debugger();
+					// bitti mail
+				}
 				
 				$this->session->set_flashdata('tamam', 'Mesajınız kaydedilmiştir. En kısa zamanda incelenecektir.');
 				
@@ -77,5 +98,16 @@ class Sayfalar extends MY_MisafirKontroller {
 		$data['meta_baslik'] = 'İletişim Sayfası';
 		
 		$this->smarty->view('misafir/sayfalar/iletisim.tpl', $data);
+	}
+	
+	function arama() {
+		
+		// modelleri yükle
+		$this->load->model('kategori');
+		
+		// navigasyon için
+		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
+	
+		$this->smarty->view('misafir/sayfalar/arama.tpl', $data);
 	}
 }

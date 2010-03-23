@@ -263,7 +263,7 @@ class Panel extends MY_EditorKontroller {
 		
 			$this->kullanici->adi = $this->input->post('adi');
 			$this->kullanici->mail = $this->input->post('mail');
-			$this->kullanici->referanslari = html_filtrele_1($this->input->post('referanslari'));
+			$this->kullanici->referanslari = nl2br(html_filtrele_1($this->input->post('referanslari', TRUE)));
 			
 			try {
 			
@@ -284,7 +284,7 @@ class Panel extends MY_EditorKontroller {
 
 				$this->email->to($this->kullanici->mail, $this->kullanici->adi);
 				$this->email->subject('Editörlük Başvurusunda Bulundunuz');
-				$this->email->message($this->load->view('editor/panel/mailler/basvuru_yap', $data, true));
+				$this->email->message($this->smarty->view('editor/panel/mailler/basvuru_yap.tpl', $data, true));
 				
 				$this->email->send();
 				

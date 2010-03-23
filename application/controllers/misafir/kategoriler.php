@@ -11,22 +11,23 @@ class Kategoriler extends MY_MisafirKontroller {
 	
 	/**
 	 * Bir kategorideki onaylanmış yazıları listelemek için
-	 * 
-	 * @param int $id
 	 */
-	function yazilari_listele($id, $sayfa = 1) {
+	function yazilari_listele($id = 0, $sayfa = 1) {
 	
+		$this->load->model('yazi');
+		
 		$this->kategori->id = (int) $id;
 		
 		if (!$this->kategori->is_var_where_id())
-			redirect(SAYFA_MISAFIR_0);
+			redirect(SAYFA_MISAFIR_11);
 		
-		$this->load->model('yazi');
-		$this->yazi->kategori_id = $this->kategori->id;
+		$temp_kategori = $this->kategori->get_detay_where_id();
+			
+		$this->yazi->kategori_id = $temp_kategori->id;
 		
 		$this->load->library('sayfalama_lib');
 		
-		$this->sayfalama_lib->adet = 10;
+		$this->sayfalama_lib->adet = AYAR_21;
 		$this->sayfalama_lib->set_sayfa($sayfa);
 		$this->sayfalama_lib->toplam_kayit_sayisi = $this->yazi->get_adet_2();
 		
@@ -40,7 +41,10 @@ class Kategoriler extends MY_MisafirKontroller {
 		// $this->load->model('kategori');
 		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
 		
-		$data['kategori_id'] = $this->yazi->kategori_id;
+		$data['kategori'] = $temp_kategori;
+		
+		if ($sayfa != 1) $data['meta_baslik'] = $temp_kategori->adi . ' - Sayfa: ' . $sayfa;
+		else $data['meta_baslik'] = $temp_kategori->adi; 
 		
 		$this->smarty->view('misafir/kategoriler/yazilari_listele.tpl', $data);
 	}

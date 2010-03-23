@@ -22,11 +22,6 @@
 			</p>
 			
 			<p>
-				<b>* ReWrite Adı:</b><br />
-				<input type="text" name="radi" size="30" maxlength="50" title="Rewrite adını yazınız.|Ör: kategori-adi" value="{$kategori->radi}" />
-			</p>
-			
-			<p>
 				<b>Meta Açıklama:</b><br />
 				<input type="text" name="aciklama" size="70" maxlength="255" title="Meta açıklamasını yazınız." value="{$kategori->aciklama}" />
 			</p>

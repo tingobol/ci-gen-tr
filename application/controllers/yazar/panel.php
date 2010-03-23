@@ -264,8 +264,8 @@ class Panel extends MY_YazarKontroller {
 		
 			$this->kullanici->adi = $this->input->post('adi');
 			$this->kullanici->mail = $this->input->post('mail');
-			$this->kullanici->favori_konulari = html_filtrele_1($this->input->post('favori_konulari'));
-			$this->kullanici->referanslari = html_filtrele_1($this->input->post('referanslari'));
+			$this->kullanici->favori_konulari = nl2br(html_filtrele_1($this->input->post('favori_konulari', TRUE)));
+			$this->kullanici->referanslari = nl2br(html_filtrele_1($this->input->post('referanslari', TRUE)));
 			
 			try {
 			
@@ -279,7 +279,7 @@ class Panel extends MY_YazarKontroller {
 				// başvuruyu kaydet
 				$this->kullanici->yazarlik_basvurusu_yap(); 
 				
-				$data['url1'] = SAYFA_MISAFIR_0;
+				$data['url1'] = SAYFA_MISAFIR_11;
 				
 				// başvuru yapana mail gönder
 				// basla mail

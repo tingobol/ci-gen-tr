@@ -1,0 +1,3 @@
+code.google.com/p/syntaxhighlighter 
+
+adresinden indirilip bu klasöre atılması gerekiyor

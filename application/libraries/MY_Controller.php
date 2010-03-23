@@ -4,6 +4,12 @@ class MY_Controller extends Controller
 {
 	/**
 	 * 
+	 * @var Kullanici
+	 */
+	var $yazar;
+	
+	/**
+	 * 
 	 * @var Kullanici_lib
 	 */
 	var $kullanici_lib;
@@ -74,6 +80,11 @@ class MY_KullaniciKontroller extends MY_Controller {
 		$this->load->model('kullanici_oturumu');
 		
 		$this->load->library('kullanici_lib');
+		
+		// Metaları Ayarla
+		$this->smarty->assign('meta_baslik', AYAR_11);
+		$this->smarty->assign('meta_aciklama', AYAR_12);
+		$this->smarty->assign('meta_arama', AYAR_13);
 	}
 }
 
@@ -111,5 +122,12 @@ class MY_MisafirKontroller extends MY_KullaniciKontroller {
 	function MY_MisafirKontroller() {
 	
 		parent::MY_KullaniciKontroller();
+		
+		$this->load->library('Etiket_lib');
+		$this->load->library('taggly');
+		
+		$this->smarty->assign('etiket_bulutu', $this->taggly->cloud($this->etiket_lib->get_etiket_bulutu()));
+		
+		$this->smarty->assign('k_t', k_t_yeni_gelmis_misafir);
 	}
 }

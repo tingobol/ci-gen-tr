@@ -20,7 +20,19 @@
 		
 		<script type="text/javascript" src="{$smarty.const.DIZIN_URL_2}/js/jquery.min.js"></script>
 		<script type="text/javascript" src="{$smarty.const.DIZIN_URL_2}/js/jquery.form.tooltip.js"></script>
-
+		
+		<!-- SyntaxHighlighter -->
+		<script type="text/javascript" src="{$smarty.const.DIZIN_URL_2}/js/syntaxhighlighter/scripts/shCore.js"></script>
+		<script type="text/javascript" src="{$smarty.const.DIZIN_URL_2}/js/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+		
+		<link type="text/css" rel="stylesheet" href="{$smarty.const.DIZIN_URL_2}/js/syntaxhighlighter/styles/shCore.css" />
+		<link type="text/css" rel="stylesheet" href="{$smarty.const.DIZIN_URL_2}/js/syntaxhighlighter/styles/shThemeDjango.css" />
+		
+		<script type="text/javascript">
+			SyntaxHighlighter.config.clipboardSwf = '{$smarty.const.DIZIN_URL_2}/js/syntaxhighlighter/scripts/clipboard.swf';
+			SyntaxHighlighter.all();
+		</script>
+		
 	</head>
 
 	<body>
@@ -29,11 +41,11 @@
 
 		<div id="header">
 			<div id="headerimg">
-				<h1><a href="#">Code Igniter Türkiye</a></h1>
+				<h1><a href="{$smarty.const.SAYFA_MISAFIR_0}">Code Igniter Türkiye</a></h1>
 				<div class="description">paylaşım platformu</div>
 				
 				<div id="search">
-					<form method="get" id="searchform" action="#"> 
+					<form method="post" id="searchform" action="{$smarty.const.SAYFA_MISAFIR_42}"> 
 						<div>
 							<input type="text" value="" name="s" id="s" /> 
 							<input type="submit" id="searchsubmit" value="" />
