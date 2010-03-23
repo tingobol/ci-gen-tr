@@ -15,9 +15,12 @@ class Yazi extends MY_Model {
 	var $yazar_id;
 	var $kategori_id;
 	
-	const DURUM_ONAY_BEKLIYOR = 0;
+	const DURUM_EDITOR_KONTROL_EDECEK = 0;
 	const DURUM_ONAYLI = 1;
 	const DURUM_YAYINDAN_KALKMIS = 2;
+	const DURUM_ADMIN_KONTROL_EDECEK = 3;
+	const DURUM_YAZAR_KONTROL_EDECEK = 4;
+	
 	
 	function Yazi() {
 	
@@ -33,6 +36,25 @@ class Yazi extends MY_Model {
 							yazilar.*,
 							kategoriler.adi AS kategori_adi')
 						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->where('yazilar.id', $this->id)
+						->get($this->tablo_adi)
+						->first_row();
+	}
+	
+	/*
+	 * yazının detayını verir 
+	 * $id set edilmiş olmalı
+	 */
+	function get_detay_2() {
+		
+		if (empty($this->id)) throw new Exception('Yazı Id boş geçilemez.');
+	
+		return $this->db->select('
+							yazilar.*,
+							kategoriler.adi AS kategori_adi, 
+							kullanicilar.adi AS yazar_adi')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->join('kullanicilar', 'yazilar.yazar_id = kullanicilar.id')
 						->where('yazilar.id', $this->id)
 						->get($this->tablo_adi)
 						->first_row();
@@ -112,6 +134,33 @@ class Yazi extends MY_Model {
 						->limit($adet, $limit_ilk)
 						->get($this->tablo_adi);
 	}
+	
+	/*
+	 * editörün kontrol edeceği yazıların listesini verir.
+	 */
+	function get_liste_7() {
+		
+		return $this->db->select('
+							yazilar.id, 
+							yazilar.baslik, 
+							kategoriler.adi AS kategori_adi')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->where('yazilar.durum', Yazi::DURUM_EDITOR_KONTROL_EDECEK)
+						->order_by('yazilar.id', 'ASC')
+						->get($this->tablo_adi);
+	}
+	
+	function get_liste_8() {
+	
+		return $this->db->select('
+							yazilar.id, 
+							yazilar.baslik, 
+							kategoriler.adi AS kategori_adi')
+						->join('kategoriler', 'yazilar.kategori_id = kategoriler.id')
+						->where('yazilar.durum', SABIT_YAZI_DURUM_ADMIN_KONTROL_EDECEK)
+						->order_by('yazilar.id', 'ASC')
+						->get($this->tablo_adi);
+	}
 
 	/**
 	 * Onaylı yazıların kaç tane olduğunu verir.
@@ -165,6 +214,16 @@ class Yazi extends MY_Model {
 		return $ret->adet;
 	}
 	
+	function get_durum_where_id() {
+	
+		return parent::get_x_where_id('durum');
+	}
+	
+	function get_yazar_id_where_id() {
+	
+		return parent::get_x_where_id('yazar_id');
+	}
+	
 	// yazarın yazı eklemesi için kullanılmaktadır
 	function ekle_1() {
 	
@@ -183,6 +242,11 @@ class Yazi extends MY_Model {
 		return parent::is_var_where_id_and_x('yazar_id');
 	}
 	
+	function is_var_where_id_and_kategori_id() {
+	
+		return parent::is_var_where_id_and_x('kategori_id');
+	}
+	
 	function is_var_where_kategori_id() {
 	
 		return parent::is_var_where_x('kategori_id');
@@ -191,7 +255,7 @@ class Yazi extends MY_Model {
 	function guncelle_1() {
 	
 		$data = array(
-					'baslik' => $this->baslik, 
+					'baslik' => $this->baslik,  
 					'ozet' => $this->ozet, 
 					'icerik' => $this->icerik, 
 					'kategori_id' => $this->kategori_id, 
@@ -199,6 +263,11 @@ class Yazi extends MY_Model {
 					'durum' => $this->durum);
 					
 		parent::guncelle_where_id($data);
+	}
+	
+	function guncelle_durum_where_id() {
+	
+		parent::guncelle_x_where_id('durum');
 	}
 	
 	function artir_hit_where_id() { parent::artir_x_where_id('hit'); }

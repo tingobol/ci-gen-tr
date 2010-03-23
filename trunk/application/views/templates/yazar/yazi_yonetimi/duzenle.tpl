@@ -35,13 +35,13 @@
 				<p>
 					<b>* Özet:</b><br />
 					<i>Yazının özetini yazınız. Yazınız uzun değilse sadece özet alanı yeterlidir. İçerik yazmayınız.</i>
-					<textarea rows="10" cols="60" name="ozet">{$yazi->ozet}</textarea>
+					<textarea rows="10" cols="60" name="ozet" id="ozet">{$yazi->ozet}</textarea>
 				</p>
 				
 				<p>
 					<b>İçerik:</b><br />
 					<i>Yazı içeriğini yazınız. Özet ana sayfada görünen yazıdır. İçerik ise özet ile birlikte yazının devamını okumak isteyene gösterilir.</i>
-					<textarea rows="10" cols="60" name="icerik">{$yazi->icerik}</textarea>
+					<textarea rows="10" cols="60" name="icerik" id="icerik">{$yazi->icerik}</textarea>
 				</p>
 				
 				<p>
@@ -62,16 +62,27 @@
 
 </div>
 
-<script src="{$smarty.const.DIZIN_URL_2}/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<!-- jQuery :) -->
+
+<!-- markItUp! -->
+<script src="{$smarty.const.DIZIN_URL_2}/js/markitup/jquery.markitup.pack.js" type="text/javascript"></script>
+
+<!-- markItUp! toolbar settings -->
+<script src="{$smarty.const.DIZIN_URL_2}/js/markitup/sets/bbcode/set.js" type="text/javascript"></script>
+
+<!-- markItUp! skin -->
+<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/skins/markitup/style.css" />
+
+<!--  markItUp! toolbar skin -->
+<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/sets/bbcode/style.css" />
 
 {literal}
 <script type="text/javascript">
 
-	CKEDITOR.replace('ozet', {customConfig: 'tr.gen.ci.js'});
-	CKEDITOR.replace('icerik', {customConfig: 'tr.gen.ci.js'});
-
 	$().ready(function(){
-		$('#form1').formtooltip();	
+		$('#form1').formtooltip();
+		$('#ozet').markItUp(mySettings);
+		$('#icerik').markItUp(mySettings);
 	});
 	
 </script>

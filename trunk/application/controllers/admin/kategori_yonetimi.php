@@ -39,7 +39,6 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
 			$this->kategori->adi = $this->input->post('adi');
-			$this->kategori->radi = $this->input->post('radi');
 			$this->kategori->aciklama = $this->input->post('aciklama');
 			$this->kategori->arama = $this->input->post('arama');
 			
@@ -47,9 +46,6 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 			
 				if (form_is_bos($this->kategori->adi)) throw new Exception('Kategori adı boş geçilemez.');
 				if ($this->kategori->is_var_where_adi()) throw new Exception('Bu kategori adı daha önce eklenmiş.');
-				
-				if (form_is_bos($this->kategori->radi)) throw new Exception('Kategori rewrite adı boş geçilemez.');
-				if ($this->kategori->is_var_where_radi()) throw new Exception('Bu kategori rewrite adı daha önce eklenmiş.');
 				
 				$this->kategori->ekle_1();
 				
@@ -83,7 +79,6 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 		
 			$this->kategori->id = (int) $this->input->post('id');
 			$this->kategori->adi = $this->input->post('adi');
-			$this->kategori->radi = $this->input->post('radi');
 			$this->kategori->aciklama = $this->input->post('aciklama');
 			$this->kategori->arama = $this->input->post('arama');
 		} else {
@@ -101,9 +96,6 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 			
 				if (form_is_bos($this->kategori->adi)) throw new Exception('Kategori adı boş geçilemez.');
 				if ($this->kategori->is_var_where_adi_and_not_id()) throw new Exception('Bu kategori adı daha önce eklenmiş.');
-				
-				if (form_is_bos($this->kategori->radi)) throw new Exception('Kategori rewrite adı boş geçilemez.');
-				if ($this->kategori->is_var_where_radi_and_not_id()) throw new Exception('Bu kategori rewrite adı daha önce eklenmiş.');
 				
 				$this->kategori->guncelle_1();
 				

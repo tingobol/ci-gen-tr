@@ -23,20 +23,20 @@
 			<div class="entrytop">
 				<div class="entry">
 				
-					<h2><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->id}" rel="bookmark">{$yazi->baslik}</a></h2>
+					<h2><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->kategori_id:$yazi->id}" rel="bookmark">{$yazi->baslik}</a></h2>
 		
 				</div>
 			</div>			
 			
 			<div class="post-content">
 			
-				{$yazi->ozet}
+				{$yazi->ozet|bbcode_to_html}
 			
 			</div>
 			
 			<div class="alt_bilgi">
-				<span class="devami"><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->id}">Devamı</a></span>
-				<span class="kategori"><a href="{$smarty.const.DIZIN_URL_21}/{$yazi->kategori_id}">{$yazi->kategori_adi}</a></span>
+				<span class="devami"><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->kategori_id:$yazi->id}">Devamı</a></span>
+				<span class="kategori"><a href="{$smarty.const.SAYFA_MISAFIR_31|sprintf:$yazi->kategori_id}">{$yazi->kategori_adi}</a></span>
 				<span class="hit">Okunma: {$yazi->hit}</span>
 				<span class="tarih">{$yazi->eklenme_zamani|date_format:"%e.%m.%Y"}</span>
 			</div>
@@ -46,20 +46,19 @@
 	{/foreach}
 
 		<div class="navigation">
+		
+			{if $sayfalama_lib->is_eski_kayit_var()} 
 			<span class="previous-entries"> 
-				 
-				{if $sayfalama_lib->is_eski_kayit_var()} 
-					<a href="{$smarty.const.DIZIN_URL_12}/{$sayfalama_lib->get_eski_sayfa()}">Eski Yazılar</a>
-				{/if}
-				
+				<a href="{$smarty.const.SAYFA_MISAFIR_12|sprintf:$sayfalama_lib->get_eski_sayfa()}">Eski Yazılar</a>
 			</span>
-			<span class="next-entries">
+			{/if}
 			
-				{if $sayfalama_lib->is_yeni_kayit_var()} 
-					<a href="{$smarty.const.DIZIN_URL_12}/{$sayfalama_lib->get_yeni_sayfa()}">Yeni Yazılar</a>
-				{/if}
-				
+			{if $sayfalama_lib->is_yeni_kayit_var()}
+			<span class="next-entries">
+			 	<a href="{$smarty.const.SAYFA_MISAFIR_12|sprintf:$sayfalama_lib->get_yeni_sayfa()}">Yeni Yazılar</a>
 			</span>
+			{/if}
+			
 		</div>
 
 {/if}

@@ -20,3 +20,24 @@ table.tablo tbody tr td {
 	padding:4px;
 	font-weight:bold;
 }
+
+table.tablo2 {
+
+	border-collapse:collapse;
+	background-color:#eeeeee;
+}
+
+table.tablo2 tbody tr div.baslik {
+	background-color: #D16683;
+	color: #ffffff;
+	font-size:15px;
+	padding: 6px;
+	font-weight: bold;
+}
+
+table.tablo2 tbody tr div.icerik {
+
+	border-bottom: solid 1px #D16683;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}

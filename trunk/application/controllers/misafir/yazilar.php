@@ -8,55 +8,30 @@ class Yazilar extends MY_MisafirKontroller {
 		
 		$this->load->model('yazi');
 	}
-
-	function index() {
 	
-		redirect(SAYFA_MISAFIR_21);
-	}
-	
-	function liste($sayfa = 1) {
-		
-		$this->load->library('sayfalama_lib');
-		
-		$this->sayfalama_lib->adet = 10;
-		$this->sayfalama_lib->set_sayfa($sayfa);
-		$this->sayfalama_lib->toplam_kayit_sayisi = $this->yazi->get_adet_1();
-		
-		$data['yazilar'] = $this->yazi->get_liste_5($this->sayfalama_lib->adet, $this->sayfalama_lib->get_limit_ilk());
-		
-		$data['sayfalama_lib'] = $this->sayfalama_lib;
-		
-		$data['k_t'] = k_t_yeni_gelmis_misafir;
-		
-		// navigasyon için
-		$this->load->model('kategori');
-		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
-		
-		$this->smarty->view('misafir/yazilar/liste.tpl', $data);
-	}
-	
-	function detay($id = 0) {
+	function detay($kategori_id = 0, $yazi_id = 0) {
 
 		$this->load->model('yazi_etiketi');
 		
-		$this->yazi->id = (int) $id;		
+		$this->yazi->kategori_id = (int) $kategori_id;
+		$this->yazi->id = (int) $yazi_id;	
 		
-		// yazı sistemde mevcut değilse yazi listesine yönlendiriliyor
-		if (!$this->yazi->is_var_where_id()) 
-			redirect(SAYFA_MISAFIR_21);
+		// yazı sistemde mevcut değilse ana sayfaya yönlendiriliyor
+		if (!$this->yazi->is_var_where_id_and_kategori_id()) 
+			redirect(SAYFA_MISAFIR_11);
 			
 		// yazının hitini artir
 		$this->yazi->artir_hit_where_id();
 			
 		$temp_yazi = $this->yazi->get_detay_1();
 		
-		if ($temp_yazi->durum != Yazi::DURUM_ONAYLI) {
+		if ($temp_yazi->durum != SABIT_YAZI_DURUM_ONAYLI) {
 			
 			// yazının hiti artırılmıştı, tekrar azaltılsın
 			$this->yazi->azalt_hit_where_id();
 			
-			// yazı durumu onaylı olmadığı için yazı listesine yönlendiriliyor
-			redirect(SAYFA_MISAFIR_21);
+			// yazı durumu onaylı olmadığı için ana sayfaya yönlendiriliyor
+			redirect(SAYFA_MISAFIR_11);
 		}
 			
 		$this->yazi_etiketi->yazi_id = $temp_yazi->id;
@@ -70,6 +45,8 @@ class Yazilar extends MY_MisafirKontroller {
 		// navigasyon için
 		$this->load->model('kategori');
 		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
+		
+		$data['meta_baslik'] = $temp_yazi->baslik;
 		
 		$this->smarty->view('misafir/yazilar/detay.tpl', $data);
 	}

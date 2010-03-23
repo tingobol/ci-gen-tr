@@ -14,3 +14,10 @@ define('SABIT_GIRIS_YAPMIS_YAZAR', 4);
 define('SABIT_GIRIS_YAPACAK_EDITOR', 5);
 define('SABIT_GIRIS_YAPMIS_EDITOR', 6);
 define('SABIT_YENI_GELMIS_MISAFIR', 7); // yeni gelmiş bir misafir, her hangi bir kullanıcı olabilir.
+
+// Yazı Durumları
+define('SABIT_YAZI_DURUM_EDITOR_KONTROL_EDECEK', 0);
+define('SABIT_YAZI_DURUM_ONAYLI', 1);
+define('SABIT_YAZI_DURUM_YAYINDAN_KALKMIS', 2);
+define('SABIT_YAZI_DURUM_ADMIN_KONTROL_EDECEK', 3);
+define('SABIT_YAZI_DURUM_YAZAR_KONTROL_EDECEK', 4);

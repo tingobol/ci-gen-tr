@@ -1,7 +1,7 @@
 <?php
 
 class Etiket_lib {
-
+	
 	var $CI;
 
 	var $etiketler = array();
@@ -45,8 +45,15 @@ class Etiket_lib {
 			// eğer eklenmemişse, önce ekleyip sonra id numarasını alıyoruz
 			$this->CI->yazi_etiketi->etiket_id = $this->CI->etiket->get_id_where_adi_yoksa_ekle();
 
-			// yazı etiketi veritabanına ekleniyor
-			$this->CI->yazi_etiketi->ekle();
+			// yazı etiketi daha önce eklenmiş mi 
+			// burada mükerrer kayıtları engellemiş olacağız
+			if (!$this->CI->yazi_etiketi->is_var_where_yazi_id_and_etiket_id()) {
+			
+				// hayır daha önce eklenmemiş
+				
+				// yazı etiketi veritabanına ekleniyor
+				$this->CI->yazi_etiketi->ekle();
+			} // else yazmaya gerek kalmadı
 		}
 	}
 	
@@ -110,6 +117,21 @@ class Etiket_lib {
 			if (!in_array($eski_etiketler[$i], $yeni_etiketler))
 				$return = TRUE;
 				
+		return $return;
+	}
+	
+	function get_etiket_bulutu() {
+	
+		$etiketler = $this->CI->yazi_etiketi->get_liste_4();
+		
+		$return = array();
+		
+		foreach ($etiketler->result() as $etiket) {
+		
+			
+			$return[] = array($etiket->adet, $etiket->adi, sprintf(SAYFA_MISAFIR_51, $etiket->id));
+		}
+		
 		return $return;
 	}
 }

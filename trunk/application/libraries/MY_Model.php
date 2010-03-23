@@ -141,12 +141,12 @@ class MY_Model extends Model {
 	}
 	
 	function guncelle_x_where_id($x) {
-	
+		
 		$this->guncelle_x_where_y($x, 'id');
 	}
 	
 	function get_x_where_y($x, $y) {
-	
+		
 		$satir = $this->db->select($x)
 						  ->where($y, $this->$y)
 						  ->get($this->tablo_adi)

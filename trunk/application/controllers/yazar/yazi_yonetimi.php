@@ -49,8 +49,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			
 			// post bilgilerini yazı objemize alalım
 			$this->yazi->baslik = $this->input->post('baslik');
-			$this->yazi->ozet = html_filtrele_1($this->input->post('ozet'));
-			$this->yazi->icerik = html_filtrele_1($this->input->post('icerik'));
+			$this->yazi->ozet = $this->input->post('ozet', FALSE);
+			$this->yazi->icerik = $this->input->post('icerik', FALSE);
 			$this->yazi->kategori_id = (int) $this->input->post('kategori_id');
 			
 			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
@@ -70,6 +70,7 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 				
 				// doldurulması zorunlu alanların kontrolü
 				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
+
 				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
 				
 				// yazarın id'si alınıyor
@@ -128,8 +129,8 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			// post bilgilerini yazı objemize alalım
 			$this->yazi->id = (int) $this->input->post('id');
 			$this->yazi->baslik = $this->input->post('baslik');
-			$this->yazi->ozet = html_filtrele_1($this->input->post('ozet'));
-			$this->yazi->icerik = html_filtrele_1($this->input->post('icerik'));
+			$this->yazi->ozet = $this->input->post('ozet', FALSE);
+			$this->yazi->icerik = $this->input->post('icerik', FALSE);
 			$this->yazi->kategori_id = $this->input->post('kategori_id');
 			
 			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
@@ -177,18 +178,18 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			$b6 = $this->etiket_lib->is_etiketler_degisti($this->yazi->id);
 			
 			// yazı bilgilerinde değişiklik yapılmış mı?
-			if ($b1 && $b3 && $b4 && $b5 && !$b6) {
+			if ($b1 && $b2 && $b3 && $b4 && $b5 && !$b6) {
 			
-				// evet yazı bilgilerinde değişiklik yapılmış
+				// hayır yazı bilgilerinde değişiklik yapılmamış
 				$this->yazi->durum = $temp_yazi->durum;
 			} else {
 			
-				// hayır yazı bilgilerinde değişiklik yapılmamış
+				// evet yazı bilgilerinde değişiklik yapılmış
 				
 				// eğer yazının durumu onaylı ise
-				if ($temp_yazi->durum == Yazi::DURUM_ONAYLI) {
+				if ($temp_yazi->durum == Yazi::DURUM_ONAYLI || $temp_yazi->durum == Yazi::DURUM_YAZAR_KONTROL_EDECEK) {
 					
-					$this->yazi->durum = Yazi::DURUM_ONAY_BEKLIYOR;
+					$this->yazi->durum = Yazi::DURUM_EDITOR_KONTROL_EDECEK;
 				} else { 
 					
 					$this->yazi->durum = $temp_yazi->durum;

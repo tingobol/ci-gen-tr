@@ -62,4 +62,25 @@ class Yazi_etiketi extends MY_Model {
 						->limit($adet, $limit_ilk)
 						->get('yazilar');
 	}
+	
+	/*
+	 * etiket bulutu yapmak için kullanılacak
+	 */
+	function get_liste_4() {
+	
+		return $this->db->select('etiketler.*, COUNT(yazi_etiketleri.yazi_id) AS adet')
+						->join('etiketler', 'yazi_etiketleri.etiket_id = etiketler.id')
+						->join('yazilar', 'yazi_etiketleri.yazi_id = yazilar.id')
+						->where('yazilar.durum', SABIT_YAZI_DURUM_ONAYLI)
+						->group_by('yazi_etiketleri.etiket_id')
+						->get($this->tablo_adi);
+	}
+	
+	function is_var_where_yazi_id_and_etiket_id() {
+	
+		if (empty($this->yazi_id)) throw new Exception('Yazı Id boş geçilemez.');
+		if (empty($this->etiket_id)) throw new Exception('Etiket Id boş geçilemez.');
+		
+		return parent::is_var_where_x_and_y('yazi_id', 'etiket_id');
+	}
 }

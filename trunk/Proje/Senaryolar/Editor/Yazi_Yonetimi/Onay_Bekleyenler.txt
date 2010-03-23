@@ -1,0 +1,8 @@
+yazarlar yazıyı yazdıklarında ya da yazılmış bir yazı
+üzirinde değişiklik yaptıklarında, değişikliğin editör 
+onayından geçmesi için beklemeye alınırlar. editör 
+beklemede olan yazıların listesini görebilir, detayına 
+göz atıp, 
+	- yayınlayabilir, 
+	- admin kontrolüne bırakabilir, (admin yazıyı silme ve değiştirme yetkisine sahip olmalı)
+	- yazara yazıyı yeniden düzenlemesi için mesaj gönderebilir
