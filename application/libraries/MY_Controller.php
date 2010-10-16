@@ -32,6 +32,13 @@ class MY_Controller extends Controller
 	/**
 	 * 
 	 * Enter description here ...
+	 * @var Ping_lib
+	 */
+	var $ping_lib;
+	
+	/**
+	 * 
+	 * Enter description here ...
 	 * @var Admin_lib
 	 */
 	var $admin_lib;
