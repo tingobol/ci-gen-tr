@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/panel
+Disallow: /editor/panel
+Disallow: /yazar/panel

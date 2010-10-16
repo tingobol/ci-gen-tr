@@ -75,7 +75,7 @@ class Yazi_yonetimi extends MY_EditorKontroller {
 		$data['yazar'] = $this->yazar_mod->get_detay_where_id();
 		
 		// yazı detay sayfasının adresi
-		$data['url1'] = sprintf(SAYFA_MISAFIR_23, $this->yazi->id);
+		$data['url1'] = sprintf(SAYFA_MISAFIR_23, $this->yazar_mod->id);
 		
 		// yazısı onaylanan yazara mail ile bilgi ver.
 		// basla mail
