@@ -26,7 +26,7 @@
 			
 			<p>
 				<b>Meta Arama:</b><br />
-				<input type="text" name="meta_arama" size="70" maxlength="25" title="Meta aramasını yazınız." value="{$kategori_mod->meta_arama}" />
+				<input type="text" name="meta_arama" size="70" maxlength="255" title="Meta aramasını yazınız." value="{$kategori_mod->meta_arama}" />
 			</p>
 	
 			<p>
