@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-	
 <div class="blok1">
 
 	<div class="entrytop">
@@ -22,26 +20,24 @@
 				
 				<p>
 					<b>* Kategori:</b><br />
-					<select name="kategori_id" title="Yazı kategorisini seçiniz.">
-					   {html_options values=$kategori_ids output=$kategori_names selected=$kategori_selected_id}
-					</select>
+					{$html_select_kategoriler}
 				</p>
 				
 				<p>
 					<b>* Başlık:</b><br />
-					<input type="text" name="baslik" size="60" maxlength="255" title="Yazının başlığını yazınız. Ör: Yazı Başlığı" value="{$yazi->baslik}" />
+					<input type="text" name="baslik" size="60" maxlength="255" title="Yazının başlığını yazınız. Ör: Yazı Başlığı" value="{$yazi_mod->baslik}" />
 				</p>
 				
 				<p>
 					<b>* Özet:</b><br />
 					<i>Yazının özetini yazınız. Yazınız uzun değilse sadece özet alanı yeterlidir. İçerik yazmayınız.</i>
-					<textarea rows="10" cols="60" name="ozet" id="ozet">{$yazi->ozet}</textarea>
+					<textarea rows="10" cols="60" name="ozet" id="ozet">{$yazi_mod->ozet}</textarea>
 				</p>
 				
 				<p>
 					<b>İçerik:</b><br />
 					<i>Yazı içeriğini yazınız. Özet ana sayfada görünen yazıdır. İçerik ise özet ile birlikte yazının devamını okumak isteyene gösterilir.</i>
-					<textarea rows="10" cols="60" name="icerik" id="icerik">{$yazi->icerik}</textarea>
+					<textarea rows="10" cols="60" name="icerik" id="icerik">{$yazi_mod->icerik}</textarea>
 				</p>
 				
 				<p>
@@ -64,13 +60,13 @@
 <!-- jQuery :) -->
 
 <!-- markItUp! -->
-<script src="{$smarty.const.DIZIN_URL_2}/js/markitup/jquery.markitup.pack.js" type="text/javascript"></script>
+<script src="{$smarty.const.DIZIN_URL_2}/js/markitup/jquery.markitup.js" type="text/javascript"></script>
 
 <!-- markItUp! toolbar settings -->
 <script src="{$smarty.const.DIZIN_URL_2}/js/markitup/sets/bbcode/set.js" type="text/javascript"></script>
 
 <!-- markItUp! skin -->
-<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/skins/simple/style.css" />
 
 <!--  markItUp! toolbar skin -->
 <link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/sets/bbcode/style.css" />
@@ -80,11 +76,10 @@
 
 	$().ready(function(){
 		$('#form1').formtooltip();
+		
 		$('#ozet').markItUp(mySettings);
 		$('#icerik').markItUp(mySettings);
 	});
 	
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

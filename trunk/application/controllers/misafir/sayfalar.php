@@ -10,11 +10,11 @@ class Sayfalar extends MY_MisafirKontroller {
 	function iletisim() {
 	
 		// modelleri yükle
-		$this->load->model('kategori');
-		$this->load->model('iletisim_konusu');
-		$this->load->model('iletisim_mesaji');
+		$this->load->model('iletisim_konusu_mod');
+		$this->load->model('iletisim_mesaji_mod');
 		
-		$data['iletisim_mesaji'] = $this->iletisim_mesaji;
+		$data['iletisim_konusu_mod'] = $this->iletisim_konusu_mod;
+		$data['iletisim_mesaji_mod'] = $this->iletisim_mesaji_mod;
 		
 		// mesaj göndermek için form submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
@@ -22,39 +22,38 @@ class Sayfalar extends MY_MisafirKontroller {
 			// evet mesaj gönderme formu submit edilmiş
 			
 			// formdan gelen bilgileri alalım
-			$this->iletisim_mesaji->adi = $this->input->post('adi');
-			$this->iletisim_mesaji->mail = $this->input->post('mail');
-			$this->iletisim_mesaji->mesaj = nl2br(html_filtrele_1($this->input->post('mesaj', TRUE)));
-			$this->iletisim_mesaji->konu_id = (int) $this->input->post('konu_id');
-
-			$this->smarty->assign('konu_selected_id', $this->iletisim_mesaji->konu_id);
-
+			$this->iletisim_mesaji_mod->konu_id = (int) trim($this->input->post('konu_id'));
+			$this->iletisim_mesaji_mod->adi = trim($this->input->post('adi'));
+			$this->iletisim_mesaji_mod->mail = trim($this->input->post('mail'));
+			$this->iletisim_mesaji_mod->mesaj = nl2br(html_filtrele_1(trim($this->input->post('mesaj', TRUE))));
+			
 			// post bilgilerini kontrole başlayalım
 			try {
 
 				// doldurulması zorunlu alanların kontrolü
-				if (form_is_bos($this->iletisim_mesaji->konu_id)) throw new Exception('Lütfen mesajınız için bir konu seçiniz.');
-				if (form_is_bos($this->iletisim_mesaji->adi)) throw new Exception('Lütfen adınızı yazınız.');
-				if (form_is_bos($this->iletisim_mesaji->mail)) throw new Exception('Lütfen mail adresinizi yazınız.');
-				if (!form_is_mail($this->iletisim_mesaji->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
-				if (form_is_bos($this->iletisim_mesaji->mesaj)) throw new Exception('Lütfen mesajınızı yazınız.');
+				if (empty($this->iletisim_mesaji_mod->konu_id)) throw new Exception('Lütfen mesajınız için bir konu seçiniz.');
+				if (empty($this->iletisim_mesaji_mod->adi)) throw new Exception('Lütfen adınızı yazınız.');
+				if (empty($this->iletisim_mesaji_mod->mail)) throw new Exception('Lütfen mail adresinizi yazınız.');
+				if (!form_is_mail($this->iletisim_mesaji_mod->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
+				if (empty($this->iletisim_mesaji_mod->mesaj)) throw new Exception('Lütfen mesajınızı yazınız.');
 
 				// mesaj gönderilirken seçilen konunun sistemde 
 				// olup olmadığına bakılıyor
-				$this->iletisim_konusu->id = $this->iletisim_mesaji->konu_id;				
-				if (!$this->iletisim_konusu->is_var_where_id()) throw new Exception('Belirtilen konu sistemde bulunmamaktadır. Lütfen listeden bir konu seçiniz.');
+				$this->iletisim_konusu_mod->id = $this->iletisim_mesaji_mod->konu_id;				
+				if (!$this->iletisim_konusu_mod->is_var_where_id()) throw new Exception('Lütfen listeden bir konu seçiniz.');
 
 				// mesajı veritabanına kaydet
-				$this->iletisim_mesaji->ekle_1();
+				$this->iletisim_mesaji_mod->ekle_1();
 
 				// adminlere mail gönderirken bilgi amaçlı kullanılacak 
-				$data['iletisim_konusu'] = $this->iletisim_konusu->get_detay_where_id();
+				$this->iletisim_konusu_mod->adi = $this->iletisim_konusu_mod->get_adi_where_id();
 
 				// adminlere mail gönder
 				$data['url1'] = SAYFA_ADMIN_0;
 				
 				$this->load->library('email');
-				$adminler = $this->kullanici->get_liste_1();
+				$this->load->model('admin_mod');
+				$adminler = $this->admin_mod->get_liste_1();
 				foreach ($adminler->result() as $admin) {
 				
 					$data['admin'] = $admin;
@@ -70,44 +69,39 @@ class Sayfalar extends MY_MisafirKontroller {
 					// bitti mail
 				}
 				
-				$this->session->set_flashdata('tamam', 'Mesajınız kaydedilmiştir. En kısa zamanda incelenecektir.');
-				
-				redirect(SAYFA_MISAFIR_41);
-				
+				$data['tamam'] = 'Mesajınız kaydedilmiştir. En kısa zamanda incelenecektir.';				
 			} catch (Exception $ex) {
 			
 				$data['hata'] = $ex->getMessage();
 			}
 		} else {
-		
-			$this->smarty->assign('konu_selected_id', 0);
 			
-			$this->smarty->assign('tamam', $this->session->flashdata('tamam'));
+			$this->iletisim_mesaji_mod->konu_id = 0;
 		}
 		
-		$data['k_t'] = k_t_yeni_gelmis_misafir;
-		
-		// drop down konu seçmek için
-		$iletisim_konulari = $this->iletisim_konusu->get_liste_1();
-		$this->smarty->assign('konu_ids', $iletisim_konulari['values']);
-		$this->smarty->assign('konu_names', $iletisim_konulari['output']); 
+		// html kategori select
+		$this->load->library('iletisim_konusu_lib');
+		$data['html_select_iletisim_konulari'] = $this->iletisim_konusu_lib->get_html_select1($this->iletisim_mesaji_mod->konu_id);
 		
 		// navigasyon için
-		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
-
+		$this->load->model('kategori_mod');
+		$data['nav_kategoriler'] = $this->kategori_mod->get_liste_2();
+		
 		$data['meta_baslik'] = 'İletişim Sayfası';
 		
-		$this->smarty->view('misafir/sayfalar/iletisim.tpl', $data);
+		$data['icerik'] = $this->smarty->view('misafir/sayfalar/iletisim.tpl', $data, TRUE);
+
+		$this->smarty->view( 'misafir/layout1.tpl', $data );
 	}
 	
 	function arama() {
 		
-		// modelleri yükle
-		$this->load->model('kategori');
-		
 		// navigasyon için
-		$data['nav_kategoriler'] = $this->kategori->get_liste_2();
-	
-		$this->smarty->view('misafir/sayfalar/arama.tpl', $data);
+		$this->load->model('kategori_mod');
+		$data['nav_kategoriler'] = $this->kategori_mod->get_liste_2();
+		
+		$data['icerik'] = $this->smarty->view('misafir/sayfalar/arama.tpl', $data, TRUE);
+
+		$this->smarty->view( 'misafir/layout1.tpl', $data );
 	}
 }

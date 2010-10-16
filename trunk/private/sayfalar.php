@@ -9,6 +9,7 @@ define('DIZIN_ROOT_3', DIZIN_ROOT_1 . '/private/Smarty');
 define('DIZIN_URL_1', HOME_URL);
 define('DIZIN_URL_2', DIZIN_URL_1 . '/public');
 define('DIZIN_URL_3', DIZIN_URL_1 . '/public/resimler/ikonlar');
+define('DIZIN_URL_4', DIZIN_URL_1 . '/public/js/syntaxhighlighter');
 
 // SAYFALAR
 
@@ -70,15 +71,19 @@ define('SAYFA_MISAFIR_0', DIZIN_URL_1);
 // define('SAYFA_MISAFIR_11', DIZIN_URL_1 . '/misafir/ana_sayfa');
 define('SAYFA_MISAFIR_11', DIZIN_URL_1);
 // define('SAYFA_MISAFIR_12', DIZIN_URL_1 . '/misafir/ana_sayfa/index/%d'); // %d: sayfa_no
-define('SAYFA_MISAFIR_12', DIZIN_URL_1 . '/sayfa-%d'); // %d: sayfa_no
+// define('SAYFA_MISAFIR_12', DIZIN_URL_1 . '/sayfa-%d'); // %d: sayfa_no
+define('SAYFA_MISAFIR_12', DIZIN_URL_1 . '/sayfa/%d'); // %d: sayfa_no
 
 // define('SAYFA_MISAFIR_23', DIZIN_URL_1 . '/misafir/yazilar/detay/%d'); // %s: id
-define('SAYFA_MISAFIR_23', DIZIN_URL_1 . '/kategori-%d/yazi-%d'); // %d: kategori_id, %d: yazi_id
+// define('SAYFA_MISAFIR_23', DIZIN_URL_1 . '/kategori-%d/yazi-%d'); // %d: kategori_id, %d: yazi_id
+define('SAYFA_MISAFIR_23', DIZIN_URL_1 . '/yazi/%d'); // %d: yazi_id
 
 // define('SAYFA_MISAFIR_31', DIZIN_URL_1 . '/misafir/kategoriler/yazilari_listele/%d'); // %d: kategori_id
-define('SAYFA_MISAFIR_31', DIZIN_URL_1 . '/kategori-%d'); // %d: kategori_id
+// define('SAYFA_MISAFIR_31', DIZIN_URL_1 . '/kategori-%d'); // %d: kategori_id
+define('SAYFA_MISAFIR_31', DIZIN_URL_1 . '/kategori/%d'); // %d: kategori_id
 // define('SAYFA_MISAFIR_32', DIZIN_URL_1 . '/misafir/kategoriler/yazilari_listele/%d/%d'); // %d: kategori_id, %d: sayfa_no
-define('SAYFA_MISAFIR_32', DIZIN_URL_1 . '/kategori-%d/sayfa-%d'); // %d: kategori_id, %d: sayfa_no
+// define('SAYFA_MISAFIR_32', DIZIN_URL_1 . '/kategori-%d/sayfa-%d'); // %d: kategori_id, %d: sayfa_no
+define('SAYFA_MISAFIR_32', DIZIN_URL_1 . '/kategori/%d/sayfa/%d'); // %d: kategori_id, %d: sayfa_no
 
 // define('SAYFA_MISAFIR_41', DIZIN_URL_1 . '/misafir/sayfalar/iletisim');
 define('SAYFA_MISAFIR_41', DIZIN_URL_1 . '/iletisim');
@@ -86,6 +91,8 @@ define('SAYFA_MISAFIR_41', DIZIN_URL_1 . '/iletisim');
 define('SAYFA_MISAFIR_42', DIZIN_URL_1 . '/arama');
 
 // define('SAYFA_MISAFIR_51', DIZIN_URL_1 . '/misafir/yazi_etiketleri/yazilari_listele/%d'); // %d: etiket_id
-define('SAYFA_MISAFIR_51', DIZIN_URL_1 . '/etiket-%d'); // %d: etiket_id
+// define('SAYFA_MISAFIR_51', DIZIN_URL_1 . '/etiket-%d'); // %d: etiket_id
+define('SAYFA_MISAFIR_51', DIZIN_URL_1 . '/etiket/%d'); // %d: etiket_id
 // define('SAYFA_MISAFIR_52', DIZIN_URL_1 . '/misafir/yazi_etiketleri/yazilari_listele/%d/%d'); // %d: etiket_id, %d: sayfa_no
-define('SAYFA_MISAFIR_52', DIZIN_URL_1 . '/etiket-%d/sayfa-%d'); // %d: etiket_id, %d: sayfa_no
+// define('SAYFA_MISAFIR_52', DIZIN_URL_1 . '/etiket-%d/sayfa-%d'); // %d: etiket_id, %d: sayfa_no
+define('SAYFA_MISAFIR_52', DIZIN_URL_1 . '/etiket/%d/sayfa/%d'); // %d: etiket_id, %d: sayfa_no

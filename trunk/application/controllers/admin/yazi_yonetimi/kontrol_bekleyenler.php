@@ -3,74 +3,71 @@
 class Kontrol_bekleyenler extends MY_AdminKontroller {
 	
 	function liste() {
-	
-		$this->kullanici_lib->sadece_admin_gorebilir();
 		
-		$this->load->model('yazi');
+		$this->admin_lib->sadece_admin_gorebilir();
 		
-		$data['k_t'] = k_t_giris_yapmis_admin;
+		$this->load->model('yazi_mod');
+		
+		$data['yazilar'] = $this->yazi_mod->get_liste_8();
 		
 		$data['meta_baslik'] = 'Kontrol Bekleyen Yazılar Listesi';
 		
-		$data['yazilar'] = $this->yazi->get_liste_8();
-		
+		// flash datalar set ediliyor
 		$data['tamam'] = $this->session->flashdata('tamam');
 		
-		$this->smarty->view('admin/yazi_yonetimi/kontrol_bekleyenler/liste.tpl', $data);
+		$data['icerik'] = $this->smarty->view('admin/yazi_yonetimi/kontrol_bekleyenler/liste.tpl', $data, TRUE);
+
+		$this->smarty->view( 'admin/layout2.tpl', $data );
 	}
 	
 	function detay($id = 0) {
 	
-		$this->kullanici_lib->sadece_admin_gorebilir();
+		$this->admin_lib->sadece_admin_gorebilir();
 		
-		$this->load->model('yazi');
-		$this->load->model('yazi_etiketi');
+		$this->load->model('yazi_mod');
+		$this->load->model('yazi_etiketi_mod');
 		
-		$this->yazi->id = (int) $id;
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde mevcut olmalı
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
 			redirect(SAYFA_ADMIN_21);
 			
-		$temp_yazi = $this->yazi->get_detay_2();
-		
-		// yazının durumu editör kontrol edecek olmalı
-		if ($temp_yazi->durum != SABIT_YAZI_DURUM_ADMIN_KONTROL_EDECEK)
+		// yazının durumu admin kontrol edecek olmalı
+		if ($this->yazi_mod->get_durum_where_id() != Yazi_mod::DURUM_ADMIN_KONTROL_EDECEK)
 			redirect(SAYFA_ADMIN_21);
+
+		$this->yazi_etiketi_mod->yazi_id = $this->yazi_mod->id;
 			
-		$this->yazi_etiketi->yazi_id = $this->yazi->id;
-			
-		$data['yazi'] = $temp_yazi; unset($temp_yazi);
-		$data['yazi_etiketleri'] = $this->yazi_etiketi->get_liste_2();
-		
-		$data['k_t'] = k_t_giris_yapmis_admin;
+		$data['yazi'] = $this->yazi_mod->get_detay_2();
+		$data['yazi_etiketleri'] = $this->yazi_etiketi_mod->get_liste_2();
 		
 		$data['meta_baslik'] = 'Kontrol Bekleyen Yazı Detay';
 		
-		$this->smarty->view('admin/yazi_yonetimi/kontrol_bekleyenler/detay.tpl', $data);
+		$data['icerik'] = $this->smarty->view('admin/yazi_yonetimi/kontrol_bekleyenler/detay.tpl', $data, TRUE);
+
+		$this->smarty->view( 'admin/layout2.tpl', $data );
 	}
 	
 	function editore_gonder($id = 0) {
 	
-		$this->kullanici_lib->sadece_admin_gorebilir();
+		$this->admin_lib->sadece_admin_gorebilir();
 		
-		$this->load->model('yazi');
+		$this->load->model('yazi_mod');
 		
-		$this->yazi->id = (int) $id;
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde mevcut olmalı
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
 			redirect(SAYFA_ADMIN_21);
 			
-		$temp_yazi_durum = $this->yazi->get_durum_where_id();
-		
-		// yazının durumu editör kontrol edecek olmalı
-		if ($temp_yazi_durum != SABIT_YAZI_DURUM_ADMIN_KONTROL_EDECEK)
+		// yazının durumu admin kontrol edecek olmalı
+		if ($this->yazi_mod->get_durum_where_id() != Yazi_mod::DURUM_ADMIN_KONTROL_EDECEK)
 			redirect(SAYFA_ADMIN_21);
 			
-		$this->yazi->durum = SABIT_YAZI_DURUM_EDITOR_KONTROL_EDECEK;
-		
-		$this->yazi->guncelle_durum_where_id();
+		// yazının durumunu güncelle
+		$this->yazi_mod->durum = Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK;
+		$this->yazi_mod->guncelle_durum_where_id();
 		
 		$this->session->set_flashdata('tamam', 'Yazıyı editörler inceleyecek.');
 		

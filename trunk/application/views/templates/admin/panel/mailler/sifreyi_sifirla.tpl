@@ -10,11 +10,11 @@ body, p {
 </style>
 {/literal}
 
-<p>Merhaba <b>{$kullanici->adi}</b></p>
+<p>Merhaba <b>{$admin_mod->adi}</b></p>
 
 <p>Yeni giriş bilgileriniz aşağıdaki gibidir:</p>
 <p>
-Mail Adresi: {$kullanici->mail}<br />
+Mail Adresi: {$admin_mod->mail}<br />
 Şifre: {$temp_sifre}
 </p>
 

@@ -6,41 +6,41 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 	
 		parent::MY_YazarKontroller();
 		
-		$this->load->model('yazi');
-	}
-	
-	function index() {
-	
-		redirect(SAYFA_YAZAR_11);
+		$this->load->model('yazi_mod');
 	}
 	
 	function liste() {
 	
-		$this->kullanici_lib->sadece_yazar_gorebilir();
+		$this->yazar_lib->sadece_yazar_gorebilir();
 		
-		$data['meta_baslik'] = 'Yazı Listesi';
-		
-		$this->yazi->yazar_id = (int) $this->kullanici_lib->kullanici_id;
-		
-		$data['yazilar'] = $this->yazi->get_liste_1();
-		
-		$data['k_t'] = k_t_giris_yapmis_yazar;
-		
+		// flash datalar set ediliyor
 		$this->smarty->assign('tamam', $this->session->flashdata('tamam'));
 		
-		$this->smarty->view('yazar/yazi_yonetimi/liste.tpl', $data);
+		// yazarın yazıları listeye alınıyor
+		$this->yazi_mod->yazar_id = $this->yazar_lib->get_yazar_id();
+		$data['yazilar'] = $this->yazi_mod->get_liste_1();
+		
+		// meta ayarları
+		$data['meta_baslik'] = 'Yazı Listesi';
+		
+		$data['yazi_mod'] = $this->yazi_mod;
+		
+		$data['icerik'] = $this->smarty->view('yazar/yazi_yonetimi/liste.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout2.tpl', $data );
 	}
 	
 	function ekle() {
 	
 		// sayfayı sadece yazar görebilecek
-		$this->kullanici_lib->sadece_yazar_gorebilir();
-		
-		// modelleri yüklenmesi
-		$this->load->model('kategori');
+		$this->yazar_lib->sadece_yazar_gorebilir();
 		
 		// kütüphanelerin yüklenmesi
 		$this->load->library('etiket_lib');
+		
+		// modellerin yüklenmesi
+		$this->load->model('kategori_mod');
+		$this->load->model('yazi_mod');
 		
 		// yazı ekleme formu submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
@@ -48,115 +48,104 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			// evet yazı ekleme formu submit edilmiş
 			
 			// post bilgilerini yazı objemize alalım
-			$this->yazi->baslik = $this->input->post('baslik');
-			$this->yazi->ozet = $this->input->post('ozet', FALSE);
-			$this->yazi->icerik = $this->input->post('icerik', FALSE);
-			$this->yazi->kategori_id = (int) $this->input->post('kategori_id');
+			$this->yazi_mod->kategori_id = (int) $this->input->post('kategori_id');
+			$this->yazi_mod->baslik = trim($this->input->post('baslik'));
+			$this->yazi_mod->ozet = trim($this->input->post('ozet', FALSE));
+			$this->yazi_mod->icerik = trim($this->input->post('icerik', FALSE));
 			
 			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
-			
-			$this->smarty->assign('kategori_selected_id', $this->yazi->kategori_id);
 			
 			// post bilgilerini kontrole başlayalım
 			try {
 			
 				// doldurulması zorunlu alanların kontrolü
-				if (form_is_bos($this->yazi->kategori_id)) throw new Exception('Lütfen yazınız için bir kategori seçiniz.');
+				if (empty($this->yazi_mod->kategori_id)) throw new Exception('Lütfen yazınız için bir kategori seçiniz.');
 
 				// yazı eklenirken seçilen kategorinin sistemde 
 				// olup olmadığına bakılıyor
-				$this->kategori->id = (int) $this->yazi->kategori_id;				
-				if (!$this->kategori->is_var_where_id()) throw new Exception('Belirtilen kategori sistemde bulunmamaktadır. Lütfen listeden bir kategori seçiniz.');
-				
-				// doldurulması zorunlu alanların kontrolü
-				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
+				$this->kategori_mod->id = (int) $this->yazi_mod->kategori_id;				
+				if (!$this->kategori_mod->is_var_where_id()) throw new Exception('Lütfen listeden bir kategori seçiniz.');
 
-				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
-				
+				// doldurulması zorunlu alanların kontrolü
+				if (empty($this->yazi_mod->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
+
+				if (empty($this->yazi_mod->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
+
 				// yazarın id'si alınıyor
-				$this->yazi->yazar_id = (int) $this->kullanici_lib->kullanici_id;
-				
+				$this->yazi_mod->yazar_id = $this->yazar_lib->get_yazar_id();
+
 				// yazı veritabanına eklenip, eklenen yazının 
 				// id numarası Etiket kütüphanesine verilerek 
 				// yazıya ait etiketler oluşturuluyor
-				$this->etiket_lib->yazi_eklendi($this->yazi->ekle_1());
-				
-				$data['tamam'] = 'Yazı eklenmiştir, editörlerimiz incelendikten sonra yayınlanacaktır.';
+				$this->etiket_lib->yazi_eklendi($this->yazi_mod->ekle_1());
+
+				$data['tamam'] = 'Yazı eklenmiştir, editörlerimiz inceledikten sonra yayınlanacaktır.';
 			} catch (Exception $ex) {
-			
+
 				$data['hata'] = $ex->getMessage();
 			}
 		} else {
-		
+
 			// hayır yazı ekleme formu submit edilmemiş
 			
-			$this->smarty->assign('kategori_selected_id', 0);
+			$this->yazi_mod->kategori_id = 0;
 		}
 		
-		// sayfa sisteme giriş yapmış yazar için
-		$data['k_t'] = k_t_giris_yapmis_yazar;
+		// html kategori select
+		$this->load->library('kategori_lib');
+		$data['html_select_kategoriler'] = $this->kategori_lib->get_html_select1($this->yazi_mod->kategori_id);
 		
-		$data['meta_baslik'] = 'Yazı Ekle';
-		
-		$data['yazi'] = $this->yazi;
+		$data['yazi_mod'] = $this->yazi_mod;
 		
 		$data['etiketler'] = $this->etiket_lib->etiketler_string;
 		
 		// drop down kategori seçmek için
-		$kategoriler = $this->kategori->get_liste_1();
-		$this->smarty->assign('kategori_ids', $kategoriler['values']);
-		$this->smarty->assign('kategori_names', $kategoriler['output']); 
+		//$kategoriler = $this->kategori->get_liste_1();
+		//$this->smarty->assign('kategori_ids', $kategoriler['values']);
+		//$this->smarty->assign('kategori_names', $kategoriler['output']); 
 		
-		$this->smarty->view('yazar/yazi_yonetimi/ekle.tpl', $data);	
+		//$data['meta_baslik'] = 'Yazı Ekle';
+		
+		$data['icerik'] = $this->smarty->view('yazar/yazi_yonetimi/ekle.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout2.tpl', $data );
 	}
 	
 	function duzenle($id = 0) {
 		
 		// sayfayı sadece yazar görebilecek
-		$this->kullanici_lib->sadece_yazar_gorebilir();
-		
-		// modelleri yüklenmesi
-		$this->load->model('kategori');
+		$this->yazar_lib->sadece_yazar_gorebilir();
 		
 		// kütüphanelerin yüklenmesi
 		$this->load->library('etiket_lib');
 		
+		// modellerin yüklenmesi
+		$this->load->model('kategori_mod');
+		$this->load->model('yazi_mod');
+		
+		$this->yazi_mod->id = (int) $id;
+		
+		// yazı sistemde var mı?
+		if (!$this->yazi_mod->is_var_where_id())
+			redirect(SAYFA_YAZAR_11);
+		
+		// yazı yazara mı ait gerçekten
+		$this->yazi_mod->yazar_id = $this->yazar_lib->get_yazar_id();
+		if (!$this->yazi_mod->is_var_where_id_and_yazar_id())
+			redirect(SAYFA_YAZAR_11);
+			
 		// yazı düzenleme formu submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
 			// evet yazı düzenleme formu submit edilmiş
 			
 			// post bilgilerini yazı objemize alalım
-			$this->yazi->id = (int) $this->input->post('id');
-			$this->yazi->baslik = $this->input->post('baslik');
-			$this->yazi->ozet = $this->input->post('ozet', FALSE);
-			$this->yazi->icerik = $this->input->post('icerik', FALSE);
-			$this->yazi->kategori_id = $this->input->post('kategori_id');
+			$this->yazi_mod->baslik = $this->input->post('baslik');
+			$this->yazi_mod->ozet = $this->input->post('ozet', FALSE);
+			$this->yazi_mod->icerik = $this->input->post('icerik', FALSE);
+			$this->yazi_mod->kategori_id = (int) $this->input->post('kategori_id');
 			
 			$this->etiket_lib->etiketler_string = $this->input->post('etiketler');
-		} else {
-		
-			// hayır yazı düzenleme formu submit edilmemiş
-			$this->yazi->id = (int) $id;
-		}
-		
-		// yazı sistemde var mı?
-		if (!$this->yazi->is_var_where_id())
-			redirect(SAYFA_YAZAR_11);
-			
-		// yazının yazar id numarası et edilmekte
-		$this->yazi->yazar_id = (int) $this->kullanici_lib->kullanici_id;
-		
-		// yazı yazara mı ait gerçekten
-		if (!$this->yazi->is_var_where_id_and_yazar_id())
-			redirect(SAYFA_YAZAR_11);
-			
-		// yazı düzenleme formu submit edilmiş mi?
-		if ($this->input->server('REQUEST_METHOD') == 'POST') {
-		
-			// evet yazı düzenleme formu submit edilmiş
-			
-			$this->smarty->assign('kategori_selected_id', $this->yazi->kategori_id);
 			
 			// öncelikle yazıda her hangi bir değişiklik
 			// yapılıp yapılmadığını kontrol edeceğiz.
@@ -166,53 +155,62 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			// yayınlanacaktır.
 			
 			// ilk iş olarak veritabanından yazıya ait mevcut bilgileri alıyoruz
-			$temp_yazi = $this->yazi->get_detay_where_id();
+			$temp_yazi = $this->yazi_mod->get_detay_where_id();
 			
 			// yazıya ait bilgiler de değişiklik olmuş mu?
-			$b1 = $this->yazi->baslik == $temp_yazi->baslik;
-			$b3 = $this->yazi->ozet == $temp_yazi->ozet;
-			$b4 = $this->yazi->icerik == $temp_yazi->icerik;
-			$b5 = $this->yazi->kategori_id == (int) $temp_yazi->kategori_id;
+			$b1 = $this->yazi_mod->baslik == $temp_yazi->baslik;
+			$b3 = $this->yazi_mod->ozet == $temp_yazi->ozet;
+			$b4 = $this->yazi_mod->icerik == $temp_yazi->icerik;
+			$b5 = $this->yazi_mod->kategori_id == (int) $temp_yazi->kategori_id;
 
-			// etiketlerde bir değişiklik yapılmış mı?
-			$b6 = $this->etiket_lib->is_etiketler_degisti($this->yazi->id);
+			// etiketlerde bir değişikyazi_modlik yapılmış mı?
+			$b6 = $this->etiket_lib->is_etiketler_degisti($this->yazi_mod->id);
 			
 			// yazı bilgilerinde değişiklik yapılmış mı?
-			if ($b1 && $b2 && $b3 && $b4 && $b5 && !$b6) {
+			if ($b1 && $b3 && $b4 && $b5 && !$b6) {
 			
 				// hayır yazı bilgilerinde değişiklik yapılmamış
-				$this->yazi->durum = $temp_yazi->durum;
+				// aynı durumda kalacak
+				$this->yazi_mod->durum = $temp_yazi->durum;
 			} else {
 			
 				// evet yazı bilgilerinde değişiklik yapılmış
 				
-				// eğer yazının durumu onaylı ise
-				if ($temp_yazi->durum == Yazi::DURUM_ONAYLI || $temp_yazi->durum == Yazi::DURUM_YAZAR_KONTROL_EDECEK) {
+				// eğer yazının durumu onaylı ise veya yazar kontrol edecek ise
+				if ($temp_yazi->durum == Yazi_mod::DURUM_ONAYLI || $temp_yazi->durum == Yazi_mod::DURUM_YAZAR_KONTROL_EDECEK) {
 					
-					$this->yazi->durum = Yazi::DURUM_EDITOR_KONTROL_EDECEK;
+					// editör kontrol edecek
+					$this->yazi_mod->durum = Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK;
 				} else { 
 					
-					$this->yazi->durum = $temp_yazi->durum;
+					// aynı durumda kalacak
+					$this->yazi_mod->durum = $temp_yazi->durum;
 				}
 			}
 		
 			try {
 			
-				if (form_is_bos($this->yazi->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
-				if (form_is_bos($this->yazi->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
-				if (form_is_bos($this->yazi->kategori_id)) throw new Exception('Yazı kategorisi boş geçilemez.');
+				if (empty($this->yazi_mod->kategori_id)) throw new Exception('Yazı kategorisi boş geçilemez.');
+				if (empty($this->yazi_mod->baslik)) throw new Exception('Yazı başlığı boş geçilemez.');
+				if (empty($this->yazi_mod->ozet)) throw new Exception('Yazı özeti boş geçilemez.');
 				
-				$this->kategori->id = (int) $this->yazi->kategori_id;
+				$this->kategori_mod->id = $this->yazi_mod->kategori_id;
 				
 				// kategori sistemde var mı?
-				if (!$this->kategori->is_var_where_id()) throw new Exception('Belirtilen kategori sistemde bulunmamaktadır. Lütfen listeden bir kategori seçiniz.');
+				if (!$this->kategori_mod->is_var_where_id()) throw new Exception('Lütfen listeden bir kategori seçiniz.');
 				
-				$this->yazi->guncelle_1();
+				// güncelleme işlemi yapılabilir
+				$this->yazi_mod->guncelle_1();
 				
-				$this->etiket_lib->yazi_duzenlendi($this->yazi->id);
+				// yazıya ait etiketleri de güncelliyoruz
+				$this->etiket_lib->yazi_duzenlendi($this->yazi_mod->id);
 				
-				$this->session->set_flashdata('tamam', 'Değişiklikler kaydedildi.');
-		
+				// duruma göre bilgilendirme yazısı ayarlanıyor
+				if ($this->yazi_mod->durum == Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK) 
+					$this->session->set_flashdata('tamam', 'Değişiklikler kaydedildi. Yazınız editörler inceledikten sonra yayınlanacaktır.');
+				else 
+					$this->session->set_flashdata('tamam', 'Değişiklikler kaydedildi.');
+				
 				// yazı listesine yönlendir
 				redirect(SAYFA_YAZAR_11);
 			} catch (Exception $ex) {
@@ -220,7 +218,7 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 				$data['hata'] = $ex->getMessage();
 			}
 			
-			$data['yazi'] = $this->yazi;
+			
 			
 			$data['etiketler'] = $this->etiket_lib->etiketler_string;
 		} else {
@@ -228,7 +226,12 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			// hayır yazı düzenleme formu submit edilmemiş
 			
 			// veritabanından yazı bilgisini alıyoruz
-			$data['yazi'] = $this->yazi->get_detay_where_id();
+			$temp_yazi = $this->yazi_mod->get_detay_where_id();
+			
+			$this->yazi_mod->baslik = $temp_yazi->baslik;
+			$this->yazi_mod->ozet = $temp_yazi->ozet;
+			$this->yazi_mod->icerik = $temp_yazi->icerik;
+			$this->yazi_mod->kategori_id = (int) $temp_yazi->kategori_id;
 
 			// yazının etiketlerini veritabanından almak için 
 			// bazı işlemler yapılmaktadır. ilişki tablosundan
@@ -236,10 +239,10 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 			// yazılacak şekilde ayarlanmaktadır.
 			
 			// yazı etikiketi için yazı id numarasını set ediyoruz
-			$this->yazi_etiketi->yazi_id = $this->yazi->id;
+			$this->yazi_etiketi_mod->yazi_id = $this->yazi_mod->id;
 			
 			// yazıya ait etiketler veritabanından çekiliyor
-			$yazi_etiketleri = $this->yazi_etiketi->get_liste_2();
+			$yazi_etiketleri = $this->yazi_etiketi_mod->get_liste_2();
 			
 			// yaziya ait etiketler bir diziye aktarılacak
 			$yazi_etiketleri_array = array();
@@ -251,40 +254,45 @@ class Yazi_yonetimi extends MY_YazarKontroller {
 				
 			// etiket dizini bir input için implode ediyoruz
 			$data['etiketler'] = implode(', ', $yazi_etiketleri_array);
-			
-			$this->smarty->assign('kategori_selected_id', $data['yazi']->kategori_id);
 		}
 		
-		$data['k_t'] = k_t_giris_yapmis_yazar;
+		// html kategori select
+		$this->load->library('kategori_lib');
+		$data['html_select_kategoriler'] = $this->kategori_lib->get_html_select1($this->yazi_mod->kategori_id);
+		
+		$data['yazi_mod'] = $this->yazi_mod;
 		
 		$data['meta_baslik'] = 'Yazı Düzenle';
 		
-		// drop down kategori seçmek için
-		$kategoriler = $this->kategori->get_liste_1();
-		$this->smarty->assign('kategori_ids', $kategoriler['values']);
-		$this->smarty->assign('kategori_names', $kategoriler['output']); 
-	
-		$this->smarty->view('yazar/yazi_yonetimi/duzenle.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/yazi_yonetimi/duzenle.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout2.tpl', $data );
 	}
 	
 	function sil($id = 0) {
 	
-		$this->kullanici_lib->sadece_yazar_gorebilir();
+		// sayfayı sadece yazar görebilecek
+		$this->yazar_lib->sadece_yazar_gorebilir();
 		
-		$this->yazi->id = (int) $id;
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde var mı?
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
+			redirect(SAYFA_YAZAR_11);
+			
+		// yazı kendisine mi ait?
+		$this->yazi_mod->yazar_id = $this->yazar_lib->get_yazar_id();
+		if (!$this->yazi_mod->is_var_where_id_and_yazar_id())
 			redirect(SAYFA_YAZAR_11);
 			
 		// @TODO yazıya ait ilişkiler temizlenecek
 		
 		// yazıya ait ilişkili etiketleri sil
-		$this->load->model('yazi_etiketi');
-		$this->yazi_etiketi->yazi_id = $id;
-		$this->yazi_etiketi->sil_where_yazi_id();
+		$this->load->model('yazi_etiketi_mod');
+		$this->yazi_etiketi_mod->yazi_id = $id;
+		$this->yazi_etiketi_mod->sil_where_yazi_id();
 		
-		$this->yazi->sil_where_id();
+		$this->yazi_mod->sil_where_id();
 		
 		$this->session->set_flashdata('tamam', 'Yazı ve yazıya ait bilgiler silindi.');
 		

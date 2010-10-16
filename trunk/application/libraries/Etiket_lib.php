@@ -2,6 +2,11 @@
 
 class Etiket_lib {
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 * @var MY_Controller
+	 */
 	var $CI;
 
 	var $etiketler = array();
@@ -11,8 +16,8 @@ class Etiket_lib {
 	
 		$this->CI =& get_instance();
 		
-		$this->CI->load->model('etiket');
-		$this->CI->load->model('yazi_etiketi');
+		$this->CI->load->model('etiket_mod');
+		$this->CI->load->model('yazi_etiketi_mod');
 	}
 	
 	/**
@@ -33,26 +38,26 @@ class Etiket_lib {
 		
 		// etiketleri tek bir yazı ile ilişkilendireceğimiz 
 		// için burada yazı id'sini ilgili değişkenen atıyoruz
-		$this->CI->yazi_etiketi->yazi_id = $yazi_id;
+		$this->CI->yazi_etiketi_mod->yazi_id = $yazi_id;
 		
 		// yazarın yazdığı her bir etiket için ekleme işlemi
 		for ($i = 0; $i < count($this->etiketler); $i++) {
 			
 			// etiket adı trimlenerek değişkene atanıyor
-			$this->CI->etiket->adi = trim($this->etiketler[$i]);
+			$this->CI->etiket_mod->adi = trim($this->etiketler[$i]);
 
 			// etiket sisteme daha önce eklenmiş ise id numarasını 
 			// eğer eklenmemişse, önce ekleyip sonra id numarasını alıyoruz
-			$this->CI->yazi_etiketi->etiket_id = $this->CI->etiket->get_id_where_adi_yoksa_ekle();
+			$this->CI->yazi_etiketi_mod->etiket_id = $this->CI->etiket_mod->get_id_where_adi_yoksa_ekle();
 
 			// yazı etiketi daha önce eklenmiş mi 
 			// burada mükerrer kayıtları engellemiş olacağız
-			if (!$this->CI->yazi_etiketi->is_var_where_yazi_id_and_etiket_id()) {
+			if (!$this->CI->yazi_etiketi_mod->is_var_where_yazi_id_and_etiket_id()) {
 			
 				// hayır daha önce eklenmemiş
 				
 				// yazı etiketi veritabanına ekleniyor
-				$this->CI->yazi_etiketi->ekle();
+				$this->CI->yazi_etiketi_mod->ekle_1();
 			} // else yazmaya gerek kalmadı
 		}
 	}
@@ -68,10 +73,10 @@ class Etiket_lib {
 	function yazi_duzenlendi($yazi_id) {
 	
 		// yazı etiketi için yazı id numarasını set ediyoruz.
-		$this->CI->yazi_etiketi->yazi_id = $yazi_id;
+		$this->CI->yazi_etiketi_mod->yazi_id = $yazi_id;
 		
 		// yazıya ait tüm etiket ilişkilerini sil
-		$this->CI->yazi_etiketi->sil_where_yazi_id();
+		$this->CI->yazi_etiketi_mod->sil_where_yazi_id();
 		
 		// sanki yeni bir yazı eklenmiş gibi etiketler yeniden ekleniyor
 		$this->yazi_eklendi($yazi_id);
@@ -95,16 +100,18 @@ class Etiket_lib {
 		
 		// yazının veritabanındaki etiketlerini almak için 
 		// yazı id numarası set ediliyor
-		$this->CI->yazi_etiketi->yazi_id = $yazi_id;
+		$this->CI->yazi_etiketi_mod->yazi_id = $yazi_id;
 		
 		// veritabanındaki etiketler alınıyor
-		$mevcut_etiketler = $this->CI->yazi_etiketi->get_liste_1();
+		$mevcut_etiketler = $this->CI->yazi_etiketi_mod->get_liste_1();
 		
 		$eski_etiketler = array();
 		
 		foreach ($mevcut_etiketler->result() as $mevcut_etiket)
 			$eski_etiketler[] = $mevcut_etiket->adi;
 			
+		// bundan sonra $return değişkeninde bir değişiklik 
+		// yapılmazsa false olarak dönüş yapılacak
 		$return = FALSE;
 		
 		// yeni etiketlerin içerisinde dönülmeye başlanıyor
@@ -122,13 +129,12 @@ class Etiket_lib {
 	
 	function get_etiket_bulutu() {
 	
-		$etiketler = $this->CI->yazi_etiketi->get_liste_4();
+		$etiketler = $this->CI->yazi_etiketi_mod->get_liste_4();
 		
 		$return = array();
 		
 		foreach ($etiketler->result() as $etiket) {
-		
-			
+
 			$return[] = array($etiket->adet, $etiket->adi, sprintf(SAYFA_MISAFIR_51, $etiket->id));
 		}
 		

@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -10,19 +8,17 @@
 	
 	<div class="icerik">
 		
-		{if $tamam neq ""}
+		{if $tamam}
 		<div class="tamam">{$tamam}</div> 
 		{/if}
 		
-		{if $ikaz neq ""}
+		{if $ikaz}
 		<div class="ikaz">{$ikaz}</div> 
 		{/if}
 		
 		{if $yazilar->num_rows() eq 0} 
 		<div class="ikaz">Onay bekleyen yazı bulunamadı.</div>
 		{else}
-		
-		
 
 			<table id="tablo" class="tablo">
 			
@@ -62,5 +58,3 @@
 	$().ready(function(){$('#tablo').ikontooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

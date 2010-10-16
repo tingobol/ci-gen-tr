@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>404 Page Not Found</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css">
 
 body {
@@ -27,8 +28,8 @@ margin: 			0 0 4px 0;
 </head>
 <body>
 	<div id="content">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<h1>Sayfa Bulunamadı - 404</h1>
+		<a href="/">Ana Sayfa</a>
 	</div>
 </body>
 </html>

@@ -12,7 +12,7 @@
  
 (function($) {
 	$.fn.formtooltip = function(){
-		$(":input", this).each(function(){
+		$("input,textarea,select", this).each(function(){
 			// sıradaki elemanın title niteliğini alalım
 		  var base_title = $(this).attr('title');
 		  // eğer boş değilse
@@ -46,7 +46,7 @@
 		});
 	}
 	$.fn.ikontooltip = function(){
-		$(":a", this).each(function(){
+		$("a", this).each(function(){
 			var base_title = $(this).attr('title');
 			if(undefined!=base_title && ''!= base_title)
 			{

@@ -10,7 +10,7 @@ body, p {
 </style>
 {/literal}
 
-<p>Merhaba <b>{$kullanici->adi}</b>,</p>
+<p>Merhaba <b>{$yazar_mod->adi}</b>,</p>
 
 <p>Şifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayınız.</p>
 <p><a href="{$url1}">{$url1}</a></p>

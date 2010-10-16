@@ -9,9 +9,8 @@ kullanicilar
  - uye_olma_zamani
  - turu -  0: misafir, 1: editör, 10: yazar, 100: admin
  
-kullanici_templeri
+templeri
 ------------------
- - kullanici_id
  - temp
  - zaman
  

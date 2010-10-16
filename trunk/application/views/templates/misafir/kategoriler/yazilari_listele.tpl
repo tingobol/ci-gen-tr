@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 {if $yazilar->num_rows() eq 0}
 
 		<div class="post">
@@ -21,7 +19,7 @@
 			<div class="entrytop">
 				<div class="entry">
 				
-					<h2><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->kategori_id:$yazi->id}" rel="bookmark">{$yazi->baslik}</a></h2>
+					<h2><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->id}" rel="bookmark">{$yazi->baslik}</a></h2>
 		
 				</div>
 			</div>
@@ -33,7 +31,7 @@
 			</div>
 			
 			<div class="alt_bilgi">
-				<span class="devami"><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->kategori_id:$yazi->id}">Devamı</a></span>
+				<span class="devami"><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->id}">Devamı</a></span>
 				<span class="kategori"><a href="{$smarty.const.SAYFA_MISAFIR_31|sprintf:$yazi->kategori_id}">{$yazi->kategori_adi}</a></span>
 				<span class="hit">Okunma: {$yazi->hit}</span>
 				<span class="tarih">{$yazi->eklenme_zamani|date_format:"%e.%m.%Y"}</span>
@@ -60,5 +58,3 @@
 		</div>
 
 {/if}
-
-{include file="footer1.tpl"}

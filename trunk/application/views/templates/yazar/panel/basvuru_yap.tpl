@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -10,11 +8,11 @@
 	
 	<div class="icerik">
 		
-		{if $tamam neq ""}
+		{if $tamam}
 		<div class="tamam">{$tamam}</div> 
 		{else}
 		
-			{if $hata neq ""}
+			{if $hata}
 			<div class="hata">{$hata}</div>
 			{/if}
 	
@@ -22,12 +20,12 @@
 				
 				<p>
 					<b>* Adınız:</b><br />
-					<input type="text" name="adi" size="40" maxlength="50" title="Adını yazınız." value="{$kullanici->adi}"></input>
+					<input type="text" name="adi" size="30" maxlength="50" title="Adını yazınız." value="{$kullanici->adi}"></input>
 				</p>
 				
 				<p>
 					<b>* Mail Adresiniz:</b><br />
-					<input type="text" name="mail" size="40" maxlength="50" title="Mail adresinizi yazınız.|Yazarlığınız onaylandığında giriş bilgileriniz|bu mail adresine gönderilecektir." value="{$kullanici->mail}"></input>
+					<input type="text" name="mail" size="30" maxlength="50" title="Mail adresinizi yazınız.|Yazarlığınız onaylandığında giriş bilgileriniz|bu mail adresine gönderilecektir." value="{$kullanici->mail}"></input>
 				</p>
 				
 				<p>
@@ -58,5 +56,3 @@
 	$().ready(function(){$('#form1').formtooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

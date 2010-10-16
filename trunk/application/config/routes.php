@@ -43,21 +43,20 @@
 $route['default_controller'] = "misafir/ana_sayfa";
 $route['scaffolding_trigger'] = "";
 
-// Ana Sayfa - Sayfalama
-$route['sayfa-(:num)'] = "misafir/ana_sayfa/index/$1";
+// sabit sayfalar
+$route['iletisim'] = 'misafir/sayfalar/iletisim';
+$route['arama'] = 'misafir/sayfalar/arama';
 
-$route['kategori-(:num)'] = "misafir/kategoriler/yazilari_listele/$1";
-$route['kategori-(:num)/sayfa-(:num)'] = "misafir/kategoriler/yazilari_listele/$1/$2";
+$route['etiket/(:num)/sayfa/(:num)'] = 'misafir/yazi_etiketleri/yazilari_listele/$1/$2';
+$route['etiket/(:num)'] = 'misafir/yazi_etiketleri/yazilari_listele/$1';
 
-$route['kategori-(:num)/yazi-(:num)'] = "misafir/yazilar/detay/$1/$2";
+$route['kategori/(:num)/sayfa/(:num)'] = 'misafir/kategoriler/yazilari_listele/$1/$2';
+$route['kategori/(:num)'] = 'misafir/kategoriler/yazilari_listele/$1';
 
-// Sabit Sayfalar
-$route['iletisim'] = "misafir/sayfalar/iletisim";
-$route['arama'] = "misafir/sayfalar/arama";
+$route['yazi/(:num)'] = "misafir/yazilar/detay/$1";
 
-// Etiketler için
-$route['etiket-(:num)'] = "misafir/yazi_etiketleri/yazilari_listele/$1";
-$route['etiket-(:num)/sayfa-(:num)'] = "misafir/yazi_etiketleri/yazilari_listele/$1/$2";
+// ana sayfada yazıların sayfalanması için
+$route['sayfa/(:num)'] = 'misafir/ana_sayfa/index/$1';
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

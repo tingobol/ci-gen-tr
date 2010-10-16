@@ -3,67 +3,75 @@
 class Panel extends MY_YazarKontroller {
 	
 	function index() {
-	
-		$this->kullanici_lib->sadece_yazar_gorebilir();
 		
-		$data['k_t'] = k_t_giris_yapmis_yazar;
+		$this->yazar_lib->sadece_yazar_gorebilir();
 		
-		$data['kullanici_adi'] = $this->kullanici_lib->kullanici_adi;
+		$data = array();
 		
-		$this->smarty->view('yazar/panel/index.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/panel/index.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout2.tpl', $data );
 	} 
 	
 	function giris() {
 		
-		$data['kullanici'] = $this->kullanici;
+		$this->yazar_lib->sadece_yazar_goremez();
 		
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
-			$this->kullanici->mail = $this->input->post('mail');
-			$this->kullanici->sifre = $this->input->post('sifre');
+			$this->yazar_mod->mail = trim($this->input->post('mail'));
+			$this->yazar_mod->sifre = trim($this->input->post('sifre'));
 			
 			try {
 			
-				if (form_is_bos($this->kullanici->mail)) throw new Exception('Mail adresiniz yazınız.');
-				if (!form_is_mail($this->kullanici->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
-				if (form_is_bos($this->kullanici->sifre)) throw new Exception('Şifrenizi yazınız.');				
-				if (!$this->kullanici->is_var_yazar_where_mail_and_sifre()) throw new Exception('Lütfen bilgileriniz kontrol ederek yeniden deneyiniz.');
+				if (empty($this->yazar_mod->mail)) throw new Exception('Mail adresiniz yazınız.');
+				if (!form_is_mail($this->yazar_mod->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
 				
-				$this->kullanici->id = (int) $this->kullanici->get_yazar_id_where_mail();
+				if (empty($this->yazar_mod->sifre)) throw new Exception('Şifrenizi yazınız.');				
+				if (!$this->yazar_mod->is_var_mail_and_sifre()) throw new Exception('Lütfen bilgileriniz kontrol ederek yeniden deneyiniz.');
 				
-				if (!$this->kullanici->is_onayli_where_id()) throw new Exception('Yazarlığınız onay beklemektedir. Onaylandıktan sonra mail ile bildirim alacaksınız.');
+				$this->yazar_mod->id = (int) $this->yazar_mod->get_id_where_mail();
+				
+				// yazar onaylı olması gerekir
+				if ($this->yazar_mod->get_is_onayli_where_id() == 0) throw new Exception('Yazarlığınız onay beklemektedir. Onaylandıktan sonra mail ile bildirim alacaksınız.');
 
-				$this->kullanici_oturumu->kullanici_id = $this->kullanici->id;
-
-				$this->kullanici_oturumu->ekle();
+				// yazar giriş yapabilir
+				$this->yazar_lib->giris_yaptir($this->yazar_mod->id);
 				
+				// yazarı panele gönder
 				redirect(SAYFA_YAZAR_0);
 			} catch (Exception $ex) {
 			
 				$data['hata'] = $ex->getMessage();
 			}
+		} else {
+		
+			
 		}
 		
-		$data['k_t'] = k_t_giris_yapacak_yazar;
+		$data['yazar_mod'] = $this->yazar_mod;
 		
 		$data['meta_baslik'] = 'Yazar Girişi';
 		
-		$this->smarty->view('yazar/panel/giris.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/panel/giris.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout1.tpl', $data );
 	}
 	
 	function cikis() {
-	
-		$this->kullanici_lib->sadece_yazar_gorebilir();
 		
-		$this->kullanici_oturumu->sil_where_oturum_id();
+		$this->yazar_lib->sadece_yazar_gorebilir();
+		
+		$this->yazar_lib->cikis_yaptir();
 		
 		redirect(SAYFA_YAZAR_1);
-	} 
+	}
 	
 	function sifremi_unuttum() {
 		
-		// kütüphaneleri yükle
-		$this->load->library('kullanici_tempi_lib');
+		$this->yazar_lib->sadece_yazar_goremez();
+		
+		$data['yazar_mod'] = $this->yazar_mod;
 		
 		// form submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
@@ -71,48 +79,48 @@ class Panel extends MY_YazarKontroller {
 			// evet form submit edilmiş
 			
 			// formdan gelen bilgileri al
-			$this->kullanici->mail = $this->input->post('mail');
+			$this->yazar_mod->mail = trim($this->input->post('mail'));
 			
 			// hata kontrollerine başlayalım
 			try {
 				
 				// formdan gelen bilgilerin geçerlilik kontrolü yapılıyor
-				if (form_is_bos($this->kullanici->mail)) throw new Exception('Mail adresinizi yazınız.');
-				if (!form_is_mail($this->kullanici->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
+				if (empty($this->yazar_mod->mail)) throw new Exception('Mail adresinizi yazınız.');
+				if (!form_is_mail($this->yazar_mod->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
 				
-				// girilen mail adresi sistemde yazar olarak kayıtlı olması şart
-				if (!$this->kullanici->is_var_yazar_where_mail()) throw new Exception('Mail adresi bulunamadı.');
+				// girilen mail adresi sistemde kayıtlı olması şart
+				if (!$this->yazar_mod->is_var_where_mail()) throw new Exception('Mail adresi bulunamadı.');
 				
+				// yazara ait id numarasını öğrenelim
+				$this->yazar_mod->id = $this->yazar_mod->get_id_where_mail();
+				
+				// o halde üyelik onay bekliyor olmaması gerekiyor
+				if ($this->yazar_mod->get_is_onayli_where_id() == 0) throw new Exception('Yazarlığınız onay beklemektedir. Lütfen onaylanmasını bekleyiniz. Onaylandıktan sonra size bilgi gönderilecektir.');
+
 				// bu satıra geldiğimizde artık girilen mail adresini 
 				// kullanan bir yazarımız olduğuna emin oluyoruz.
 				
 				// yazara ait bilgileri veritabanından alıyoruz
-				$temp_kullanici = $this->kullanici->get_yazar_detay_where_mail();
+				$temp_yazar = $this->yazar_mod->get_detay_where_id();
 				
 				// şifresini unutan yazarın bilgileri artık elimizde
-				$this->kullanici->id = $temp_kullanici->id;
-				$this->kullanici->adi = $temp_kullanici->adi;
-				
-				// kullanıcının yazarlığı onaylı olması şart
-				if (!$this->kullanici->is_onayli_where_id()) throw new Exception('Yazarlığınız onay beklemektedir. Onaylandıktan sonra mail ile bildirim alacaksınız.');
-				
+				$this->yazar_mod->adi = $temp_yazar->adi;
+
 				// bu satıra gelindiğinde ise, artık şifresini unutan 
 				// yazarımıza yeni şifresini belirlemesi için mail 
 				// adresine gerekli yönergeleri göndererek onu yönlendirebiliriz
 				
-				// yazar için yeni temp bilgisi oluştur
-				$this->kullanici->temp = $this->kullanici_tempi_lib->yeni_temp_kaydet($this->kullanici->id);
+				// yazar için yeni temp bilgisi oluştur ve güncelle
+				$this->yazar_mod->temp = $this->yazar_mod->get_rasgele_md5();
+				$this->yazar_mod->guncelle_temp_where_id();
 				
 				// üyenin şifresini sıfırlaması için kullanacağı url
-				$data['url1'] = sprintf(SAYFA_YAZAR_4, $this->kullanici->id, $this->kullanici->temp);
-				
-				// kullanıcı bilgisi view lerde kullanılacak
-				$data['kullanici'] = $this->kullanici;
+				$data['url1'] = sprintf(SAYFA_YAZAR_4, $this->yazar_mod->id, $this->yazar_mod->temp);
 				
 				// basla mail
 				$this->load->library('email');
 
-				$this->email->to($this->kullanici->mail, $this->kullanici->adi);
+				$this->email->to($this->yazar_mod->mail, $this->yazar_mod->adi);
 				$this->email->subject('Şifrenizi Sıfırlayınız');
 				$this->email->message($this->smarty->view('yazar/panel/mailler/sifremi_unuttum.tpl', $data, true));
 				
@@ -132,58 +140,66 @@ class Panel extends MY_YazarKontroller {
 			// hayır form submit edilmiş
 		}
 		
-		$data['k_t'] = k_t_giris_yapacak_yazar;
-		
 		$data['meta_baslik'] = 'Şifremi Unuttum';
 		
-		$this->smarty->view('yazar/panel/sifremi_unuttum.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/panel/sifremi_unuttum.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout1.tpl', $data );
 	}
 	
 	function sifreyi_sifirla($id = 0, $temp = '') {
 		
-		// kütüphaneleri yükle
-		$this->load->library('kullanici_tempi_lib');
+		$this->yazar_lib->sadece_yazar_goremez();
 		
-		// modelleri yükle
-		$this->load->model('kullanici_tempi');
+		$data['yazar_mod'] = $this->yazar_mod;
 		
 		// şifresi sıfırlanacak kullanıcıya ait bilgiler belirleniyor
-		$this->kullanici_tempi->kullanici_id = (int) $id;
-		$this->kullanici_tempi->temp = $temp;
+		$this->yazar_mod->id = (int) $id;
+		$this->yazar_mod->temp = $temp;
 		
 		// muhtemel hatalar kontrol edilecek
 		try {
 		
-			// kullanıcıya ait temp bilgisi sistemde mevcut olmalı
-			if (!$this->kullanici_tempi->is_var_where_kullanici_id_and_temp()) throw new Exception('Lütfen yeniden şifremi unuttum formunu doldurunuz.');
+			// yazara ait temp bilgisi sistemde mevcut olmalı
+			if (!$this->yazar_mod->is_var_where_id_and_temp()) throw new Exception('Lütfen yeniden şifremi unuttum formunu doldurunuz.');
 
-			// kullanıcıya ait temp bilgisini silebiliriz
-			$this->kullanici_tempi->sil_where_temp();
+			// sistemde böyle birinin olduğunu anladık
+			// peki yazar onaylı mı?
+			if ($this->yazar_mod->get_is_onayli_where_id() == 0) throw new Exception('Yazarlığınız onay beklemektedir. Lütfen onaylandıktan sonra tekrar deneyiniz. Ayrıca yazarlığınız onaylandığında bildirim mesajı alacaksınız.');
+
+			// yazarımız onaylı ve şifresini unutmuş ve 
+			// formu doldurmuş ve göndermiş, arkasından 
+			// sistem yazara mail mesajı göndermiş ve
+			// o mesajdaki bağlantıya tıklayan yazar bu 
+			// satırlara kadar ulaşmış
+			// o halde bundan sonra yazara yeni şifresini 
+			// oluşturup mail adresine gönderebiliriz.
 			
-			// kullanıcıya ait yeni şifre belirleme ve kaydetme 
-			// işlemleri için kullanıcı id bilgisini alıyoruz
-			$this->kullanici->id = $this->kullanici_tempi->kullanici_id;
+			// öncelikle yapmamız gereken temp bilgisini 
+			// değiştirmek olmalıdır. böylece temp bilgisi 
+			// yeniden kullanılamaz hale gelecektir.
+			$this->yazar_mod->temp = $this->yazar_mod->get_rasgele_md5();
+			$this->yazar_mod->guncelle_temp_where_id();
 			
-			// kullanıcının bilgileri veritabanından alınıyor
-			$temp_kullanici = $this->kullanici->get_detay_where_id();
+			// yazara ait bilgileri veritabanından alıyoruz
+			$temp_yazar = $this->yazar_mod->get_detay_where_id();
 			
-			$this->kullanici->adi = $temp_kullanici->adi;
-			$this->kullanici->mail = $temp_kullanici->mail;
+			$this->yazar_mod->adi = $temp_yazar->adi;
+			$this->yazar_mod->mail = $temp_yazar->mail;
 			
-			// kullanıcının şifresi değiştiriliyor
-			$temp_sifre = $this->kullanici->get_rasgele_sifre();
-			$this->kullanici->sifre = $temp_sifre;
-			$this->kullanici->guncelle_sifre_where_id();
+			// yazarın şifresi değiştiriliyor
+			$temp_sifre = $this->yazar_mod->get_rasgele_sifre();
+			$this->yazar_mod->sifre = $temp_sifre;
+			$this->yazar_mod->guncelle_sifre_where_id();
 			$data['temp_sifre'] = $temp_sifre;
 
+			// yazarın giriş yapabileceği url
 			$data['url1'] = SAYFA_YAZAR_1;
-
-			$data['kullanici'] = $this->kullanici;
 
 			// basla mail
 			$this->load->library('email');
 
-			$this->email->to($this->kullanici->mail, $this->kullanici->adi);
+			$this->email->to($this->yazar_mod->mail, $this->yazar_mod->adi);
 			$this->email->subject('Yeni Şifreniz');
 			$this->email->message($this->smarty->view('yazar/panel/mailler/sifreyi_sifirla.tpl', $data, true));
 			
@@ -198,43 +214,41 @@ class Panel extends MY_YazarKontroller {
 			$data['hata'] = $ex->getMessage();
 		}
 		
-		$data['k_t'] = k_t_giris_yapacak_yazar;
-		
-		$this->smarty->view('yazar/panel/sifreyi_sifirla.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/panel/sifreyi_sifirla.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout1.tpl', $data );
 	}
 	
 	function sifre_degistir() {
 	
-		$this->kullanici_lib->sadece_yazar_gorebilir();
-		
-		$data['kullanici'] = $this->kullanici;
-		
-		$this->kullanici->id = $this->kullanici_lib->kullanici_id;
+		$this->yazar_lib->sadece_yazar_gorebilir();
+	
+		$this->yazar_mod->id = $this->yazar_lib->get_yazar_id();
 		
 		// form submit edilmiş mi?
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			
 			// evet form submit edilmiş
-			$this->kullanici->eski_sifre = $this->input->post('eski_sifre');
-			$this->kullanici->yeni_sifre = $this->input->post('yeni_sifre');
-			$this->kullanici->yeni_sifre_tekrar = $this->input->post('yeni_sifre_tekrar');
+			$this->yazar_mod->eski_sifre = trim($this->input->post('eski_sifre'));
+			$this->yazar_mod->yeni_sifre = trim($this->input->post('yeni_sifre'));
+			$this->yazar_mod->yeni_sifre_tekrar = trim($this->input->post('yeni_sifre_tekrar'));
 			
 			try {
 			
 				// formdan gelen bilgilerin boş olmaması gerekiyor
-				if (form_is_bos($this->kullanici->eski_sifre)) throw new Exception('Lütfen eski şifrenizi yazınız.');
-				if (form_is_bos($this->kullanici->yeni_sifre)) throw new Exception('Lütfen yeni şifrenizi yazınız.');
-				if (form_is_bos($this->kullanici->yeni_sifre_tekrar)) throw new Exception('Lütfen yeni şifrenizi tekrar yazınız.');
-				if ($this->kullanici->yeni_sifre != $this->kullanici->yeni_sifre_tekrar) throw new Exception('Lütfen yeni şifre ile yeni şifre (tekrar)\'ı aynı yazınız.');
-				if ($this->kullanici->eski_sifre == $this->kullanici->yeni_sifre) throw new Exception('Lütfen yeni şifrenizi eski şifrenizden farklı yazınız.');
+				if (empty($this->yazar_mod->eski_sifre)) throw new Exception('Lütfen eski şifrenizi yazınız.');
+				if (empty($this->yazar_mod->yeni_sifre)) throw new Exception('Lütfen yeni şifrenizi yazınız.');
+				if (empty($this->yazar_mod->yeni_sifre_tekrar)) throw new Exception('Lütfen yeni şifrenizi tekrar yazınız.');
+				if ($this->yazar_mod->yeni_sifre != $this->yazar_mod->yeni_sifre_tekrar) throw new Exception('Lütfen yeni şifre ile yeni şifre (tekrar)\'ı aynı yazınız.');
+				if ($this->yazar_mod->eski_sifre == $this->yazar_mod->yeni_sifre) throw new Exception('Lütfen yeni şifrenizi eski şifrenizden farklı yazınız.');
 				
 				// yazar eski şifresini doğru girmiş mi?
-				$this->kullanici->sifre = $this->kullanici->eski_sifre;
-				if (!$this->kullanici->is_var_where_id_and_sifre()) throw new Exception('Lütfen eski şifrenizi doğru yazınız.');
+				$this->yazar_mod->sifre = $this->yazar_mod->eski_sifre;
+				if (!$this->yazar_mod->is_var_where_id_and_sifre()) throw new Exception('Lütfen eski şifrenizi doğru yazınız.');
 				
 				// yazarın yeni şifresini güncelle
-				$this->kullanici->sifre = $this->kullanici->yeni_sifre;
-				$this->kullanici->guncelle_sifre_where_id();
+				$this->yazar_mod->sifre = $this->yazar_mod->yeni_sifre;
+				$this->yazar_mod->guncelle_sifre_where_id();
 				
 				$data['tamam'] = 'Şifreniz değiştirilmiştir. Sisteme yeniden girmek istediğinizde yeni şifrenizi kullanacaksınız.';
 				
@@ -245,47 +259,48 @@ class Panel extends MY_YazarKontroller {
 		} else {
 		
 			// hayır form submit edilmemiş
+			
+			$data = array();
 		}
 		
-		$data['k_t'] = k_t_giris_yapmis_yazar;
-		
-		$this->smarty->view('yazar/panel/sifre_degistir.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/panel/sifre_degistir.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout2.tpl', $data );
 	}
 	
 	function basvuru_yap() {
-	
-		$data['k_t'] = k_t_giris_yapacak_yazar;
 		
-		$data['meta_baslik'] = 'Yazarlık Başvurusu Yap';
+		$this->yazar_lib->sadece_yazar_goremez();
 		
-		$data['kullanici'] = $this->kullanici;
+		$data['yazar_mod'] = $this->yazar_mod;
 		
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
-			$this->kullanici->adi = $this->input->post('adi');
-			$this->kullanici->mail = $this->input->post('mail');
-			$this->kullanici->favori_konulari = nl2br(html_filtrele_1($this->input->post('favori_konulari', TRUE)));
-			$this->kullanici->referanslari = nl2br(html_filtrele_1($this->input->post('referanslari', TRUE)));
+			$this->yazar_mod->adi = trim($this->input->post('adi'));
+			$this->yazar_mod->mail = trim($this->input->post('mail'));
+			$this->yazar_mod->favori_konulari = nl2br(html_filtrele_1(trim($this->input->post('favori_konulari', TRUE))));
+			$this->yazar_mod->referanslari = nl2br(html_filtrele_1(trim($this->input->post('referanslari', TRUE))));
 			
 			try {
 			
-				if (form_is_bos($this->kullanici->adi)) throw new Exception('Lütfen adınızı yazınız.');
-				if (form_is_bos($this->kullanici->mail)) throw new Exception('Lütfen mail adresinizi yazınız.');
-				if (!form_is_mail($this->kullanici->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
-				if ($this->kullanici->is_var_yazar_where_mail()) throw new Exception('Mail adresi yazar olarak kayıtlıdır. Lütfen yazar girişi yapmayı deneyiniz.');
-				if (form_is_bos($this->kullanici->favori_konulari)) throw new Exception('Lütfen favori konularınızı yazınız.');
-				if (form_is_bos($this->kullanici->referanslari)) throw new Exception('Lütfen referanslarınızı yazınız.');
+				if (empty($this->yazar_mod->adi)) throw new Exception('Lütfen adınızı yazınız.');
+				if (empty($this->yazar_mod->mail)) throw new Exception('Lütfen mail adresinizi yazınız.');
+				if (!form_is_mail($this->yazar_mod->mail)) throw new Exception('Lütfen geçerli bir mail adresi giriniz.');
+				if ($this->yazar_mod->is_var_where_mail()) throw new Exception('Mail adresi yazar olarak kayıtlıdır. Lütfen yazar girişi yapmayı deneyiniz.');
+				if (empty($this->yazar_mod->favori_konulari)) throw new Exception('Lütfen favori konularınızı yazınız.');
+				if (empty($this->yazar_mod->referanslari)) throw new Exception('Lütfen referanslarınızı yazınız.');
 				
 				// başvuruyu kaydet
-				$this->kullanici->yazarlik_basvurusu_yap(); 
+				$this->yazar_mod->ekle_1(); 
 				
+				// ana sayfanın url bilgisi
 				$data['url1'] = SAYFA_MISAFIR_11;
 				
 				// başvuru yapana mail gönder
 				// basla mail
 				$this->load->library('email');
 
-				$this->email->to($this->kullanici->mail, $this->kullanici->adi);
+				$this->email->to($this->yazar_mod->mail, $this->yazar_mod->adi);
 				$this->email->subject('Yazarlık Başvurusunda Bulundunuz');
 				$this->email->message($this->smarty->view('yazar/panel/mailler/basvuru_yap.tpl', $data, true));
 				
@@ -299,7 +314,8 @@ class Panel extends MY_YazarKontroller {
 				$data['url2'] = SAYFA_ADMIN_0;
 				
 				$this->load->library('email');
-				$adminler = $this->kullanici->get_liste_1();
+				$this->load->model('admin_mod');
+				$adminler = $this->admin_mod->get_liste_1();
 				foreach ($adminler->result() as $admin) {
 				
 					$data['admin'] = $admin;
@@ -328,6 +344,8 @@ class Panel extends MY_YazarKontroller {
 		
 		$data['meta_baslik'] = 'Yazarlık Başvurusu Yap';
 		
-		$this->smarty->view('yazar/panel/basvuru_yap.tpl', $data);
+		$data['icerik'] = $this->smarty->view('yazar/panel/basvuru_yap.tpl', $data, TRUE);
+
+		$this->smarty->view( 'yazar/layout1.tpl', $data );
 	}
 }

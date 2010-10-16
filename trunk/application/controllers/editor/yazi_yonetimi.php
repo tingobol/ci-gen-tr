@@ -3,84 +3,78 @@
 class Yazi_yonetimi extends MY_EditorKontroller {
 	
 	function onay_bekleyenler() {
-	
-		$this->kullanici_lib->sadece_editor_gorebilir();
 		
-		$this->load->model('yazi');
+		$this->editor_lib->sadece_editor_gorebilir();
 		
-		$data['k_t'] = k_t_giris_yapmis_editor;
+		$this->load->model('yazi_mod');
+
+		$data['yazilar'] = $this->yazi_mod->get_liste_7();
 		
 		$data['meta_baslik'] = 'Onay Bekleyen Yazılar Listesi';
 		
-		$data['yazilar'] = $this->yazi->get_liste_7();
-		
+		// flash datalar set edilir
 		$data['tamam'] = $this->session->flashdata('tamam');
 		
-		$this->smarty->view('editor/yazi_yonetimi/onay_bekleyenler.tpl', $data);
+		$data['icerik'] = $this->smarty->view('editor/yazi_yonetimi/onay_bekleyenler.tpl', $data, TRUE);
+
+		$this->smarty->view( 'editor/layout2.tpl', $data );
 	} 
 	
 	function onay_bekleyen_detay($id = 0) {
 	
-		$this->kullanici_lib->sadece_editor_gorebilir();
+		$this->editor_lib->sadece_editor_gorebilir();
 		
-		$this->load->model('yazi');
-		$this->load->model('yazi_etiketi');
+		$this->load->model('yazi_mod');
+		$this->load->model('yazi_etiketi_mod');
 		
-		$this->yazi->id = (int) $id;
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde mevcut olmalı
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
 			redirect(SAYFA_EDITOR_11);
 			
-		$temp_yazi = $this->yazi->get_detay_2();
-		
-		// yazının durumu editör kontrol edecek olmalı
-		if ($temp_yazi->durum != Yazi::DURUM_EDITOR_KONTROL_EDECEK)
+		// yazı editör kontrolünden geçecek durumda olmalı
+		if ($this->yazi_mod->get_durum_where_id() != Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK)
 			redirect(SAYFA_EDITOR_11);
 			
-		$this->yazi_etiketi->yazi_id = $this->yazi->id;
+		$this->yazi_etiketi_mod->yazi_id = $this->yazi_mod->id;
 			
-		$data['yazi'] = $temp_yazi; unset($temp_yazi);
-		$data['yazi_etiketleri'] = $this->yazi_etiketi->get_liste_2();
-		
-		$data['k_t'] = k_t_giris_yapmis_editor;
+		$data['yazi'] = $this->yazi_mod->get_detay_2(); 
+		$data['yazi_etiketleri'] = $this->yazi_etiketi_mod->get_liste_2();
 		
 		$data['meta_baslik'] = 'Onay Bekleyen Yazı Detay';
 		
-		$this->smarty->view('editor/yazi_yonetimi/onay_bekleyen_detay.tpl', $data);
+		$data['icerik'] = $this->smarty->view('editor/yazi_yonetimi/onay_bekleyen_detay.tpl', $data, TRUE);
+
+		$this->smarty->view( 'editor/layout2.tpl', $data );
 	}
 	
-	/**
-	 * editörün bekleyen yazıyı yayınlaması için kullanılır.
-	 * 
-	 * @param int $id yazı id
-	 */
+	// editörün bekleyen yazıyı yayınlaması için kullanılır.
 	function onay_bekleyen_yayinla($id = 0) {
 	
-		$this->kullanici_lib->sadece_editor_gorebilir();
+		$this->editor_lib->sadece_editor_gorebilir();
 		
-		$this->load->model('yazi');
+		$this->load->model('yazi_mod');
 		
-		$this->yazi->id = (int) $id;
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde mevcut olmalı
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
 			redirect(SAYFA_EDITOR_11);
 			
-		$temp_yazi_durum = $this->yazi->get_durum_where_id();
-		
 		// yazının durumu editör kontrol edecek olmalı
-		if ($temp_yazi_durum != Yazi::DURUM_EDITOR_KONTROL_EDECEK)
+		if ($this->yazi_mod->get_durum_where_id() != Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK)
 			redirect(SAYFA_EDITOR_11);
 			
-		$this->yazi->durum = Yazi::DURUM_ONAYLI;
+		// yazının durumunu onaylı yap
+		$this->yazi_mod->durum = Yazi_mod::DURUM_ONAYLI;
+		$this->yazi_mod->guncelle_durum_where_id();
 		
-		$this->yazi->guncelle_durum_where_id();
+		$this->load->model('yazar_mod');
+		$this->yazar_mod->id = $this->yazi_mod->get_yazar_id_where_id();
+		$data['yazar'] = $this->yazar_mod->get_detay_where_id();
 		
-		$this->load->model('kullanici', 'yazar');
-		$this->yazar->id = (int) $this->yazi->get_yazar_id_where_id();
-		
-		$data['yazar'] = $this->yazar->get_detay_where_id();
+		// yazı detay sayfasının adresi
 		$data['url1'] = sprintf(SAYFA_MISAFIR_23, $this->yazi->id);
 		
 		// yazısı onaylanan yazara mail ile bilgi ver.
@@ -101,36 +95,34 @@ class Yazi_yonetimi extends MY_EditorKontroller {
 		redirect(SAYFA_EDITOR_11);
 	}
 	
-	/*
-	 * Editör isterse bir yazıyı adminlerin incelemesini isteyebilir
-	 */
+	// Editör isterse bir yazıyı adminlerin incelemesini isteyebilir
 	function onay_bekleyeni_admin_kontrol_etsin($id = 0) {
-	
-		$this->kullanici_lib->sadece_editor_gorebilir();
 		
-		$this->load->model('yazi');
+		$this->editor_lib->sadece_editor_gorebilir();
 		
-		$this->yazi->id = (int) $id;
+		$this->load->model('yazi_mod');
+		
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde mevcut olmalı
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
 			redirect(SAYFA_EDITOR_11);
 			
-		$temp_yazi_durum = $this->yazi->get_durum_where_id();
-		
 		// yazının durumu editör kontrol edecek olmalı
-		if ($temp_yazi_durum != Yazi::DURUM_EDITOR_KONTROL_EDECEK)
+		if ($this->yazi_mod->get_durum_where_id() != Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK)
 			redirect(SAYFA_EDITOR_11);
 			
-		$this->yazi->durum = Yazi::DURUM_ADMIN_KONTROL_EDECEK;
-		
-		$this->yazi->guncelle_durum_where_id();
+		// yazının durumunu admin kontrol edecek olarak değiştir
+		$this->yazi_mod->durum = Yazi_mod::DURUM_ADMIN_KONTROL_EDECEK;
+		$this->yazi_mod->guncelle_durum_where_id();
 
-		// adminlere mail gönder
-		$data['url1'] = SAYFA_ADMIN_0;
+		// adminin giriş yapabileceği adres
+		$data['url1'] = SAYFA_ADMIN_1;
 		
+		// adminlere mail gönder
 		$this->load->library('email');
-		$adminler = $this->kullanici->get_liste_1();
+		$this->load->model('admin_mod');
+		$adminler = $this->admin_mod->get_liste_1();
 		foreach ($adminler->result() as $admin) {
 		
 			$data['admin'] = $admin;
@@ -151,36 +143,34 @@ class Yazi_yonetimi extends MY_EditorKontroller {
 		redirect(SAYFA_EDITOR_11);
 	}
 	
-	/*
-	 * editör isterse yazıyı yazan kişinin yazı üzerinde değişiklik yapmasını isteyebilir 
-	 */
+
+	// editör isterse yazıyı yazan kişinin yazı üzerinde değişiklik yapmasını isteyebilir 
 	function onay_bekleyeni_yazar_kontrol_etsin($id = 0) {
 	
-		$this->kullanici_lib->sadece_editor_gorebilir();
+		$this->editor_lib->sadece_editor_gorebilir();
 		
-		$this->load->model('yazi');
+		$this->load->model('yazi_mod');
 		
-		$this->yazi->id = (int) $id;
+		$this->yazi_mod->id = (int) $id;
 		
 		// yazı sistemde mevcut olmalı
-		if (!$this->yazi->is_var_where_id())
+		if (!$this->yazi_mod->is_var_where_id())
 			redirect(SAYFA_EDITOR_11);
 			
-		$temp_yazi_durum = $this->yazi->get_durum_where_id();
-		
 		// yazının durumu editör kontrol edecek olmalı
-		if ($temp_yazi_durum != Yazi::DURUM_EDITOR_KONTROL_EDECEK)
+		if ($this->yazi_mod->get_durum_where_id() != Yazi_mod::DURUM_EDITOR_KONTROL_EDECEK)
 			redirect(SAYFA_EDITOR_11);
 			
-		$this->yazi->durum = Yazi::DURUM_YAZAR_KONTROL_EDECEK;
+		// yazıyı yazar tekrar inceleyecek
+		$this->yazi_mod->durum = Yazi_mod::DURUM_YAZAR_KONTROL_EDECEK;
+		$this->yazi_mod->guncelle_durum_where_id();
 		
-		$this->yazi->guncelle_durum_where_id();
+		$this->load->model('yazar_mod');
+		$this->yazar_mod->id = $this->yazi_mod->get_yazar_id_where_id();
+		$data['yazar'] = $this->yazar_mod->get_detay_where_id();
 		
-		$this->load->model('kullanici', 'yazar');
-		$this->yazar->id = (int) $this->yazi->get_yazar_id_where_id();
-		
-		$data['yazar'] = $this->yazar->get_detay_where_id();
-		$data['url1'] = SAYFA_YAZAR_0;
+		// yazar için giriş yapabileceği adres
+		$data['url1'] = SAYFA_YAZAR_1;
 		
 		// yazıyı incelemesi gerektiğini yazara mail ile bildir
 		// basla mail

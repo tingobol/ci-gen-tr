@@ -13,15 +13,15 @@ body, p { font-family: Arial; font-size:13px; line-height:20px; }
 <table style="border-collapse: collapse;">
 	<tr>
 		<th style="text-align: right; padding: 6px; min-width: 160px;">Editörün Adı: </th>
-		<td>{$kullanici->adi}</td>
+		<td>{$editor_mod->adi}</td>
 	</tr>
 	<tr>
 		<th style="text-align: right; padding: 6px; min-width: 160px;">Mail Adresi: </th>
-		<td>{$kullanici->mail}</td>
+		<td>{$editor_mod->mail}</td>
 	</tr>
 	<tr>
 		<th style="text-align: right; padding: 6px; min-width: 160px;">Referansları: </th>
-		<td>{$kullanici->referanslari}</td>
+		<td>{$editor_mod->referanslari}</td>
 	</tr>
 </table>
 <hr />

@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-	
 <div class="blok1">
 
 	<div class="entrytop">
@@ -10,29 +8,28 @@
 	
 	<div class="icerik">
 		
-		{if $hata neq ""}
+		{if $hata}
 		<div class="hata">{$hata}</div> 
 		{/if}
 
-		<form action="{$smarty.const.SAYFA_ADMIN_13}" class="form1" method="post" id="form1">
+		<form action="{$smarty.const.SAYFA_ADMIN_13_1|sprintf:$kategori_mod->id}" class="form1" method="post" id="form1">
 			
 			<p>
 				<b>* Adı:</b><br />
-				<input type="text" name="adi" size="30" maxlength="50" title="Adını yazınız.|Ör: Kategori Adı" value="{$kategori->adi}" />
+				<input type="text" name="adi" size="30" maxlength="50" title="Adını yazınız.|Ör: Kategori Adı" value="{$kategori_mod->adi}" />
 			</p>
 			
 			<p>
 				<b>Meta Açıklama:</b><br />
-				<input type="text" name="aciklama" size="70" maxlength="255" title="Meta açıklamasını yazınız." value="{$kategori->aciklama}" />
+				<input type="text" name="meta_aciklama" size="70" maxlength="255" title="Meta açıklamasını yazınız." value="{$kategori_mod->meta_aciklama}" />
 			</p>
 			
 			<p>
 				<b>Meta Arama:</b><br />
-				<input type="text" name="arama" size="70" maxlength="25" title="Meta aramasını yazınız." value="{$kategori->arama}" />
+				<input type="text" name="meta_arama" size="70" maxlength="25" title="Meta aramasını yazınız." value="{$kategori_mod->meta_arama}" />
 			</p>
 	
 			<p>
-				<input type="hidden" name="id" value="{$kategori->id}" />
 				<input type="submit" value="Kaydet" />
 			</p>
 
@@ -47,5 +44,3 @@
 	$().ready(function(){$('#form1').formtooltip();});	
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

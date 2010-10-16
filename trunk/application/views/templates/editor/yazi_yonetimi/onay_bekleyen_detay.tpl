@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -111,5 +109,3 @@
 	$().ready(function(){$('#baglantilar').ikontooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

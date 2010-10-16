@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -18,16 +16,16 @@
 			
 			<p>
 				<b>* Mail Adresiniz:</b><br />
-				<input type="text" name="mail" size="40" maxlength="255" title="Mail adresinizi yazınız." value="{$kullanici->mail}"></input>
+				<input type="text" name="mail" size="30" maxlength="255" title="Mail adresinizi yazınız." value="{$editor_mod->mail}" />
 			</p>
 			
 			<p>
 				<b>* Şifre:</b><br />
-				<input type="password" name="sifre" size="30" title="Şifrenizi yazınız."></input>
+				<input type="password" name="sifre" size="20" title="Şifrenizi yazınız." />
 			</p>
 
 			<p>
-				<input type="submit" value="Giriş Yap"></input>
+				<input type="submit" value="Giriş Yap" />
 			</p>
 		
 		</form>
@@ -41,5 +39,3 @@
 	$().ready(function(){$('#form1').formtooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

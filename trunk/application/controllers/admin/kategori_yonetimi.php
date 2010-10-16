@@ -6,48 +6,42 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 	
 		parent::MY_AdminKontroller();
 		
-		$this->load->model('kategori');
-	}
-	
-	function index() {
-	
-		redirect(SAYFA_ADMIN_11);
+		$this->load->model('kategori_mod');
 	}
 	
 	function liste() {
-	
-		$this->kullanici_lib->sadece_admin_gorebilir();
 		
-		$data['k_t'] = k_t_giris_yapmis_admin;
+		$this->admin_lib->sadece_admin_gorebilir();		
+		
+		$data['kategoriler'] = $this->kategori_mod->get_liste_3();
 		
 		$data['meta_baslik'] = 'Kategori Listesi';
 		
-		$data['kategoriler'] = $this->kategori->get_liste_3();
-		
+		// flash dataları set et
 		$data['tamam'] = $this->session->flashdata('tamam');
 		$data['ikaz'] = $this->session->flashdata('ikaz');
 		
-		$this->smarty->view('admin/kategori_yonetimi/liste.tpl', $data);
+		$data['icerik'] = $this->smarty->view('admin/kategori_yonetimi/liste.tpl', $data, TRUE);
+
+		$this->smarty->view( 'admin/layout2.tpl', $data );
 	}
 	
 	function ekle() {
 	
-		$this->kullanici_lib->sadece_admin_gorebilir();
-		
-		$data['kategori'] = $this->kategori;
+		$this->admin_lib->sadece_admin_gorebilir();	
 		
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
-			$this->kategori->adi = $this->input->post('adi');
-			$this->kategori->aciklama = $this->input->post('aciklama');
-			$this->kategori->arama = $this->input->post('arama');
+			$this->kategori_mod->adi = trim($this->input->post('adi'));
+			$this->kategori_mod->meta_aciklama = trim($this->input->post('meta_aciklama'));
+			$this->kategori_mod->meta_arama = trim($this->input->post('meta_arama'));
 			
 			try {
 			
-				if (form_is_bos($this->kategori->adi)) throw new Exception('Kategori adı boş geçilemez.');
-				if ($this->kategori->is_var_where_adi()) throw new Exception('Bu kategori adı daha önce eklenmiş.');
+				if (empty($this->kategori_mod->adi)) throw new Exception('Kategori adı boş geçilemez.');
+				if ($this->kategori_mod->is_var_where_adi()) throw new Exception('Bu kategori adı daha önce eklenmiş.');
 				
-				$this->kategori->ekle_1();
+				$this->kategori_mod->ekle_1();
 				
 				$this->session->set_flashdata('tamam', 'Yeni kategori eklenmiştir.');
 				
@@ -62,42 +56,37 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 			
 		}
 		
-		$data['k_t'] = k_t_giris_yapmis_admin;
+		$data['kategori_mod'] = $this->kategori_mod;
 		
 		$data['meta_baslik'] = 'Kategori Ekle';
 		
-		$this->smarty->view('admin/kategori_yonetimi/ekle.tpl', $data);	
+		$data['icerik'] = $this->smarty->view('admin/kategori_yonetimi/ekle.tpl', $data, TRUE);
+
+		$this->smarty->view( 'admin/layout2.tpl', $data );
 	}
 	
 	function duzenle($id = 0) {
 	
-		$this->kullanici_lib->sadece_admin_gorebilir();
+		$this->admin_lib->sadece_admin_gorebilir();	
 		
-		$data['kategori'] = $this->kategori;
-		
-		if ($this->input->server('REQUEST_METHOD') == 'POST') {
-		
-			$this->kategori->id = (int) $this->input->post('id');
-			$this->kategori->adi = $this->input->post('adi');
-			$this->kategori->aciklama = $this->input->post('aciklama');
-			$this->kategori->arama = $this->input->post('arama');
-		} else {
-		
-			$this->kategori->id = (int) $id;
-		}
+		$this->kategori_mod->id = (int) $id;
 		
 		// kategori sistemde var mı?
-		if (!$this->kategori->is_var_where_id())
+		if (!$this->kategori_mod->is_var_where_id())
 			redirect(SAYFA_ADMIN_11);
 			
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 		
+			$this->kategori_mod->adi = trim($this->input->post('adi'));
+			$this->kategori_mod->meta_aciklama = trim($this->input->post('meta_aciklama'));
+			$this->kategori_mod->meta_arama = trim($this->input->post('meta_arama'));
+			
 			try {
 			
-				if (form_is_bos($this->kategori->adi)) throw new Exception('Kategori adı boş geçilemez.');
-				if ($this->kategori->is_var_where_adi_and_not_id()) throw new Exception('Bu kategori adı daha önce eklenmiş.');
+				if (empty($this->kategori_mod->adi)) throw new Exception('Kategori adı boş geçilemez.');
+				if ($this->kategori_mod->is_var_where_adi_and_not_id()) throw new Exception('Bu kategori adı daha önce eklenmiş.');
 				
-				$this->kategori->guncelle_1();
+				$this->kategori_mod->guncelle_1();
 				
 				$this->session->set_flashdata('tamam', 'Değişiklikler kaydedildi.');
 				
@@ -108,30 +97,36 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 			}
 		} else {
 		
-			$data['kategori'] = $this->kategori->get_detay_where_id();	
+			$temp_kategori = $this->kategori_mod->get_detay_where_id();
+			
+			$this->kategori_mod->adi = $temp_kategori->adi;
+			$this->kategori_mod->meta_aciklama = $temp_kategori->meta_aciklama;
+			$this->kategori_mod->meta_arama = $temp_kategori->meta_arama;
 		}
 		
-		$data['k_t'] = k_t_giris_yapmis_admin;
+		$data['kategori_mod'] = $this->kategori_mod;
 		
 		$data['meta_baslik'] = 'Kategori Düzenle';
-	
-		$this->smarty->view('admin/kategori_yonetimi/duzenle.tpl', $data);
+		
+		$data['icerik'] = $this->smarty->view('admin/kategori_yonetimi/duzenle.tpl', $data, TRUE);
+
+		$this->smarty->view( 'admin/layout2.tpl', $data );
 	}
 	
 	function sil($id = 0) {
 	
-		$this->kullanici_lib->sadece_admin_gorebilir();
+		$this->admin_lib->sadece_admin_gorebilir();	
 		
-		$this->kategori->id = (int) $id;
+		$this->kategori_mod->id = (int) $id;
 		
 		// kategori sistemde var mı?
-		if (!$this->kategori->is_var_where_id())
+		if (!$this->kategori_mod->is_var_where_id())
 			redirect(SAYFA_ADMIN_11);
 			
 		// kategori içerisinde yazı var mı? var sa kategori silinememeli
-		$this->load->model('yazi');
-		$this->yazi->kategori_id = $this->kategori->id;
-		if ($this->yazi->is_var_where_kategori_id()) {
+		$this->load->model('yazi_mod');
+		$this->yazi_mod->kategori_id = $this->kategori_mod->id;
+		if ($this->yazi_mod->is_var_where_kategori_id()) {
 		
 			$this->session->set_flashdata('ikaz', 'İçerisinde yazı bulunan kategori silinemez.');
 			redirect(SAYFA_ADMIN_11);
@@ -139,7 +134,7 @@ class Kategori_yonetimi extends MY_AdminKontroller {
 			
 		// @TODO kategoriye ait ilişkiler temizlenecek
 		
-		$this->kategori->sil_where_id();
+		$this->kategori_mod->sil_where_id();
 		
 		$this->session->set_flashdata('tamam', 'Kategori silinmiştir.');
 		

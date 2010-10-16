@@ -2,6 +2,13 @@
 
 class MY_Model extends Model {
 	
+	/**
+	 * 
+	 * Enter description here ...
+	 * @var CI_DB_active_record
+	 */
+	var $db;
+	
 	var $oturum_id;
 	var $zaman;
 	
@@ -162,7 +169,7 @@ class MY_Model extends Model {
 	
 	function get_id_where_x($x) {
 	
-		return $this->get_x_where_y('id', $x);
+		return (int) $this->get_x_where_y('id', $x);
 	}
 	
 	function get_x_where_y_and_z($x, $y, $z) {
@@ -231,5 +238,10 @@ class MY_Model extends Model {
 	function insert_id() {
 	
 		return $this->db->insert_id();
+	}
+	
+	function get_rasgele_sifre() {
+
+		return substr($this->get_rasgele_md5(), mt_rand(0, 26), 4);
 	}
 }

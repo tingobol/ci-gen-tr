@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -10,7 +8,7 @@
 	
 	<div class="icerik">
 	
-		{if $tamam neq ""}
+		{if $tamam}
 		<div class="tamam">{$tamam}</div> 
 		{/if}
 		
@@ -18,13 +16,13 @@
 		<div class="bilgi">Listelenecek yazı bulunamadı.</div>
 		{else}
 
-			<table id="tablo" class="tablo">
+			<table id="tablo1" class="tablo">
 			
 				<thead>
 					<tr>
 						<th style="width: 1px;">ID</th>
-						<th>Başlık</th>
-						<th style="width: 1px;">Durum</th>
+						<th style="white-space: nowrap;">Başlık</th>
+						<th style="white-space: nowrap;">Durum</th>
 						<th style="width: 1px;"></th>
 						<th style="width: 1px;"></th>
 					</tr>
@@ -37,7 +35,7 @@
 					<tr>
 						<td style="text-align:right;">{$yazi->id}.</td>
 						<td>{$yazi->baslik}</td>
-						<td align="center">{$yazi->durum}</td>
+						<td align="center">{$yazi_mod->get_durum_as_yazi1($yazi->durum)}</td>
 						<td align="center"><a href="{$smarty.const.SAYFA_YAZAR_13_1|sprintf:$yazi->id}" title="Düzenle"><img src="{$smarty.const.DIZIN_URL_3}/duzenle.png" /></a></td>
 						<td align="center"><a href="{$smarty.const.SAYFA_YAZAR_14|sprintf:$yazi->id}" title="Sil" onclick="return confirm('Yazı ve tüm ilişkili bilgileri silinecek! Emin misiniz?');"><img src="{$smarty.const.DIZIN_URL_3}/sil.png" /></a></td>
 					</tr>
@@ -55,8 +53,6 @@
 
 {literal}
 <script type="text/javascript">
-	$().ready(function(){$('#tablo').ikontooltip();});
+	$().ready(function(){$('#tablo1').ikontooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	
