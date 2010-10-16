@@ -70,6 +70,11 @@ class Yazi_yonetimi extends MY_EditorKontroller {
 		$this->yazi_mod->durum = Yazi_mod::DURUM_ONAYLI;
 		$this->yazi_mod->guncelle_durum_where_id();
 		
+		// yazı onaylandığı için ping gönderilecek
+		$this->load->library('ping_lib');
+		$this->ping_lib->yaziyi_weblogsa_gonder($this->yazi_mod->id);
+		
+		
 		$this->load->model('yazar_mod');
 		$this->yazar_mod->id = $this->yazi_mod->get_yazar_id_where_id();
 		$data['yazar'] = $this->yazar_mod->get_detay_where_id();
