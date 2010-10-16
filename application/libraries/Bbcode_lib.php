@@ -25,8 +25,8 @@ class Bbcode_lib {
 		
 		if (!function_exists('escape_php_kodu')) {
 			function escape_php_kodu($s) {
-				global $text;
-				$text = strip_tags($text);
+				//global $text;
+				//$text = strip_tags($text);
 				$code = $s[1];
 				$code = htmlspecialchars($code);
 				$code = str_replace("[", "&#91;", $code);

@@ -7,7 +7,7 @@ class Ping_lib {
 	
 		$url = 'http://rpc.weblogs.com/pingSiteForm?';
 		
-		$url .= urlencode('name=' . AYAR_11 . '&url=' . SAYFA_MISAFIR_0 . '&changesURL=' . sprintf(SAYFA_MISAFIR_23, $id));
+		$url .= 'name=' . AYAR_11 . '&url=' . urlencode(SAYFA_MISAFIR_0) . '&changesURL=' . urlencode(sprintf(SAYFA_MISAFIR_23, $id));
 		
 		@file_get_contents($url);
 	}

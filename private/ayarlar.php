@@ -14,4 +14,4 @@ define('AYAR_12', 'CodeIgniter PHP Framework\'ü kullanılarak hazırlanmış a�
 define('AYAR_13', 'ci.gen.tr, code igniter, codeigniter, php, framework, google code, open source'); // varsayılan meta arama
 
 // Yazı Ayarları
-define('AYAR_21', 1); // her sayfada gösterilecek yazı sayısı, sayfalama yapmak için
+define('AYAR_21', 10); // her sayfada gösterilecek yazı sayısı, sayfalama yapmak için
