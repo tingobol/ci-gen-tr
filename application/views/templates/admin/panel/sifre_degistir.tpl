@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -10,11 +8,11 @@
 	
 	<div class="icerik">
 		
-		{if $tamam neq ""}
+		{if $tamam}
 		<div class="tamam">{$tamam}</div> 
 		{else}
 		
-			{if $hata neq ""}
+			{if $hata}
 			<div class="hata">{$hata}</div> 
 			{/if}
 	
@@ -22,21 +20,21 @@
 				
 				<p>
 					<b>* Eski Şifreniz:</b><br />
-					<input type="password" name="eski_sifre" size="30" title="Eski şifrenizi yazınız."></input>
+					<input type="password" name="eski_sifre" size="20" title="Eski şifrenizi yazınız." />
 				</p>
 				
 				<p>
 					<b>* Yeni Şifreniz:</b><br />
-					<input type="password" name="yeni_sifre" size="30" title="Yeni şifrenizi yazınız."></input>
+					<input type="password" name="yeni_sifre" size="20" title="Yeni şifrenizi yazınız." />
 				</p>
 				
 				<p>
 					<b>* Yeni Şifreniz (tekrar):</b><br />
-					<input type="password" name="yeni_sifre_tekrar" size="30" title="Yeni şifrenizi tekrar yazınız."></input>
+					<input type="password" name="yeni_sifre_tekrar" size="20" title="Yeni şifrenizi tekrar yazınız." />
 				</p>
 	
 				<p>
-					<input type="submit" value="Şifre Değiştir"></input>
+					<input type="submit" value="Şifre Değiştir" />
 				</p>
 			
 			</form>
@@ -52,5 +50,3 @@
 	$().ready(function(){$('#form1').formtooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

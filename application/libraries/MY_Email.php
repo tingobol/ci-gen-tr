@@ -10,11 +10,12 @@ class MY_Email extends CI_Email {
         
 		if (LOCAL) {
 
+				
                 $config['protocol'] = 'smtp';
-                $config['smtp_host'] = 'mail.evrenshosting.com';
-                $config['smtp_user'] = 'temp+evrenshosting.com';
-                $config['smtp_pass'] = 'deneme123';
-                $config['smtp_port'] = 26;
+                $config['smtp_host'] = 'mail.ci.gen.tr';
+                $config['smtp_user'] = 'bilgi';
+                $config['smtp_pass'] = 'pass';
+                $config['smtp_port'] = 25;
                 $config['mailtype'] = 'html';
                 $config['charset'] = 'UTF-8';
 			

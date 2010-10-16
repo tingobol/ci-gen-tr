@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -15,5 +13,3 @@
 	</div>
 
 </div>
-
-{include file="footer1.tpl"}	

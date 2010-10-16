@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-
 <div class="blok1">
 
 	<div class="entrytop">
@@ -10,7 +8,7 @@
 	
 	<div class="icerik">
 		
-		{if $hata neq ""}
+		{if $hata}
 		<div class="hata">{$hata}</div> 
 		{/if}
 	
@@ -18,12 +16,12 @@
 			
 			<p>
 				<b>* Mail Adresiniz:</b><br />
-				<input type="text" name="mail" size="40" maxlength="255" title="Mail adresinizi yazınız." value="{$kullanici->mail}"></input>
+				<input type="text" name="mail" size="30" maxlength="255" title="Mail adresinizi yazınız." value="{$admin_mod->mail}"></input>
 			</p>
 			
 			<p>
 				<b>* Şifre:</b><br />
-				<input type="password" name="sifre" size="30" title="Şifrenizi yazınız."></input>
+				<input type="password" name="sifre" size="20" title="Şifrenizi yazınız."></input>
 			</p>
 
 			<p>
@@ -41,5 +39,3 @@
 	$().ready(function(){$('#form1').formtooltip();});
 </script>
 {/literal}
-
-{include file="footer1.tpl"}	

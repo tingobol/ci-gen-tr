@@ -1,5 +1,3 @@
-{include file="header1.tpl"}
-	
 <div class="yazi">
 
 	<div class="entrytop">
@@ -34,5 +32,3 @@
 	</div>
 	
 </div>
-
-{include file="footer1.tpl"}

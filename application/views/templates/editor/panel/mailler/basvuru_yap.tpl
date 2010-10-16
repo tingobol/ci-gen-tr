@@ -10,7 +10,7 @@ body, p {
 </style>
 {/literal}
 
-<p>Merhaba <b>{$kullanici->adi}</b></p>
+<p>Merhaba <b>{$editor_mod->adi}</b></p>
 
 <p>
 Editörlük başvurunuz kaydedilmiştir. En kısa zamanda 
