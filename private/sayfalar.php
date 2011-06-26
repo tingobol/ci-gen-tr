@@ -29,9 +29,9 @@ define('SAYFA_ADMIN_13', DIZIN_URL_1 . '/admin/kategori_yonetimi/duzenle');
 define('SAYFA_ADMIN_13_1', DIZIN_URL_1 . '/admin/kategori_yonetimi/duzenle/%d'); // %d: id
 define('SAYFA_ADMIN_14', DIZIN_URL_1 . '/admin/kategori_yonetimi/sil/%d'); // %d: id
 
-define('SAYFA_ADMIN_21', DIZIN_URL_1 . '/admin/yazi_yonetimi/kontrol_bekleyenler/liste');
-define('SAYFA_ADMIN_22', DIZIN_URL_1 . '/admin/yazi_yonetimi/kontrol_bekleyenler/detay/%d');
-define('SAYFA_ADMIN_23', DIZIN_URL_1 . '/admin/yazi_yonetimi/kontrol_bekleyenler/editore_gonder/%d');
+define('SAYFA_ADMIN_21', DIZIN_URL_1 . '/admin/yazilar_kontrol_bekleyenler/liste');
+define('SAYFA_ADMIN_22', DIZIN_URL_1 . '/admin/yazilar_kontrol_bekleyenler/detay/%d');
+define('SAYFA_ADMIN_23', DIZIN_URL_1 . '/admin/yazilar_kontrol_bekleyenler/editore_gonder/%d');
 
 // Editör Sayfaları
 

@@ -10,7 +10,7 @@
 	
 		<ul>
 			<li><a href="{$smarty.const.SAYFA_ADMIN_21}" title="Bekleyen yazı listesine dön.">Listeye Dön</a></li>
-			<li><a href="{$smarty.const.SAYFA_ADMIN_23|sprintf:$yazi->id}" onclick="return confirm('Yazı editör kontrolüne gönderilecek! Emin misiniz?');" title="Yazıyı editörün kontrolüne göndermek için|bu bağlantıyı kullanabilirsiniz. Editör duruma|göre istediği bir eylemi tercih edebilecek.">Editör'e Gönder</a></li>
+			<li><a href="{$smarty.const.SAYFA_ADMIN_23|sprintf:$yazi->id}" onclick="return confirm('Yazı editör kontrolüne gönderilecek! Emin misiniz?');" title="Yazıyı editörün kontrolüne göndermek için|bu bağlantıyı kullanabilirsiniz.">Editör'e Gönder</a></li>
 		</ul>
 	
 	</div>
