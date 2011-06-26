@@ -3,9 +3,9 @@
 // Veritabanı ayarları
 
 define('AYAR_1', 'localhost'); // sunucu adı
-define('AYAR_2', 'ci-gen-tr'); // kullanıcı adı
-define('AYAR_3', 'ci-gen-tr'); // şifre
-define('AYAR_4', 'ci-gen-tr'); // veritabanı adı
+define('AYAR_2', 'kullanici-adi'); // kullanıcı adı
+define('AYAR_3', 'sifre'); // şifre
+define('AYAR_4', 'veritabani-adi'); // veritabanı adı
 define('AYAR_5', 'mysql'); // kullanılan veritabanı sürücü türü
 
 // Meta Ayarları
@@ -15,3 +15,6 @@ define('AYAR_13', 'ci.gen.tr, code igniter, codeigniter, php, framework, google 
 
 // Yazı Ayarları
 define('AYAR_21', 10); // her sayfada gösterilecek yazı sayısı, sayfalama yapmak için
+
+// Güvenlik Ayarları
+define('AYAR_31', 'burasi_rasgele_bir_sey_olacak_guncelleyin');

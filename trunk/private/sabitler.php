@@ -4,7 +4,7 @@
 define('SABIT_1', 'ci.gen.tr'); // mail gönderirken user agent olarak kullanılacak
 define('SABIT_2', 'bilgi@ci.gen.tr'); // sitenin mail adresi
 define('SABIT_3', 'ci.gen.tr'); // mail gönderirken kullanılacak ad
-define('SABIT_4', 'http://localhost/irfan/ci-gen-tr'); // LOCAL ROOT Url
+define('SABIT_4', 'http://localhost:8080/tr.gen.ci'); // LOCAL ROOT Url
 define('SABIT_5', 'http://www.ci.gen.tr'); // LIVE ROOT Url
 
 define('SABIT_GIRIS_YAPACAK_ADMIN', 1);
