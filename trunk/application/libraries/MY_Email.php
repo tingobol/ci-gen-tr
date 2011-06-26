@@ -31,4 +31,10 @@ class MY_Email extends CI_Email {
 		
 		$this->from(SABIT_2, SABIT_3);
     }
+    
+    public function send() {
+    
+    	if (!LOCAL)
+    		parent::send();
+    }
 }

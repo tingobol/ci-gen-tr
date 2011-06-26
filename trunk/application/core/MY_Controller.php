@@ -164,6 +164,8 @@ class MY_KullaniciKontroller extends MY_Controller {
 		
 		$this->smarty->assign('tamam', '');
 		$this->smarty->assign('hata', '');
+		$this->smarty->assign('ikaz', '');
+		$this->smarty->assign('bilgi', '');
 	}
 }
 

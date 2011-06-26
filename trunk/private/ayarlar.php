@@ -3,9 +3,9 @@
 // Veritabanı ayarları
 
 define('AYAR_1', 'localhost'); // sunucu adı
-define('AYAR_2', 'kullanici-adi'); // kullanıcı adı
-define('AYAR_3', 'sifre-buraya-gelecek'); // şifre
-define('AYAR_4', 'veritabani-adi'); // veritabanı adı
+define('AYAR_2', ''); // kullanıcı adı
+define('AYAR_3', ''); // şifre
+define('AYAR_4', ''); // veritabanı adı
 define('AYAR_5', 'mysql'); // kullanılan veritabanı sürücü türü
 
 // Meta Ayarları

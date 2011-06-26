@@ -156,7 +156,7 @@ class Panel extends MY_AdminKontroller {
 			if (!$this->admin_mod->is_var_where_id_and_temp()) throw new Exception('Lütfen yeniden şifremi unuttum formunu doldurunuz.');
 			
 			// temp bilgisi değiştirilebilir
-			$this->admin_mod->temp = $this->editor_mod->get_rasgele_md5();
+			$this->admin_mod->temp = $this->admin_mod->get_rasgele_md5();
 			$this->admin_mod->guncelle_temp_where_id();
 			
 			// admin bilgileri veritabanından alınıyor
