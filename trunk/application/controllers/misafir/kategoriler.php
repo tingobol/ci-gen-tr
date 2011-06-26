@@ -2,9 +2,9 @@
 
 class Kategoriler extends MY_MisafirKontroller {
 
-	function Kategoriler() {
-	
-		parent::MY_MisafirKontroller();
+	public function __construct()
+	{
+		parent::__construct();
 		
 		$this->load->model('kategori_mod');
 	}

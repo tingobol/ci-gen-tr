@@ -1,7 +1,7 @@
 <html>
 <head>
-<title>404 Page Not Found</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>404 Sayfa Bulunamadı</title>
 <style type="text/css">
 
 body {
@@ -22,13 +22,13 @@ h1 {
 font-weight:		normal;
 font-size:			14px;
 color:				#990000;
-margin: 			0 0 4px 0;
+margin:				0 0 4px 0;
 }
 </style>
 </head>
 <body>
 	<div id="content">
-		<h1>Sayfa Bulunamadı - 404</h1>
+		<h1>404 Sayfa Bulunamadı</h1>
 		<a href="/">Ana Sayfa</a>
 	</div>
 </body>

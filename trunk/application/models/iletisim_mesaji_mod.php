@@ -13,9 +13,9 @@ class Iletisim_mesaji_mod extends MY_Model {
 	var $is_okundu = 0;
 	var $konu_id;
 	
-	function Iletisim_mesaji_mod() {
+	public function __construct() {
 	
-		parent::MY_Model();
+		parent::__construct();
 		
 		$this->ip = @$_SERVER['REMOTE_ADDR'];
 	}

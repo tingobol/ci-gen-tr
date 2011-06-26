@@ -2,9 +2,9 @@
 
 class Yazi_yonetimi extends MY_YazarKontroller {
 	
-	function Yazi_yonetimi() {
-	
-		parent::MY_YazarKontroller();
+	public function __construct()
+	{
+		parent::__construct();
 		
 		$this->load->model('yazi_mod');
 	}

@@ -24,9 +24,9 @@ class Editor_mod extends MY_Model {
 	var $yeni_sifre;
 	var $yeni_sifre_tekrar;
 	
-	function Editor_mod() {
+	public function __construct() {
 	
-		parent::MY_Model();
+		parent::__construct();
 		
 		$this->kayit_zamani = $this->zaman;
 	}

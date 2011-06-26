@@ -2,9 +2,9 @@
 
 class Yazilar extends MY_MisafirKontroller {
 	
-	function Yazilar() {
-	
-		parent::MY_MisafirKontroller();
+	public function __construct()
+	{
+		parent::__construct();
 		
 		$this->load->model('yazi_mod');
 	}
