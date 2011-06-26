@@ -1,9 +1,11 @@
 <?php
 
 // ROOT Dizinler
-define('DIZIN_ROOT_1', HOME_ROOT);
-define('DIZIN_ROOT_2', DIZIN_ROOT_1 . '/private');
-define('DIZIN_ROOT_3', DIZIN_ROOT_1 . '/private/Smarty');
+define('DIZIN_ROOT_0', HOME_ROOT);
+define('DIZIN_ROOT_1_1', DIZIN_ROOT_0 . '/fw3/Smarty308');
+define('DIZIN_ROOT_1_2', DIZIN_ROOT_0 . '/fw3/Smarty_plugins');
+define('DIZIN_ROOT_2_1', DIZIN_ROOT_0 . '/cache/templates_c');
+define('DIZIN_ROOT_3', DIZIN_ROOT_0 . '/templates');
 
 // URL Dizinler
 define('DIZIN_URL_1', HOME_URL);
