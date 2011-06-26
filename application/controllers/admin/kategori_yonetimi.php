@@ -2,9 +2,9 @@
 
 class Kategori_yonetimi extends MY_AdminKontroller {
 	
-	function Kategori_yonetimi() {
-	
-		parent::MY_AdminKontroller();
+	public function __construct()
+	{
+		parent::__construct();
 		
 		$this->load->model('kategori_mod');
 	}

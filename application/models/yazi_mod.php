@@ -21,9 +21,9 @@ class Yazi_mod extends MY_Model {
 	const DURUM_ADMIN_KONTROL_EDECEK = 3;
 	const DURUM_YAZAR_KONTROL_EDECEK = 4;
 	
-	function Yazi_mod() {
+	public function __construct() {
 	
-		parent::MY_Model();
+		parent::__construct();
 		
 		$this->eklenme_zamani = $this->zaman;
 		$this->guncellenme_zamani = $this->zaman;

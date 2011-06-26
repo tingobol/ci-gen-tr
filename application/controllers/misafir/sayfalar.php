@@ -1,11 +1,6 @@
 <?php
 
 class Sayfalar extends MY_MisafirKontroller {
-
-	function Sayfalar() {
-	
-		parent::MY_MisafirKontroller();
-	}
 	
 	function iletisim() {
 	

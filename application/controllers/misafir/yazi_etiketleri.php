@@ -2,9 +2,9 @@
 
 class Yazi_etiketleri extends MY_MisafirKontroller {
 	
-	function Yazi_etiketleri() {
-	
-		parent::MY_MisafirKontroller();
+	public function __construct()
+	{
+		parent::__construct();
 		
 		$this->load->model('etiket_mod');
 		$this->load->model('yazi_etiketi_mod');
