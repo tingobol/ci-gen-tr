@@ -60,16 +60,16 @@
 <!-- jQuery :) -->
 
 <!-- markItUp! -->
-<script src="{$smarty.const.DIZIN_URL_2}/js/markitup/jquery.markitup.js" type="text/javascript"></script>
+<script src="{$smarty.const.DIZIN_URL_1_1}/jquery.markitup.js" type="text/javascript"></script>
 
 <!-- markItUp! toolbar settings -->
-<script src="{$smarty.const.DIZIN_URL_2}/js/markitup/sets/bbcode/set.js" type="text/javascript"></script>
+<script src="{$smarty.const.DIZIN_URL_1_1}/sets/bbcode/set.js" type="text/javascript"></script>
 
 <!-- markItUp! skin -->
-<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/skins/simple/style.css" />
+<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_1_1}/skins/simple/style.css" />
 
 <!--  markItUp! toolbar skin -->
-<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_2}/js/markitup/sets/bbcode/style.css" />
+<link rel="stylesheet" type="text/css" href="{$smarty.const.DIZIN_URL_1_1}/sets/bbcode/style.css" />
 
 {literal}
 <script type="text/javascript">
