@@ -1,4 +1,4 @@
 RewriteEngine on
 
-RewriteCond $1 !^(index\.php|public|public_depo|robots\.txt)
+RewriteCond $1 !^(index\.php|public|public_depo|public_fw3|robots\.txt)
 RewriteRule ^(.*)$ index.php?/$1 [L]
