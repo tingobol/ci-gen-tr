@@ -5,6 +5,8 @@ define('DIZIN_ROOT_0', HOME_ROOT);
 define('DIZIN_ROOT_1_1', DIZIN_ROOT_0 . '/fw3/Smarty308');
 define('DIZIN_ROOT_1_2', DIZIN_ROOT_0 . '/fw3/Smarty_plugins');
 define('DIZIN_ROOT_2_1', DIZIN_ROOT_0 . '/cache/templates_c');
+define('DIZIN_ROOT_2_2', DIZIN_ROOT_0 . '/cache/log_path');
+define('DIZIN_ROOT_2_3', DIZIN_ROOT_0 . '/cache/cache_path');
 define('DIZIN_ROOT_3', DIZIN_ROOT_0 . '/templates');
 
 // URL Dizinler

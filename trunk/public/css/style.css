@@ -99,7 +99,6 @@ form {
 	color: #D16683;
 }
 #headerimg {
-	position: relative;
 	padding: 10px 0px 0px 10px;
 	margin: 0px auto;
 	width: 960px;
@@ -116,7 +115,7 @@ form {
 #headerimg h1 a, #headerimg h1 a:visited{
 	display: block;
 	color: #C0DF72;
-	}
+}
 
 #headerimg h1 a:hover{
 	color: #a6e5f4;

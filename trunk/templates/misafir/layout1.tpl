@@ -1,6 +1,4 @@
-{* misafir için *}
-
-{include file="misafir/_bloklar/header1.tpl"}
+{* misafir için *}{include file="misafir/_bloklar/header1.tpl"}
 
 {$icerik}
 

@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.4.3.2
 -- http://www.phpmyadmin.net
 --
--- Anamakine: localhost
--- Üretim Zamanı: 16 Ekim 2010 saat 16:20:44
--- Sunucu sürümü: 5.1.41
--- PHP Sürümü: 5.3.1
+-- Host: localhost
+-- Generation Time: Oct 21, 2011 at 10:24 AM
+-- Server version: 5.1.57
+-- PHP Version: 5.2.17
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,15 +17,16 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Veritabanı: `ci-gen-tr`
+-- Database: `cigentr_www`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `adminler`
+-- Table structure for table `adminler`
 --
 
+DROP TABLE IF EXISTS `adminler`;
 CREATE TABLE IF NOT EXISTS `adminler` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -36,12 +38,17 @@ CREATE TABLE IF NOT EXISTS `adminler` (
   KEY `temp` (`temp`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+--
+-- Dumping data for table `adminler`
+--
+
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `editorler`
+-- Table structure for table `editorler`
 --
 
+DROP TABLE IF EXISTS `editorler`;
 CREATE TABLE IF NOT EXISTS `editorler` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -56,25 +63,35 @@ CREATE TABLE IF NOT EXISTS `editorler` (
   KEY `temp` (`temp`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+--
+-- Dumping data for table `editorler`
+--
+
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `etiketler`
+-- Table structure for table `etiketler`
 --
 
+DROP TABLE IF EXISTS `etiketler`;
 CREATE TABLE IF NOT EXISTS `etiketler` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `adi` (`adi`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `etiketler`
+--
 
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `iletisim_konulari`
+-- Table structure for table `iletisim_konulari`
 --
 
+DROP TABLE IF EXISTS `iletisim_konulari`;
 CREATE TABLE IF NOT EXISTS `iletisim_konulari` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -82,12 +99,20 @@ CREATE TABLE IF NOT EXISTS `iletisim_konulari` (
   KEY `adi` (`adi`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+--
+-- Dumping data for table `iletisim_konulari`
+--
+
+INSERT INTO `iletisim_konulari` (`id`, `adi`) VALUES
+(1, 'Diğer');
+
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `iletisim_mesajlari`
+-- Table structure for table `iletisim_mesajlari`
 --
 
+DROP TABLE IF EXISTS `iletisim_mesajlari`;
 CREATE TABLE IF NOT EXISTS `iletisim_mesajlari` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -99,14 +124,19 @@ CREATE TABLE IF NOT EXISTS `iletisim_mesajlari` (
   `konu_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `is_okundu` (`is_okundu`,`konu_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `iletisim_mesajlari`
+--
 
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `kategoriler`
+-- Table structure for table `kategoriler`
 --
 
+DROP TABLE IF EXISTS `kategoriler`;
 CREATE TABLE IF NOT EXISTS `kategoriler` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -114,14 +144,19 @@ CREATE TABLE IF NOT EXISTS `kategoriler` (
   `meta_arama` text,
   PRIMARY KEY (`id`),
   KEY `adi` (`adi`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `kategoriler`
+--
 
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `kullanicilar`
+-- Table structure for table `kullanicilar`
 --
 
+DROP TABLE IF EXISTS `kullanicilar`;
 CREATE TABLE IF NOT EXISTS `kullanicilar` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -138,9 +173,10 @@ CREATE TABLE IF NOT EXISTS `kullanicilar` (
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `yazarlar`
+-- Table structure for table `yazarlar`
 --
 
+DROP TABLE IF EXISTS `yazarlar`;
 CREATE TABLE IF NOT EXISTS `yazarlar` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `adi` varchar(50) NOT NULL,
@@ -156,12 +192,17 @@ CREATE TABLE IF NOT EXISTS `yazarlar` (
   KEY `temp` (`temp`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+--
+-- Dumping data for table `yazarlar`
+--
+
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `yazilar`
+-- Table structure for table `yazilar`
 --
 
+DROP TABLE IF EXISTS `yazilar`;
 CREATE TABLE IF NOT EXISTS `yazilar` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `baslik` varchar(255) NOT NULL,
@@ -175,16 +216,29 @@ CREATE TABLE IF NOT EXISTS `yazilar` (
   `kategori_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `eklenme_zamani` (`eklenme_zamani`,`guncellenme_zamani`,`hit`,`durum`,`yazar_id`,`kategori_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `yazilar`
+--
 
 -- --------------------------------------------------------
 
 --
--- Tablo yapısı: `yazi_etiketleri`
+-- Table structure for table `yazi_etiketleri`
 --
 
+DROP TABLE IF EXISTS `yazi_etiketleri`;
 CREATE TABLE IF NOT EXISTS `yazi_etiketleri` (
   `yazi_id` int(10) unsigned NOT NULL,
   `etiket_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`yazi_id`,`etiket_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `yazi_etiketleri`
+--
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

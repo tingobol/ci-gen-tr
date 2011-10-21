@@ -33,8 +33,8 @@
 			</div>
 			
 			<div class="alt_bilgi">
-				<span class="devami"><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->id}">Devamı</a></span>
-				<span class="kategori"><a href="{$smarty.const.SAYFA_MISAFIR_31|sprintf:$yazi->kategori_id}">{$yazi->kategori_adi}</a></span>
+				<span class="devami"><a href="{$smarty.const.SAYFA_MISAFIR_23|sprintf:$yazi->id}">Devamını Oku</a></span>
+				<span class="kategori">Kategori: <a href="{$smarty.const.SAYFA_MISAFIR_31|sprintf:$yazi->kategori_id}">{$yazi->kategori_adi}</a></span>
 				<span class="hit">Okunma: {$yazi->hit}</span>
 				<span class="tarih">{$yazi->eklenme_zamani|date_format:"%e.%m.%Y"}</span>
 			</div>
@@ -47,13 +47,13 @@
 		
 			{if $sayfalama_lib->is_eski_kayit_var()} 
 			<span class="previous-entries"> 
-				<a href="{$smarty.const.SAYFA_MISAFIR_12|sprintf:$sayfalama_lib->get_eski_sayfa()}">Eski Yazılar</a>
+				<a href="{$smarty.const.SAYFA_MISAFIR_12|sprintf:$sayfalama_lib->get_eski_sayfa()}">Önceki Yazılar</a>
 			</span>
 			{/if}
 			
 			{if $sayfalama_lib->is_yeni_kayit_var()}
 			<span class="next-entries">
-			 	<a href="{$smarty.const.SAYFA_MISAFIR_12|sprintf:$sayfalama_lib->get_yeni_sayfa()}">Yeni Yazılar</a>
+			 	<a href="{$smarty.const.SAYFA_MISAFIR_12|sprintf:$sayfalama_lib->get_yeni_sayfa()}">Sonraki Yazılar</a>
 			</span>
 			{/if}
 			
