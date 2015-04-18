@@ -1,0 +1,1 @@
+CodeIgniter PHP Frameworkü ile geliştirilen ve ci.gen.tr adresinde hizmet verecek bir paylaşım platformudur.
